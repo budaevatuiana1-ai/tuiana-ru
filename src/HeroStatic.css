@@ -58,6 +58,7 @@
   top: 32vh;
   width: 36vw;
   aspect-ratio: 1.56;
+  position: relative;
   z-index: 3;
 }
 
@@ -71,12 +72,29 @@
   transform: translateX(-12%);
 }
 
+.dari__interactive-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.baza__interactive-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
 .hero__screen--baza {
   left: 54vw;
   top: 40vh;
   width: 38vw;
   aspect-ratio: 1.62;
   overflow: hidden;
+  position: absolute;
   z-index: 1;
 }
 

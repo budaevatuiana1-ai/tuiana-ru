@@ -1,5 +1,6 @@
 import './HeroStatic.css'
 import { ruTypo } from './lib/typography'
+import ProjectPointCloud from './ProjectPointCloud'
 
 function HeroStatic() {
   return (
@@ -11,11 +12,28 @@ function HeroStatic() {
       <div className="hero__projects">
         <div className="hero__screen hero__screen--dari">
           <img src="/hero/dari.png" alt="Проект DARI" draggable={false} />
+          <div className="dari__interactive-layer">
+            <ProjectPointCloud
+              imageSrc="/hero/dari.png"
+              sampling={7}
+              particleRadius={0.7}
+              baseAlpha={0.08}
+              crop={{ mode: 'heightFit', translateXPercent: 0.12 }}
+            />
+          </div>
         </div>
         <div className="hero__screen hero__screen--baza">
           <img src="/hero/nasha-baza.png" alt="Проект Наша База" draggable={false} />
+          <div className="baza__interactive-layer">
+            <ProjectPointCloud
+              imageSrc="/hero/nasha-baza.png"
+              sampling={8}
+              particleRadius={0.65}
+              baseAlpha={0.06}
+              crop={{ mode: 'coverFit', objectPositionPercent: 52 }}
+            />
+          </div>
         </div>
-
       </div>
       <footer className="hero__foot">
         <p className="hero__lead">
