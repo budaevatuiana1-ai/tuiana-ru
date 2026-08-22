@@ -55,7 +55,7 @@
 
 .hero__screen--dari {
   left: 20vw;
-  top: 28vh;
+  top: 32vh;
   width: 36vw;
   aspect-ratio: 1.56;
   z-index: 3;
@@ -73,7 +73,7 @@
 
 .hero__screen--baza {
   left: 54vw;
-  top: 36vh;
+  top: 40vh;
   width: 38vw;
   aspect-ratio: 1.62;
   overflow: hidden;
