@@ -1,10 +1,7 @@
+import HeroStatic from './HeroStatic'
+
 function App() {
-  return (
-    <>
-      <h1>tuiana.ru</h1>
-      <p>React + TypeScript + Vite</p>
-    </>
-  )
+  return <HeroStatic />
 }
 
 export default App
