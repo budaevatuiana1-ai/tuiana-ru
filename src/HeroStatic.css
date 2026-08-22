@@ -11,6 +11,8 @@
 
 .hero__head {
   flex: none;
+  position: relative;
+  z-index: 1;
 }
 
 .hero__tag {
@@ -38,6 +40,7 @@
   height: 100%;
   margin: 0;
   pointer-events: none;
+  z-index: 2;
 }
 
 .hero__screen {

@@ -1,10 +1,12 @@
 import './HeroStatic.css'
 import { ruTypo } from './lib/typography'
 import ProjectPointCloud from './ProjectPointCloud'
+import HeroParticleField from './HeroParticleField'
 
 function HeroStatic() {
   return (
     <section className="hero">
+      <HeroParticleField />
       <header className="hero__head">
         <p className="hero__tag">WEB DESIGN · AI · DIGITAL EXPERIENCES</p>
         <h1 className="hero__wordmark">TUIANA DESIGN</h1>
