@@ -67,6 +67,10 @@ function HeroStatic() {
           {ruTypo('с личной практикой.')}
         </p>
         <p className="hero__meta">{ruTypo('Стратегия · структура · тексты · дизайн · запуск')}</p>
+        <a href="#contact" className="hero__cta">
+          <span>Обсудить проект</span>
+          <span className="hero__cta-arrow" aria-hidden="true">→</span>
+        </a>
       </footer>
     </section>
   )
