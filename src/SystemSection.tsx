@@ -1,5 +1,7 @@
+import { useCallback, useRef, useState } from 'react'
 import './SystemSection.css'
 import { ruTypo } from './lib/typography'
+import SystemPointField from './SystemPointField'
 
 const items = [
   {
@@ -30,6 +32,27 @@ const items = [
 ]
 
 function SystemSection() {
+  const [activeRow, setActiveRow] = useState<number | null>(null)
+  const listRef = useRef<HTMLDivElement>(null)
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  const getRowBounds = useCallback(
+    (index: number) => {
+      const list = listRef.current
+      const row = rowRefs.current[index]
+      if (!list || !row) return { top: 0, bottom: 0 }
+      const listRect = list.getBoundingClientRect()
+      const rowRect = row.getBoundingClientRect()
+      return {
+        top: rowRect.top - listRect.top,
+        bottom: rowRect.bottom - listRect.top,
+      }
+    },
+    []
+  )
+
+  const activeBounds = activeRow !== null ? getRowBounds(activeRow) : { top: 0, bottom: 0 }
+
   return (
     <section className="system">
       <div className="system__inner">
@@ -42,14 +65,29 @@ function SystemSection() {
           </h2>
         </div>
 
-        <div className="system__list">
-          {items.map((item) => (
-            <div className="system__row" key={item.num}>
+        <div className="system__list" ref={listRef}>
+          <SystemPointField
+            activeRowTop={activeBounds.top}
+            activeRowBottom={activeBounds.bottom}
+            hasActive={activeRow !== null}
+          />
+          {items.map((item, i) => (
+            <div
+              className={`system__row${activeRow === i ? ' system__row--active' : ''}${activeRow !== null && activeRow !== i ? ' system__row--dimmed' : ''}`}
+              key={item.num}
+              ref={(el) => { rowRefs.current[i] = el }}
+              onMouseEnter={() => setActiveRow(i)}
+              onMouseLeave={() => setActiveRow(null)}
+            >
               <div className="system__row-header">
-                <span className="system__num">{item.num}</span>
+                <span className="system__num">
+                  {item.num}
+                  <span className="system__num-dash" />
+                </span>
                 <span className="system__title">{item.title}</span>
               </div>
               <p className="system__desc">{ruTypo(item.desc)}</p>
+              <span className="system__row-line" />
             </div>
           ))}
         </div>
