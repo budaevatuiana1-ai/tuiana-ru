@@ -12,7 +12,7 @@ function HeroStatic() {
       <header className="hero__head">
         <p className="hero__tag">
           <span className="hero__tag-mark" />
-          WEB DESIGN · AI · DIGITAL EXPERIENCES
+          WEB DESIGN · AI VISUALS · DIGITAL PRODUCTS
         </p>
         <h1 className="hero__wordmark">TUIANA DESIGN</h1>
       </header>
