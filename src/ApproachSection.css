@@ -2,7 +2,7 @@
   position: relative;
   min-height: 100vh;
   background-color: #F7F3EE;
-  padding: clamp(140px, 12vh, 176px) 4vw clamp(40px, 5vh, 72px);
+  padding: clamp(120px, 14vh, 165px) 4vw clamp(40px, 5vh, 72px);
   font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   color: #2F3438;
   box-sizing: border-box;
@@ -19,15 +19,21 @@
 
 .approach__body {
   display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 0 80px;
+  grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.55fr);
+  gap: clamp(60px, 3.5vw, 65px);
   align-items: start;
+  margin-top: 48px;
+}
+
+.approach__left {
+  display: flex;
+  flex-direction: column;
 }
 
 .approach__manifesto {
   margin: 0;
-  font-size: clamp(68px, 7.6vw, 136px);
-  line-height: 0.9;
+  font-size: clamp(58px, 6.2vw, 108px);
+  line-height: 0.92;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: #2F3438;
@@ -49,16 +55,51 @@
   background-color: #D58A5C;
 }
 
+.approach__conclusion {
+  margin: clamp(38px, 4.5vh, 55px) 0 0;
+  max-width: 470px;
+  font-size: clamp(17px, 1.1vw, 19px);
+  line-height: 1.5;
+  color: rgba(47, 52, 56, 0.72);
+}
+
+.approach__conclusion-accent {
+  color: #D58A5C;
+}
+
+/* ---- right side / route ---- */
+
 .approach__aside {
-  padding-top: clamp(60px, 10vh, 180px);
+  padding-top: clamp(8px, 2vh, 24px);
 }
 
 .approach__aside-title {
-  margin: 0 0 24px;
-  font-size: clamp(17px, 1.1vw, 20px);
+  margin: 0 0 28px;
+  font-size: clamp(19px, 1.2vw, 21px);
   line-height: 1.35;
   font-weight: 500;
   color: #2F3438;
+}
+
+.approach__route {
+  position: relative;
+  padding-left: 18px;
+}
+
+.approach__route-line {
+  position: absolute;
+  left: 3px;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: rgba(47, 52, 56, 0.15);
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 900ms;
+}
+
+.approach--in-view .approach__route-line {
+  transform: scaleY(1);
 }
 
 .approach__list {
@@ -69,38 +110,42 @@
 
 .approach__item {
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(47, 52, 56, 0.14);
-  font-size: clamp(15px, 1vw, 17px);
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  font-size: clamp(16px, 1.05vw, 18px);
   line-height: 1.4;
   color: #2F3438;
+  position: relative;
 }
 
-.approach__item:last-child {
-  border-bottom: none;
+.approach__item + .approach__item {
+  margin-top: 8px;
+}
+
+.approach__node {
+  position: absolute;
+  left: -18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid #D58A5C;
+  background: #F7F3EE;
+  flex-shrink: 0;
 }
 
 .approach__num {
   flex-shrink: 0;
   min-width: 22px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   color: #D58A5C;
+  letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
 }
 
-.approach__conclusion {
-  margin: clamp(10px, 3vh, 42px) 0 0;
-  max-width: 420px;
-  font-size: clamp(16px, 1.1vw, 19px);
-  line-height: 1.5;
-  color: rgba(47, 52, 56, 0.72);
-}
-
-.approach__conclusion-accent {
-  color: #D58A5C;
+.approach__item-text {
+  color: rgba(47, 52, 56, 0.82);
 }
 
 /* ---- animation initial states ---- */
@@ -174,6 +219,8 @@
   transform: scaleX(1);
 }
 
+/* ---- tablet ---- */
+
 @media (min-width: 769px) and (max-width: 1100px) {
   .approach {
     padding-top: clamp(80px, 8vh, 96px);
@@ -185,7 +232,7 @@
   }
 
   .approach__manifesto {
-    font-size: clamp(56px, 8vw, 100px);
+    font-size: clamp(50px, 7.5vw, 88px);
   }
 
   .approach__line--2 {
@@ -197,10 +244,12 @@
   }
 
   .approach__aside {
-    padding-top: 40px;
-    max-width: 380px;
+    padding-top: 48px;
+    max-width: 420px;
   }
 }
+
+/* ---- mobile ---- */
 
 @media (max-width: 640px) {
   .approach {
@@ -217,7 +266,7 @@
   }
 
   .approach__manifesto {
-    font-size: clamp(42px, 12vw, 72px);
+    font-size: clamp(40px, 12vw, 58px);
   }
 
   .approach__line--2 {
@@ -228,21 +277,33 @@
     --line3-x: 16px;
   }
 
-  .approach__aside {
-    padding-top: 32px;
+  .approach__conclusion {
+    margin-top: 40px;
     max-width: 100%;
+  }
+
+  .approach__aside {
+    padding-top: 36px;
+    max-width: 100%;
+  }
+
+  .approach__route {
+    padding-left: 16px;
   }
 
   .approach__item {
     gap: 12px;
-    padding: 14px 0;
+    padding: 12px 0;
   }
 
-  .approach__conclusion {
-    margin-top: 32px;
-    max-width: 100%;
+  .approach__node {
+    left: -16px;
+    width: 6px;
+    height: 6px;
   }
 }
+
+/* ---- reduced motion ---- */
 
 @media (prefers-reduced-motion: reduce) {
   .approach__anim,
@@ -256,6 +317,11 @@
 
   .approach__accent::after {
     transform: scaleX(1);
+    transition: none;
+  }
+
+  .approach__route-line {
+    transform: scaleY(1);
     transition: none;
   }
 }
