@@ -60,10 +60,13 @@ function HeroStatic() {
         </div>
       </div>
       <footer className="hero__foot">
+        <p className="hero__eyebrow">САЙТЫ ПОД КЛЮЧ</p>
         <p className="hero__lead">
-          {ruTypo('Веб-дизайн для врачей и экспертов с личной практикой.')}
+          {ruTypo('Для врачей и экспертов')}
+          <br />
+          {ruTypo('с личной практикой.')}
         </p>
-        <p className="hero__meta">{ruTypo('Структура · тексты · дизайн · запуск')}</p>
+        <p className="hero__meta">{ruTypo('Стратегия · структура · тексты · дизайн · запуск')}</p>
       </footer>
     </section>
   )
