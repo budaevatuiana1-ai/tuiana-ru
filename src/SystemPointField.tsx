@@ -51,6 +51,8 @@ export default function SystemPointField({
     let mouseX = -9999
     let mouseY = -9999
     let mouseActive = false
+    let visible = true
+    let rafRunning = false
 
     let prevMouseX = -9999
     let prevMouseY = -9999
@@ -170,6 +172,7 @@ export default function SystemPointField({
     }
 
     function animate() {
+      if (!visible) { rafRunning = false; return }
       raf = requestAnimationFrame(animate)
       if (!ctx) return
 
@@ -256,11 +259,29 @@ export default function SystemPointField({
     }
 
     raf = requestAnimationFrame(animate)
+    rafRunning = true
+
+    function startRaf() {
+      if (!rafRunning) {
+        rafRunning = true
+        raf = requestAnimationFrame(animate)
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting
+        if (visible) startRaf()
+      },
+      { rootMargin: '15% 0px', threshold: 0 }
+    )
+    observer.observe(section)
 
     return () => {
       cancelAnimationFrame(raf)
       cancelAnimationFrame(resizeRaf)
       ro.disconnect()
+      observer.disconnect()
       section.removeEventListener('pointermove', onPointerMove)
       section.removeEventListener('pointerleave', onPointerLeave)
     }

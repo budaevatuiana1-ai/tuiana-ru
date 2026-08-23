@@ -1,0 +1,142 @@
+.ats-scroll {
+  position: relative;
+  height: 240vh;
+}
+
+.ats-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ats-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.ats-layer--approach {
+  z-index: 1;
+}
+
+.ats-layer--system {
+  z-index: 2;
+  will-change: transform;
+}
+
+.ats-approach-depth {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  will-change: transform, filter, opacity;
+  backface-visibility: hidden;
+}
+
+/* ---- mobile / tablet: no transition ---- */
+
+@media (max-width: 1100px) {
+  .ats-scroll {
+    height: auto;
+  }
+
+  .ats-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    isolation: auto;
+  }
+
+  .ats-layer {
+    position: relative;
+    inset: auto;
+    overflow: visible;
+  }
+
+  .ats-layer--approach,
+  .ats-layer--system {
+    z-index: auto;
+  }
+
+  .ats-layer--system {
+    transform: none;
+    will-change: auto;
+  }
+
+  .ats-approach-depth {
+    will-change: auto;
+    backface-visibility: auto;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .ats-scroll {
+    height: auto;
+  }
+
+  .ats-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    isolation: auto;
+  }
+
+  .ats-layer {
+    position: relative;
+    inset: auto;
+    overflow: visible;
+  }
+
+  .ats-layer--approach,
+  .ats-layer--system {
+    z-index: auto;
+  }
+
+  .ats-layer--system {
+    transform: none;
+    will-change: auto;
+  }
+
+  .ats-approach-depth {
+    will-change: auto;
+    backface-visibility: auto;
+  }
+}
+
+/* ---- reduced motion: no transition ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ats-scroll {
+    height: auto;
+  }
+
+  .ats-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    isolation: auto;
+  }
+
+  .ats-layer {
+    position: relative;
+    inset: auto;
+    overflow: visible;
+  }
+
+  .ats-layer--approach,
+  .ats-layer--system {
+    z-index: auto;
+  }
+
+  .ats-layer--system {
+    transform: none;
+    will-change: auto;
+  }
+
+  .ats-approach-depth {
+    will-change: auto;
+    backface-visibility: auto;
+  }
+}

@@ -33,6 +33,7 @@ export default function SystemCursor({ isRowActive, sectionRef }: SystemCursorPr
     let ringY = -9999
     let raf = 0
     let inside = false
+    let rafRunning = false
 
     const DOT_SPEED = 0.40
     const RING_DAMPING = 0.36
@@ -61,20 +62,21 @@ export default function SystemCursor({ isRowActive, sectionRef }: SystemCursorPr
         dotY = mouseY
         ringX = mouseX
         ringY = mouseY
+        startRaf()
       } else if (!nowInside && inside) {
         inside = false
         wrapEl.style.opacity = '0'
+        startRaf()
       }
     }
 
     function onLeave() {
       inside = false
       wrapEl.style.opacity = '0'
+      startRaf()
     }
 
     function animate() {
-      raf = requestAnimationFrame(animate)
-
       dotX += (mouseX - dotX) * DOT_SPEED
       dotY += (mouseY - dotY) * DOT_SPEED
       ringX += (mouseX - ringX) * RING_DAMPING
@@ -82,6 +84,24 @@ export default function SystemCursor({ isRowActive, sectionRef }: SystemCursorPr
 
       dotEl.style.transform = `translate(${dotX - 2}px, ${dotY - 2}px)`
       ringEl.style.transform = `translate(${ringX - 13}px, ${ringY - 13}px)`
+
+      if (!inside) {
+        const dx = dotX - mouseX
+        const dy = dotY - mouseY
+        if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+          rafRunning = false
+          return
+        }
+      }
+
+      raf = requestAnimationFrame(animate)
+    }
+
+    function startRaf() {
+      if (!rafRunning) {
+        rafRunning = true
+        raf = requestAnimationFrame(animate)
+      }
     }
 
     window.addEventListener('pointermove', onMove, { passive: true })

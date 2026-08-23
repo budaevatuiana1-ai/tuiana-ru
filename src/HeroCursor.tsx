@@ -18,6 +18,7 @@ export default function HeroCursor() {
   const target = useRef({ x: 0, y: 0, size: RING_DEFAULT, dotSize: DOT_SIZE })
   const raf = useRef(0)
   const visible = useRef(false)
+  const rafRunning = useRef(false)
 
   useEffect(() => {
     const fine = matchMedia('(hover: hover) and (pointer: fine)').matches
@@ -30,8 +31,6 @@ export default function HeroCursor() {
     setEnabled(true)
 
     function tick() {
-      raf.current = requestAnimationFrame(tick)
-
       const dot = dotRef.current
       const ringEl = ringRef.current
       if (!dot || !ringEl) return
@@ -54,18 +53,39 @@ export default function HeroCursor() {
       const d = ring.current.dotSize
       dot.style.width = d + 'px'
       dot.style.height = d + 'px'
+
+      if (!visible.current) {
+        const dx = ring.current.x - target.current.x
+        const dy = ring.current.y - target.current.y
+        if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+          rafRunning.current = false
+          return
+        }
+      }
+
+      raf.current = requestAnimationFrame(tick)
+    }
+
+    function startRaf() {
+      if (!rafRunning.current) {
+        rafRunning.current = true
+        raf.current = requestAnimationFrame(tick)
+      }
     }
 
     raf.current = requestAnimationFrame(tick)
+    rafRunning.current = true
 
     function onPointerEnter() {
       visible.current = true
       setVisibleClass(' hero-cursor--visible')
+      startRaf()
     }
 
     function onPointerLeave() {
       visible.current = false
       setVisibleClass('')
+      startRaf()
     }
 
     function onPointerMove(e: PointerEvent) {

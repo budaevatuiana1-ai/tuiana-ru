@@ -126,6 +126,8 @@ export default function ProjectPointCloud({
     let w = 0
     let h = 0
     let imgRef: HTMLImageElement | null = null
+    let visible = true
+    let rafRunning = false
 
     let prevMouseX = -9999
     let prevMouseY = -9999
@@ -274,9 +276,27 @@ export default function ProjectPointCloud({
       }
 
       raf = requestAnimationFrame(animate)
+      rafRunning = true
     }
 
+    function startRaf() {
+      if (!rafRunning && interactionEnabled) {
+        rafRunning = true
+        raf = requestAnimationFrame(animate)
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting
+        if (visible) startRaf()
+      },
+      { rootMargin: '15% 0px', threshold: 0 }
+    )
+    observer.observe(card)
+
     function animate() {
+      if (!visible) { rafRunning = false; return }
       raf = requestAnimationFrame(animate)
       if (!ctx) return
 
@@ -358,6 +378,7 @@ export default function ProjectPointCloud({
       cancelAnimationFrame(raf)
       cancelAnimationFrame(resizeRaf)
       ro.disconnect()
+      observer.disconnect()
       if (interactionEnabled) {
         card.removeEventListener('pointermove', onPointerMove)
         card.removeEventListener('pointerleave', onPointerLeave)

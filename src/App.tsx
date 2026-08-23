@@ -1,13 +1,19 @@
 import HeroStatic from './HeroStatic'
+import ApproachSystemTransition from './ApproachSystemTransition'
 import ApproachSection from './ApproachSection'
 import SystemSection from './SystemSection'
+import useSmoothScroll from './hooks/useSmoothScroll'
 
 function App() {
+  useSmoothScroll()
+
   return (
     <>
       <HeroStatic />
-      <ApproachSection />
-      <SystemSection />
+      <ApproachSystemTransition
+        approach={<ApproachSection />}
+        system={<SystemSection />}
+      />
     </>
   )
 }

@@ -77,6 +77,8 @@ export default function HeroParticleField() {
     let dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP)
     let w = 0
     let h = 0
+    let visible = true
+    let rafRunning = false
 
     function resize() {
       const rect = hero!.getBoundingClientRect()
@@ -155,6 +157,7 @@ export default function HeroParticleField() {
     const layers = [FAR, MID, NEAR]
 
     function frame() {
+      if (!visible) { rafRunning = false; return }
       rafRef.current = requestAnimationFrame(frame)
 
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
@@ -243,6 +246,22 @@ export default function HeroParticleField() {
 
     rafRef.current = requestAnimationFrame(frame)
 
+    function startRaf() {
+      if (!rafRunning) {
+        rafRunning = true
+        rafRef.current = requestAnimationFrame(frame)
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting
+        if (visible) startRaf()
+      },
+      { rootMargin: '15% 0px', threshold: 0 }
+    )
+    observer.observe(hero)
+
     const resizeObserver = new ResizeObserver(() => {
       resize()
       initParticles()
@@ -254,6 +273,7 @@ export default function HeroParticleField() {
       hero.removeEventListener('pointermove', onPointerMove)
       hero.removeEventListener('pointerleave', onPointerLeave)
       resizeObserver.disconnect()
+      observer.disconnect()
     }
   }, [])
 
