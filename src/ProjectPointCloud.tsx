@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from 'react'
+import { useRef, useEffect } from 'react'
 
 const DPR_CAP = 2
 
@@ -7,6 +7,8 @@ interface Particle {
   originalY: number
   currentX: number
   currentY: number
+  vx: number
+  vy: number
   r: number
   g: number
   b: number
@@ -25,6 +27,14 @@ interface ProjectPointCloudProps {
   baseAlpha: number
   crop: CropConfig
   className?: string
+  interactionRadius?: number
+  maxDisplacement?: number
+  returnDamping?: number
+  activeAlpha?: number
+  activeRadius?: number
+  interactionStrength?: number
+  tintColor?: string
+  tintStrength?: number
 }
 
 function drawImageWithCrop(
@@ -72,11 +82,16 @@ export default function ProjectPointCloud({
   baseAlpha,
   crop,
   className,
+  interactionRadius = 0,
+  maxDisplacement = 0,
+  returnDamping = 0.08,
+  activeAlpha = 0,
+  activeRadius = 0,
+  interactionStrength = 1,
+  tintColor,
+  tintStrength = 0,
 }: ProjectPointCloudProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const particlesRef = useRef<Particle[]>([])
-
-  const particles = useMemo<Particle[]>(() => [], [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -85,81 +100,235 @@ export default function ProjectPointCloud({
     const parent = canvas.parentElement
     if (!parent) return
 
-    const draw = () => {
-      const rect = parent.getBoundingClientRect()
-      const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP)
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isTouch = 'ontouchstart' in window
+    const interactionEnabled = interactionRadius > 0 && !prefersReduced && !isTouch
 
-      canvas.width = rect.width * dpr
-      canvas.height = rect.height * dpr
-      canvas.style.width = rect.width + 'px'
-      canvas.style.height = rect.height + 'px'
+    const card = canvas.closest('.hero__screen') as HTMLElement | null
+    if (!card) return
 
-      const ctx = canvas.getContext('2d')
-      if (!ctx) return
-      ctx.scale(dpr, dpr)
+    const projectLabel = card.classList.contains('hero__screen--dari') ? 'DARI' : 'BAZA'
 
-      const img = new Image()
-      img.crossOrigin = 'anonymous'
-      img.src = imageSrc
-      img.onload = () => {
-        ctx.clearRect(0, 0, rect.width, rect.height)
+    let tintR = 0, tintG = 0, tintB = 0
+    if (tintColor && tintColor.length === 7) {
+      tintR = parseInt(tintColor.slice(1, 3), 16)
+      tintG = parseInt(tintColor.slice(3, 5), 16)
+      tintB = parseInt(tintColor.slice(5, 7), 16)
+    }
 
-        const offscreen = document.createElement('canvas')
-        offscreen.width = Math.round(rect.width * dpr)
-        offscreen.height = Math.round(rect.height * dpr)
-        const offCtx = offscreen.getContext('2d')
-        if (!offCtx) return
-        offCtx.scale(dpr, dpr)
+    let particles: Particle[] = []
+    let raf = 0
+    let mouseX = -9999
+    let mouseY = -9999
+    let mouseActive = false
+    let ctx: CanvasRenderingContext2D | null = null
+    let dpr = 1
+    let w = 0
+    let h = 0
 
-        drawImageWithCrop(offCtx, img, rect.width, rect.height, crop)
+    function onPointerMove(e: PointerEvent) {
+      if (!mouseActive) {
+        console.log(`ProjectPointCloud pointer active: ${projectLabel}`)
+      }
+      const rect = card!.getBoundingClientRect()
+      mouseX = e.clientX - rect.left
+      mouseY = e.clientY - rect.top
+      mouseActive = true
+    }
 
-        const imageData = offCtx.getImageData(0, 0, offscreen.width, offscreen.height)
-        const data = imageData.data
+    function onPointerLeave() {
+      mouseActive = false
+      mouseX = -9999
+      mouseY = -9999
+    }
 
-        const w = rect.width
-        const h = rect.height
+    if (interactionEnabled) {
+      card.addEventListener('pointermove', onPointerMove, { passive: true })
+      card.addEventListener('pointerleave', onPointerLeave, { passive: true })
+    }
 
-        particles.length = 0
+    function setupCanvas() {
+      const rect = parent!.getBoundingClientRect()
+      dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP)
+      w = rect.width
+      h = rect.height
+      canvas!.width = w * dpr
+      canvas!.height = h * dpr
+      canvas!.style.width = w + 'px'
+      canvas!.style.height = h + 'px'
+      ctx = canvas!.getContext('2d')
+      if (ctx) ctx.scale(dpr, dpr)
+    }
 
-        for (let x = 0; x < w; x += sampling) {
-          for (let y = 0; y < h; y += sampling) {
-            const sx = Math.round(x * dpr)
-            const sy = Math.round(y * dpr)
-            if (sx < 0 || sx >= offscreen.width || sy < 0 || sy >= offscreen.height) continue
+    function initParticles(imgData: ImageData) {
+      const data = imgData.data
+      const sw = imgData.width
+      particles = []
+      for (let x = 0; x < w; x += sampling) {
+        for (let y = 0; y < h; y += sampling) {
+          const sx = Math.round(x * dpr)
+          const sy = Math.round(y * dpr)
+          if (sx < 0 || sx >= sw || sy < 0 || sy >= imgData.height) continue
 
-            const i = (sy * offscreen.width + sx) * 4
-            const r = data[i]
-            const g = data[i + 1]
-            const b = data[i + 2]
-            const a = data[i + 3]
-            if (a < 128) continue
+          const i = (sy * sw + sx) * 4
+          const r = data[i]
+          const g = data[i + 1]
+          const b = data[i + 2]
+          const a = data[i + 3]
+          if (a < 128) continue
 
-            particles.push({
-              originalX: x,
-              originalY: y,
-              currentX: x,
-              currentY: y,
-              r,
-              g,
-              b,
-            })
-          }
-        }
-
-        particlesRef.current = particles
-
-        ctx.globalAlpha = baseAlpha
-        for (const p of particles) {
-          ctx.beginPath()
-          ctx.arc(p.currentX, p.currentY, particleRadius, 0, Math.PI * 2)
-          ctx.fillStyle = `rgb(${p.r},${p.g},${p.b})`
-          ctx.fill()
+          particles.push({
+            originalX: x,
+            originalY: y,
+            currentX: x,
+            currentY: y,
+            vx: 0,
+            vy: 0,
+            r,
+            g,
+            b,
+          })
         }
       }
     }
 
-    draw()
-  }, [imageSrc, sampling, particleRadius, baseAlpha, crop])
+    function sampleImage(img: HTMLImageElement) {
+      const offscreen = document.createElement('canvas')
+      offscreen.width = Math.round(w * dpr)
+      offscreen.height = Math.round(h * dpr)
+      const offCtx = offscreen.getContext('2d')
+      if (!offCtx) return null
+      offCtx.scale(dpr, dpr)
+      drawImageWithCrop(offCtx, img, w, h, crop)
+      return offCtx.getImageData(0, 0, offscreen.width, offscreen.height)
+    }
+
+    function renderStatic() {
+      if (!ctx) return
+      ctx.clearRect(0, 0, w, h)
+      ctx.globalAlpha = baseAlpha
+      for (const p of particles) {
+        ctx.beginPath()
+        ctx.arc(p.originalX, p.originalY, particleRadius, 0, Math.PI * 2)
+        ctx.fillStyle = `rgb(${p.r},${p.g},${p.b})`
+        ctx.fill()
+      }
+    }
+
+    function animate() {
+      raf = requestAnimationFrame(animate)
+      if (!ctx) return
+
+      ctx.clearRect(0, 0, w, h)
+
+      const radiusSq = interactionRadius * interactionRadius
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i]
+
+        if (mouseActive) {
+          const dx = p.currentX - mouseX
+          const dy = p.currentY - mouseY
+          const distSq = dx * dx + dy * dy
+
+          if (distSq < radiusSq && distSq > 0) {
+            const dist = Math.sqrt(distSq)
+            const t = 1 - dist / interactionRadius
+            const ease = t * t * (3 - 2 * t)
+            const force = ease * maxDisplacement * interactionStrength
+            const nx = dx / dist
+            const ny = dy / dist
+            p.vx += nx * force * 0.25
+            p.vy += ny * force * 0.25
+          }
+        }
+
+        p.vx += (p.originalX - p.currentX) * returnDamping
+        p.vy += (p.originalY - p.currentY) * returnDamping
+        p.vx *= 0.82
+        p.vy *= 0.82
+        p.currentX += p.vx
+        p.currentY += p.vy
+
+        let alpha = baseAlpha
+        let dotR = particleRadius
+        let drawR = p.r
+        let drawG = p.g
+        let drawB = p.b
+
+        if (mouseActive) {
+          const dx = p.currentX - mouseX
+          const dy = p.currentY - mouseY
+          const distSq = dx * dx + dy * dy
+
+          if (distSq < radiusSq) {
+            const dist = Math.sqrt(distSq)
+            const t = 1 - dist / interactionRadius
+            const inner = t > 0.6
+              ? 1 + (t - 0.6) / 0.4 * 0.5
+              : Math.pow(t / 0.6, 2.5)
+            const smoothT = Math.min(inner, 1.5)
+            alpha = baseAlpha + (activeAlpha - baseAlpha) * Math.min(smoothT, 1)
+            const sizeT = Math.pow(Math.min(t / 0.35, 1), 2)
+            dotR = particleRadius + (activeRadius - particleRadius) * sizeT
+
+            if (tintColor && tintStrength > 0) {
+              const tintMix = smoothT * tintStrength
+              drawR = Math.round(p.r + (tintR - p.r) * tintMix)
+              drawG = Math.round(p.g + (tintG - p.g) * tintMix)
+              drawB = Math.round(p.b + (tintB - p.b) * tintMix)
+            }
+          }
+        }
+
+        ctx.beginPath()
+        ctx.arc(p.currentX, p.currentY, dotR, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${drawR},${drawG},${drawB},${alpha})`
+        ctx.fill()
+      }
+    }
+
+    setupCanvas()
+
+    const img = new Image()
+    img.crossOrigin = 'anonymous'
+    img.src = imageSrc
+    img.onload = () => {
+      setupCanvas()
+      const imgData = sampleImage(img)
+      if (!imgData) return
+      initParticles(imgData)
+
+      if (!interactionEnabled) {
+        renderStatic()
+        return
+      }
+
+      raf = requestAnimationFrame(animate)
+    }
+
+    return () => {
+      cancelAnimationFrame(raf)
+      if (interactionEnabled) {
+        card.removeEventListener('pointermove', onPointerMove)
+        card.removeEventListener('pointerleave', onPointerLeave)
+      }
+    }
+  }, [
+    imageSrc,
+    sampling,
+    particleRadius,
+    baseAlpha,
+    crop,
+    interactionRadius,
+    maxDisplacement,
+    returnDamping,
+    activeAlpha,
+    activeRadius,
+    interactionStrength,
+    tintColor,
+    tintStrength,
+  ])
 
   return (
     <canvas

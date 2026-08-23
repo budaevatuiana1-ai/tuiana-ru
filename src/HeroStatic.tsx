@@ -17,10 +17,18 @@ function HeroStatic() {
           <div className="dari__interactive-layer">
             <ProjectPointCloud
               imageSrc="/hero/dari.png"
-              sampling={7}
+              sampling={6}
               particleRadius={0.7}
-              baseAlpha={0.08}
+              baseAlpha={0}
               crop={{ mode: 'heightFit', translateXPercent: 0.12 }}
+              interactionRadius={145}
+              maxDisplacement={28}
+              returnDamping={0.11}
+              activeAlpha={0.95}
+              activeRadius={1.2}
+              interactionStrength={1.0}
+              tintColor="#D58A5C"
+              tintStrength={0.4}
             />
           </div>
         </div>
@@ -33,6 +41,12 @@ function HeroStatic() {
               particleRadius={0.65}
               baseAlpha={0.06}
               crop={{ mode: 'coverFit', objectPositionPercent: 52 }}
+              interactionRadius={100}
+              maxDisplacement={10}
+              returnDamping={0.065}
+              activeAlpha={0.55}
+              activeRadius={0.85}
+              interactionStrength={0.6}
             />
           </div>
         </div>
