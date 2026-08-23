@@ -22,6 +22,12 @@
   height: 100%;
   pointer-events: none;
   z-index: 9999;
+  opacity: 0;
+  transition: opacity 140ms ease-out;
+}
+
+.hero-cursor--visible {
+  opacity: 1;
 }
 
 .hero-cursor__dot {
@@ -305,19 +311,10 @@
   transition-delay: 1350ms;
 }
 
-.hero-cursor {
-  opacity: 0;
-  transition: opacity 300ms ease 800ms;
-}
-
 .hero--intro-ready .hero__intro-item,
 .hero--intro-ready .hero__wordmark {
   opacity: 1;
   transform: none;
-}
-
-.hero--intro-ready .hero-cursor {
-  opacity: 1;
 }
 
 @media (min-width: 769px) and (max-width: 1100px) {
@@ -514,11 +511,6 @@
   .hero__wordmark {
     opacity: 1;
     transform: none;
-    transition: none;
-  }
-
-  .hero-cursor {
-    opacity: 1;
     transition: none;
   }
 }

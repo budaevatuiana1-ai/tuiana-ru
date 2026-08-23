@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from 'react'
 import './SystemSection.css'
 import { ruTypo } from './lib/typography'
 import SystemPointField from './SystemPointField'
+import SystemCursor from './SystemCursor'
 
 const items = [
   {
@@ -33,19 +34,19 @@ const items = [
 
 function SystemSection() {
   const [activeRow, setActiveRow] = useState<number | null>(null)
-  const listRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
   const rowRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const getRowBounds = useCallback(
     (index: number) => {
-      const list = listRef.current
+      const section = sectionRef.current
       const row = rowRefs.current[index]
-      if (!list || !row) return { top: 0, bottom: 0 }
-      const listRect = list.getBoundingClientRect()
+      if (!section || !row) return { top: 0, bottom: 0 }
+      const sectionRect = section.getBoundingClientRect()
       const rowRect = row.getBoundingClientRect()
       return {
-        top: rowRect.top - listRect.top,
-        bottom: rowRect.bottom - listRect.top,
+        top: rowRect.top - sectionRect.top,
+        bottom: rowRect.bottom - sectionRect.top,
       }
     },
     []
@@ -54,7 +55,13 @@ function SystemSection() {
   const activeBounds = activeRow !== null ? getRowBounds(activeRow) : { top: 0, bottom: 0 }
 
   return (
-    <section className="system">
+    <section className="system" ref={sectionRef}>
+      <SystemCursor isRowActive={activeRow !== null} sectionRef={sectionRef} />
+      <SystemPointField
+        activeRowTop={activeBounds.top}
+        activeRowBottom={activeBounds.bottom}
+        hasActive={activeRow !== null}
+      />
       <div className="system__inner">
         <div className="system__left">
           <p className="system__label">02 · SYSTEM</p>
@@ -65,12 +72,7 @@ function SystemSection() {
           </h2>
         </div>
 
-        <div className="system__list" ref={listRef}>
-          <SystemPointField
-            activeRowTop={activeBounds.top}
-            activeRowBottom={activeBounds.bottom}
-            hasActive={activeRow !== null}
-          />
+        <div className="system__list">
           {items.map((item, i) => (
             <div
               className={`system__row${activeRow === i ? ' system__row--active' : ''}${activeRow !== null && activeRow !== i ? ' system__row--dimmed' : ''}`}
