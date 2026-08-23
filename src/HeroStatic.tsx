@@ -27,6 +27,7 @@ function HeroStatic() {
         </div>
       </header>
       <div className="hero__projects">
+        <div className="hero__projects-group">
         <div className="hero__screen hero__screen--dari hero__intro-item hero__intro-item--dari">
           <img src="/hero/dari.png" alt="Проект DARI" draggable={false} />
           <div className="dari__interactive-layer">
@@ -67,6 +68,7 @@ function HeroStatic() {
               velocityInfluence={0.14}
             />
           </div>
+        </div>
         </div>
       </div>
       <footer className="hero__foot">
