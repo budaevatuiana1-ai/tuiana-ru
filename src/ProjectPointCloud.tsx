@@ -109,8 +109,6 @@ export default function ProjectPointCloud({
     const card = canvas.closest('.hero__screen') as HTMLElement | null
     if (!card) return
 
-    const projectLabel = card.classList.contains('hero__screen--dari') ? 'DARI' : 'BAZA'
-
     let tintR = 0, tintG = 0, tintB = 0
     if (tintColor && tintColor.length === 7) {
       tintR = parseInt(tintColor.slice(1, 3), 16)
@@ -127,6 +125,7 @@ export default function ProjectPointCloud({
     let dpr = 1
     let w = 0
     let h = 0
+    let imgRef: HTMLImageElement | null = null
 
     let prevMouseX = -9999
     let prevMouseY = -9999
@@ -136,9 +135,6 @@ export default function ProjectPointCloud({
     const VELOCITY_MAX = 18
 
     function onPointerMove(e: PointerEvent) {
-      if (!mouseActive) {
-        console.log(`ProjectPointCloud pointer active: ${projectLabel}`)
-      }
       const rect = card!.getBoundingClientRect()
       mouseX = e.clientX - rect.left
       mouseY = e.clientY - rect.top
@@ -228,16 +224,56 @@ export default function ProjectPointCloud({
       return offCtx.getImageData(0, 0, offscreen.width, offscreen.height)
     }
 
-    function renderStatic() {
-      if (!ctx) return
-      ctx.clearRect(0, 0, w, h)
-      ctx.globalAlpha = baseAlpha
-      for (const p of particles) {
-        ctx.beginPath()
-        ctx.arc(p.originalX, p.originalY, particleRadius, 0, Math.PI * 2)
-        ctx.fillStyle = `rgb(${p.r},${p.g},${p.b})`
-        ctx.fill()
+    function rebuild() {
+      setupCanvas()
+      if (!imgRef) return
+      const imgData = sampleImage(imgRef)
+      if (!imgData) return
+      initParticles(imgData)
+    }
+
+    let resizeRaf = 0
+    let lastW = 0
+    let lastH = 0
+
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width: newW, height: newH } = entry.contentRect
+        if (Math.abs(newW - lastW) < 1 && Math.abs(newH - lastH) < 1) return
+        lastW = newW
+        lastH = newH
+        cancelAnimationFrame(resizeRaf)
+        resizeRaf = requestAnimationFrame(rebuild)
       }
+    })
+    ro.observe(card)
+    const initRect = parent.getBoundingClientRect()
+    lastW = initRect.width
+    lastH = initRect.height
+
+    setupCanvas()
+
+    const img = new Image()
+    img.crossOrigin = 'anonymous'
+    img.src = imageSrc
+    img.onload = () => {
+      imgRef = img
+      rebuild()
+
+      if (!interactionEnabled) {
+        if (!ctx) return
+        ctx.clearRect(0, 0, w, h)
+        ctx.globalAlpha = baseAlpha
+        for (const p of particles) {
+          ctx.beginPath()
+          ctx.arc(p.originalX, p.originalY, particleRadius, 0, Math.PI * 2)
+          ctx.fillStyle = `rgb(${p.r},${p.g},${p.b})`
+          ctx.fill()
+        }
+        return
+      }
+
+      raf = requestAnimationFrame(animate)
     }
 
     function animate() {
@@ -318,28 +354,10 @@ export default function ProjectPointCloud({
       }
     }
 
-    setupCanvas()
-
-    const img = new Image()
-    img.crossOrigin = 'anonymous'
-    img.src = imageSrc
-    img.onload = () => {
-      setupCanvas()
-      const imgData = sampleImage(img)
-      if (!imgData) return
-      initParticles(imgData)
-
-      if (!interactionEnabled) {
-        renderStatic()
-        return
-      }
-
-      raf = requestAnimationFrame(animate)
-    }
-
     return () => {
       cancelAnimationFrame(raf)
-      card!.style.transform = ''
+      cancelAnimationFrame(resizeRaf)
+      ro.disconnect()
       if (interactionEnabled) {
         card.removeEventListener('pointermove', onPointerMove)
         card.removeEventListener('pointerleave', onPointerLeave)
