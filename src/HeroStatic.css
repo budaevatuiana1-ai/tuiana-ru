@@ -110,7 +110,7 @@
 }
 
 .hero__projects-group {
-  transform: translate(105px, 40px);
+  transform: translate(105px, 56px);
 }
 
 @media (max-width: 1100px) {

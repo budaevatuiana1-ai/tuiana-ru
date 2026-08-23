@@ -1,17 +1,11 @@
 import { useRef, useEffect } from 'react'
 
 const DPR_CAP = 2
-const SAMPLING = 14
-const PARTICLE_RADIUS = 0.65
+const BASE_SAMPLING = 12
 const CURSOR_RADIUS = 175
-const MAX_DISPLACEMENT = 22
 const ACTIVE_RADIUS_RATIO = 0.35
-const MAX_DOT_RADIUS = 0.9
-const RETURN_DAMPING = 0.08
 const BASE_COLOR = { r: 247, g: 243, b: 238 }
 const HOVER_COLOR = { r: 213, g: 138, b: 92 }
-const BASE_ALPHA_MIN = 0.08
-const BASE_ALPHA_MAX = 0.12
 
 interface Particle {
   ox: number
@@ -21,6 +15,31 @@ interface Particle {
   vx: number
   vy: number
   baseAlpha: number
+  radius: number
+  maxDisp: number
+  returnDamp: number
+  depth: number
+  parallaxX: number
+  parallaxY: number
+}
+
+const FAR = {
+  alphaMin: 0.06, alphaMax: 0.10,
+  radius: 0.5, maxDisp: 4, returnDamp: 0.055,
+  parallax: 3, cursorForce: 0.15, depth: 0,
+  activeAlpha: 0.18, activeRadius: 0.6,
+}
+const MID = {
+  alphaMin: 0.14, alphaMax: 0.20,
+  radius: 0.75, maxDisp: 11, returnDamp: 0.09,
+  parallax: 7, cursorForce: 0.28, depth: 1,
+  activeAlpha: 0.50, activeRadius: 0.95,
+}
+const NEAR = {
+  alphaMin: 0.26, alphaMax: 0.36,
+  radius: 0.95, maxDisp: 20, returnDamp: 0.12,
+  parallax: 11, cursorForce: 0.35, depth: 2,
+  activeAlpha: 0.62, activeRadius: 1.05,
 }
 
 function lerp(a: number, b: number, t: number) {
@@ -41,7 +60,7 @@ function lerpColor(
 
 export default function HeroParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const mouseRef = useRef({ x: -1000, y: -1000, active: false })
+  const mouseRef = useRef({ x: -1000, y: -1000, active: false, normX: 0, normY: 0 })
   const particlesRef = useRef<Particle[]>([])
   const rafRef = useRef<number>(0)
 
@@ -72,8 +91,19 @@ export default function HeroParticleField() {
 
     function initParticles() {
       const particles: Particle[] = []
-      for (let x = SAMPLING / 2; x < w; x += SAMPLING) {
-        for (let y = SAMPLING / 2; y < h; y += SAMPLING) {
+      const sampling = BASE_SAMPLING
+      for (let x = sampling / 2; x < w; x += sampling) {
+        for (let y = sampling / 2; y < h; y += sampling) {
+          const gx = Math.floor(x / sampling)
+          const gy = Math.floor(y / sampling)
+          const hash = ((gx * 73856093) ^ (gy * 19349663)) & 0x7fffffff
+          const r = hash / 0x7fffffff
+
+          let layer
+          if (r < 0.15) layer = NEAR
+          else if (r < 0.55) layer = MID
+          else layer = FAR
+
           particles.push({
             ox: x,
             oy: y,
@@ -81,7 +111,13 @@ export default function HeroParticleField() {
             y,
             vx: 0,
             vy: 0,
-            baseAlpha: BASE_ALPHA_MIN + Math.random() * (BASE_ALPHA_MAX - BASE_ALPHA_MIN),
+            baseAlpha: layer.alphaMin + (hash % 1000) / 1000 * (layer.alphaMax - layer.alphaMin),
+            radius: layer.radius,
+            maxDisp: layer.maxDisp,
+            returnDamp: layer.returnDamp,
+            depth: layer.depth,
+            parallaxX: 0,
+            parallaxY: 0,
           })
         }
       }
@@ -90,15 +126,21 @@ export default function HeroParticleField() {
 
     function onPointerMove(e: PointerEvent) {
       const rect = hero!.getBoundingClientRect()
-      mouseRef.current.x = e.clientX - rect.left
-      mouseRef.current.y = e.clientY - rect.top
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      mouseRef.current.x = x
+      mouseRef.current.y = y
       mouseRef.current.active = true
+      mouseRef.current.normX = (x / w) * 2 - 1
+      mouseRef.current.normY = (y / h) * 2 - 1
     }
 
     function onPointerLeave() {
       mouseRef.current.active = false
       mouseRef.current.x = -1000
       mouseRef.current.y = -1000
+      mouseRef.current.normX = 0
+      mouseRef.current.normY = 0
     }
 
     resize()
@@ -110,6 +152,8 @@ export default function HeroParticleField() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const layers = [FAR, MID, NEAR]
+
     function frame() {
       rafRef.current = requestAnimationFrame(frame)
 
@@ -119,13 +163,28 @@ export default function HeroParticleField() {
       const mx = mouseRef.current.x
       const my = mouseRef.current.y
       const mouseActive = mouseRef.current.active && !prefersReduced && !isTouch
+      const nx = mouseRef.current.normX
+      const ny = mouseRef.current.normY
       const radiusSq = CURSOR_RADIUS * CURSOR_RADIUS
 
       const particles = particlesRef.current
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i]
+        const layer = layers[p.depth]
 
+        // Parallax
+        if (!prefersReduced && !isTouch) {
+          const targetPX = nx * -layer.parallax
+          const targetPY = ny * -layer.parallax
+          p.parallaxX += (targetPX - p.parallaxX) * 0.04
+          p.parallaxY += (targetPY - p.parallaxY) * 0.04
+        }
+
+        const homeX = p.ox + p.parallaxX
+        const homeY = p.oy + p.parallaxY
+
+        // Cursor displacement
         if (mouseActive) {
           const dx = p.x - mx
           const dy = p.y - my
@@ -135,24 +194,26 @@ export default function HeroParticleField() {
             const dist = Math.sqrt(distSq)
             const t = 1 - dist / CURSOR_RADIUS
             const pushT = t * t * (3 - 2 * t)
-            const force = pushT * MAX_DISPLACEMENT
-            const nx = dx / dist
-            const ny = dy / dist
-            p.vx += nx * force * 0.3
-            p.vy += ny * force * 0.3
+            const force = pushT * p.maxDisp * layer.cursorForce
+            const nxp = dx / dist
+            const nyp = dy / dist
+            p.vx += nxp * force * 0.3
+            p.vy += nyp * force * 0.3
           }
         }
 
-        p.vx += (p.ox - p.x) * RETURN_DAMPING
-        p.vy += (p.oy - p.y) * RETURN_DAMPING
+        // Return to home (with parallax offset)
+        p.vx += (homeX - p.x) * p.returnDamp
+        p.vy += (homeY - p.y) * p.returnDamp
         p.vx *= 0.85
         p.vy *= 0.85
         p.x += p.vx
         p.y += p.vy
 
+        // Draw
         let color = BASE_COLOR
         let alpha = p.baseAlpha
-        let dotR = PARTICLE_RADIUS
+        let dotR = p.radius
 
         if (mouseActive) {
           const dx = p.x - mx
@@ -167,9 +228,9 @@ export default function HeroParticleField() {
               : Math.pow(t / (1 - ACTIVE_RADIUS_RATIO), 2.5)
             const smoothT = Math.min(inner, 1.6)
             color = lerpColor(BASE_COLOR, HOVER_COLOR, Math.min(smoothT, 1))
-            alpha = lerp(p.baseAlpha, 0.60, Math.min(smoothT, 1))
+            alpha = lerp(p.baseAlpha, layer.activeAlpha, Math.min(smoothT, 1))
             const sizeT = Math.pow(Math.min(t / ACTIVE_RADIUS_RATIO, 1), 2)
-            dotR = PARTICLE_RADIUS + (MAX_DOT_RADIUS - PARTICLE_RADIUS) * sizeT
+            dotR = p.radius + (layer.activeRadius - p.radius) * sizeT
           }
         }
 
