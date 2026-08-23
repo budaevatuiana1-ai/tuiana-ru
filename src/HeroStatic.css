@@ -9,6 +9,12 @@
   font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .hero {
+    cursor: none;
+  }
+}
+
 .hero-cursor {
   position: fixed;
   inset: 0;
@@ -34,10 +40,10 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  border: 1px solid rgba(213, 138, 92, 0.65);
+  border: 1px solid rgba(213, 138, 92, 0.42);
   background: transparent;
   will-change: transform, width, height;
   opacity: 0;

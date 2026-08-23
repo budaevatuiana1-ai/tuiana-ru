@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from 'react'
 
 const DOT_SIZE = 4
-const RING_DEFAULT = 24
+const DOT_HOVER = 5
+const RING_DEFAULT = 22
 const RING_HOVER = 40
 const RING_LINK = 30
 const RING_DAMPING = 0.16
@@ -11,8 +12,8 @@ export default function HeroCursor() {
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const pos = useRef({ x: 0, y: 0 })
-  const ring = useRef({ x: 0, y: 0, size: RING_DEFAULT })
-  const target = useRef({ x: 0, y: 0, size: RING_DEFAULT })
+  const ring = useRef({ x: 0, y: 0, size: RING_DEFAULT, dotSize: DOT_SIZE })
+  const target = useRef({ x: 0, y: 0, size: RING_DEFAULT, dotSize: DOT_SIZE })
   const raf = useRef(0)
   const visible = useRef(false)
 
@@ -33,18 +34,23 @@ export default function HeroCursor() {
       const ringEl = ringRef.current
       if (!dot || !ringEl) return
 
-      dot.style.transform = `translate(${pos.current.x - DOT_SIZE / 2}px, ${pos.current.y - DOT_SIZE / 2}px)`
-      dot.style.opacity = visible.current ? '1' : '0'
+      dot.style.transform = `translate(${pos.current.x - ring.current.dotSize / 2}px, ${pos.current.y - ring.current.dotSize / 2}px)`
+      dot.style.opacity = visible.current ? '0.9' : '0'
 
       ring.current.x += (target.current.x - ring.current.x) * RING_DAMPING
       ring.current.y += (target.current.y - ring.current.y) * RING_DAMPING
       ring.current.size += (target.current.size - ring.current.size) * RING_DAMPING
+      ring.current.dotSize += (target.current.dotSize - ring.current.dotSize) * RING_DAMPING
 
       const s = ring.current.size
       ringEl.style.width = s + 'px'
       ringEl.style.height = s + 'px'
       ringEl.style.transform = `translate(${ring.current.x - s / 2}px, ${ring.current.y - s / 2}px)`
       ringEl.style.opacity = visible.current ? '1' : '0'
+
+      const d = ring.current.dotSize
+      dot.style.width = d + 'px'
+      dot.style.height = d + 'px'
     }
 
     raf.current = requestAnimationFrame(tick)
@@ -62,10 +68,13 @@ export default function HeroCursor() {
         const el = e.target as Element
         if (el.closest('.hero__screen--dari, .hero__screen--baza')) {
           target.current.size = RING_HOVER
+          target.current.dotSize = DOT_HOVER
         } else if (el.closest('a, button, [role="button"]')) {
           target.current.size = RING_LINK
+          target.current.dotSize = DOT_SIZE
         } else {
           target.current.size = RING_DEFAULT
+          target.current.dotSize = DOT_SIZE
         }
       }
     }
