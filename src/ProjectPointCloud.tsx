@@ -126,6 +126,14 @@ export default function ProjectPointCloud({
     let w = 0
     let h = 0
 
+    let prevMouseX = -9999
+    let prevMouseY = -9999
+    let pointerVelocityX = 0
+    let pointerVelocityY = 0
+    const VELOCITY_DECAY = 0.88
+    const VELOCITY_MAX = 18
+    const VELOCITY_INFLUENCE = 0.3
+
     function onPointerMove(e: PointerEvent) {
       if (!mouseActive) {
         console.log(`ProjectPointCloud pointer active: ${projectLabel}`)
@@ -133,6 +141,18 @@ export default function ProjectPointCloud({
       const rect = card!.getBoundingClientRect()
       mouseX = e.clientX - rect.left
       mouseY = e.clientY - rect.top
+      if (prevMouseX > -9999) {
+        pointerVelocityX = mouseX - prevMouseX
+        pointerVelocityY = mouseY - prevMouseY
+        const speed = Math.sqrt(pointerVelocityX * pointerVelocityX + pointerVelocityY * pointerVelocityY)
+        if (speed > VELOCITY_MAX) {
+          const scale = VELOCITY_MAX / speed
+          pointerVelocityX *= scale
+          pointerVelocityY *= scale
+        }
+      }
+      prevMouseX = mouseX
+      prevMouseY = mouseY
       mouseActive = true
     }
 
@@ -140,6 +160,10 @@ export default function ProjectPointCloud({
       mouseActive = false
       mouseX = -9999
       mouseY = -9999
+      prevMouseX = -9999
+      prevMouseY = -9999
+      pointerVelocityX = 0
+      pointerVelocityY = 0
     }
 
     if (interactionEnabled) {
@@ -219,6 +243,11 @@ export default function ProjectPointCloud({
       raf = requestAnimationFrame(animate)
       if (!ctx) return
 
+      pointerVelocityX *= VELOCITY_DECAY
+      pointerVelocityY *= VELOCITY_DECAY
+      if (Math.abs(pointerVelocityX) < 0.01) pointerVelocityX = 0
+      if (Math.abs(pointerVelocityY) < 0.01) pointerVelocityY = 0
+
       ctx.clearRect(0, 0, w, h)
 
       const radiusSq = interactionRadius * interactionRadius
@@ -238,8 +267,8 @@ export default function ProjectPointCloud({
             const force = ease * maxDisplacement * interactionStrength
             const nx = dx / dist
             const ny = dy / dist
-            p.vx += nx * force * 0.25
-            p.vy += ny * force * 0.25
+            p.vx += nx * force * 0.25 + pointerVelocityX * VELOCITY_INFLUENCE * ease
+            p.vy += ny * force * 0.25 + pointerVelocityY * VELOCITY_INFLUENCE * ease
           }
         }
 
@@ -309,6 +338,7 @@ export default function ProjectPointCloud({
 
     return () => {
       cancelAnimationFrame(raf)
+      card!.style.transform = ''
       if (interactionEnabled) {
         card.removeEventListener('pointermove', onPointerMove)
         card.removeEventListener('pointerleave', onPointerLeave)
