@@ -39,16 +39,19 @@ function HeroStatic() {
           <div className="baza__interactive-layer">
             <ProjectPointCloud
               imageSrc="/hero/nasha-baza.png"
-              sampling={8}
+              sampling={6}
               particleRadius={0.65}
-              baseAlpha={0.06}
+              baseAlpha={0}
               crop={{ mode: 'coverFit', objectPositionPercent: 52 }}
-              interactionRadius={100}
-              maxDisplacement={10}
-              returnDamping={0.065}
-              activeAlpha={0.55}
-              activeRadius={0.85}
-              interactionStrength={0.6}
+              interactionRadius={125}
+              maxDisplacement={20}
+              returnDamping={0.07}
+              activeAlpha={0.90}
+              activeRadius={1.08}
+              interactionStrength={0.78}
+              tintColor="#D58A5C"
+              tintStrength={0.38}
+              velocityInfluence={0.14}
             />
           </div>
         </div>

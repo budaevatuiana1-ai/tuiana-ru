@@ -35,6 +35,7 @@ interface ProjectPointCloudProps {
   interactionStrength?: number
   tintColor?: string
   tintStrength?: number
+  velocityInfluence?: number
 }
 
 function drawImageWithCrop(
@@ -90,6 +91,7 @@ export default function ProjectPointCloud({
   interactionStrength = 1,
   tintColor,
   tintStrength = 0,
+  velocityInfluence = 0.3,
 }: ProjectPointCloudProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -132,7 +134,6 @@ export default function ProjectPointCloud({
     let pointerVelocityY = 0
     const VELOCITY_DECAY = 0.88
     const VELOCITY_MAX = 18
-    const VELOCITY_INFLUENCE = 0.3
 
     function onPointerMove(e: PointerEvent) {
       if (!mouseActive) {
@@ -267,8 +268,8 @@ export default function ProjectPointCloud({
             const force = ease * maxDisplacement * interactionStrength
             const nx = dx / dist
             const ny = dy / dist
-            p.vx += nx * force * 0.25 + pointerVelocityX * VELOCITY_INFLUENCE * ease
-            p.vy += ny * force * 0.25 + pointerVelocityY * VELOCITY_INFLUENCE * ease
+            p.vx += nx * force * 0.25 + pointerVelocityX * velocityInfluence * ease
+            p.vy += ny * force * 0.25 + pointerVelocityY * velocityInfluence * ease
           }
         }
 
