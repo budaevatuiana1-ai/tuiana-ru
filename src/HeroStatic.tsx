@@ -10,7 +10,10 @@ function HeroStatic() {
       <HeroCursor />
       <HeroParticleField />
       <header className="hero__head">
-        <p className="hero__tag">WEB DESIGN · AI · DIGITAL EXPERIENCES</p>
+        <p className="hero__tag">
+          <span className="hero__tag-mark" />
+          WEB DESIGN · AI · DIGITAL EXPERIENCES
+        </p>
         <h1 className="hero__wordmark">TUIANA DESIGN</h1>
       </header>
       <div className="hero__projects">

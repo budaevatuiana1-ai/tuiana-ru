@@ -61,6 +61,26 @@
   font-weight: 500;
   letter-spacing: 0.26em;
   color: rgba(247, 243, 238, 0.55);
+  display: flex;
+  align-items: center;
+}
+
+.hero__tag-mark {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  margin-right: 14px;
+  background-color: #F7F3EE;
+  -webkit-mask-image: url('/hero/tuiana-mark.png');
+  mask-image: url('/hero/tuiana-mark.png');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  opacity: 0.88;
 }
 
 .hero__wordmark {
