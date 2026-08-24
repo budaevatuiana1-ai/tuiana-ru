@@ -43,6 +43,7 @@ export default function ApproachSystemTransition({ approach, system }: Props) {
     }
 
     function apply() {
+      if (!depthEl || !systemEl) return
       const p = renderProgress
       const eased = p * p * (3 - 2 * p)
 
@@ -68,6 +69,7 @@ export default function ApproachSystemTransition({ approach, system }: Props) {
     }
 
     function tick() {
+      if (!scrollEl) return
       const rect = scrollEl.getBoundingClientRect()
       const distance = scrollEl.offsetHeight - window.innerHeight
       if (distance <= 0) return
