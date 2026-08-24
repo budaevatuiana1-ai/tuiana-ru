@@ -1,0 +1,95 @@
+.dari-case {
+  position: relative;
+  background-color: #F5F0EB;
+  padding: clamp(80px, 10vh, 160px) 4vw clamp(80px, 8vh, 120px);
+  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  color: #181C20;
+  box-sizing: border-box;
+}
+
+.dari-case__inner {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.42fr) minmax(480px, 0.58fr);
+  gap: clamp(40px, 5vw, 100px);
+  align-items: start;
+}
+
+.dari-case__text {
+  position: sticky;
+  top: clamp(80px, 8vh, 120px);
+}
+
+.dari-case__eyebrow {
+  margin: 0 0 clamp(20px, 2.5vh, 40px);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.45);
+}
+
+.dari-case__title {
+  margin: 0 0 clamp(16px, 2vh, 32px);
+  font-size: clamp(72px, 8vw, 160px);
+  line-height: 0.88;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #181C20;
+}
+
+.dari-case__subtitle {
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  font-size: clamp(18px, 1.6vw, 26px);
+  line-height: 1.35;
+  font-weight: 500;
+  color: #181C20;
+}
+
+.dari-case__desc {
+  margin: 0 0 clamp(32px, 4vh, 56px);
+  font-size: clamp(15px, 1.15vw, 19px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+  max-width: 480px;
+}
+
+.dari-case__meta {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.36);
+}
+
+.dari-case__visual {
+  width: 100%;
+}
+
+.dari-case__screenshot {
+  display: block;
+  width: 112%;
+  margin-left: -12%;
+  height: auto;
+  border-radius: 12px;
+}
+
+@media (max-width: 900px) {
+  .dari-case__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .dari-case__text {
+    position: static;
+  }
+
+  .dari-case__title {
+    font-size: clamp(56px, 14vw, 96px);
+  }
+
+  .dari-case__screenshot {
+    width: 100%;
+    margin-left: 0;
+  }
+}

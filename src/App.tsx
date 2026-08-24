@@ -2,6 +2,7 @@ import HeroStatic from './HeroStatic'
 import ApproachSystemTransition from './ApproachSystemTransition'
 import ApproachSection from './ApproachSection'
 import SystemSection from './SystemSection'
+import DariCaseIntro from './DariCaseIntro'
 import useSmoothScroll from './hooks/useSmoothScroll'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         approach={<ApproachSection />}
         system={<SystemSection />}
       />
+      <DariCaseIntro />
     </>
   )
 }
