@@ -12,6 +12,18 @@ function HomePage() {
   const lenisRef = useSmoothScroll()
 
   useEffect(() => {
+    const savedY = sessionStorage.getItem('tuiana-case-return-scroll')
+    if (savedY !== null) {
+      sessionStorage.removeItem('tuiana-case-return-scroll')
+      const y = Number(savedY) || 0
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(y, { immediate: true })
+      } else {
+        window.scrollTo({ top: y, behavior: 'auto' })
+      }
+      return
+    }
+
     const hash = window.location.hash
     if (!hash) return
     const el = document.getElementById(hash.slice(1))
@@ -35,8 +47,8 @@ function HomePage() {
       <ApproachSystemTransition
         approach={<ApproachSection />}
         system={<SystemSection />}
+        dari={<DariCaseIntro />}
       />
-      <DariCaseIntro />
     </>
   )
 }

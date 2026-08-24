@@ -4,12 +4,14 @@ import './ApproachSystemTransition.css'
 interface Props {
   approach: ReactNode
   system: ReactNode
+  dari?: ReactNode
 }
 
-export default function ApproachSystemTransition({ approach, system }: Props) {
+export default function ApproachSystemTransition({ approach, system, dari }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const depthRef = useRef<HTMLDivElement>(null)
   const systemRef = useRef<HTMLDivElement>(null)
+  const dariRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -20,15 +22,22 @@ export default function ApproachSystemTransition({ approach, system }: Props) {
     const scrollEl = scrollRef.current
     const depthEl = depthRef.current
     const systemEl = systemRef.current
+    const dariEl = dariRef.current
     if (!scrollEl || !depthEl || !systemEl) return
 
-    let renderProgress = 0
-    let targetProgress = 0
+    let smoothScroll = 0
+    let targetScroll = 0
     let raf = 0
     let running = false
 
+    const approachDistance = window.innerHeight * 1.4
+
     function lerp(a: number, b: number, t: number) {
       return a + (b - a) * t
+    }
+
+    function clamp(v: number, min: number, max: number) {
+      return Math.max(min, Math.min(max, v))
     }
 
     function remapBlur(p: number) {
@@ -42,9 +51,11 @@ export default function ApproachSystemTransition({ approach, system }: Props) {
       return t * t * (3 - 2 * t)
     }
 
-    function apply() {
+    function apply(totalDistance: number) {
       if (!depthEl || !systemEl) return
-      const p = renderProgress
+
+      const approachProgress = clamp(smoothScroll / approachDistance, 0, 1)
+      const p = approachProgress
       const eased = p * p * (3 - 2 * p)
 
       const blurAmt = remapBlur(eased) * 8
@@ -52,7 +63,7 @@ export default function ApproachSystemTransition({ approach, system }: Props) {
       depthEl.style.transform = `scale(${1 - eased * 0.018})`
       depthEl.style.opacity = `${1 - eased * 0.15}`
 
-      const systemProgress = smoothstep(0.02, 0.90, renderProgress)
+      const systemProgress = smoothstep(0.02, 0.90, approachProgress)
       const systemY = (1 - systemProgress) * 100
       systemEl.style.transform = `translate3d(0, ${systemY}%, 0)`
 
@@ -66,23 +77,34 @@ export default function ApproachSystemTransition({ approach, system }: Props) {
 
       depthEl.style.pointerEvents = eased > 0.45 ? 'none' : 'auto'
       systemEl.style.pointerEvents = eased > 0.55 ? 'auto' : 'none'
+
+      if (dariEl) {
+        const dariDistance = Math.max(1, totalDistance - approachDistance)
+        const dariRaw = clamp((smoothScroll - approachDistance) / dariDistance, 0, 1)
+        const dariEased = dariRaw * dariRaw * (3 - 2 * dariRaw)
+        const dariX = (1 - dariEased) * 100
+        dariEl.style.transform = `translate3d(${dariX}%, 0, 0)`
+      }
     }
 
     function tick() {
       if (!scrollEl) return
       const rect = scrollEl.getBoundingClientRect()
-      const distance = scrollEl.offsetHeight - window.innerHeight
-      if (distance <= 0) return
+      const totalDistance = scrollEl.offsetHeight - window.innerHeight
+      if (totalDistance <= 0) return
 
-      targetProgress = Math.max(0, Math.min(1, -rect.top / distance))
-      renderProgress = lerp(renderProgress, targetProgress, 0.16)
+      const scrolledPx = clamp(-rect.top, 0, totalDistance)
+      targetScroll = scrolledPx
+      smoothScroll = lerp(smoothScroll, targetScroll, 0.16)
 
-      apply()
+      apply(totalDistance)
 
-      const settled = Math.abs(targetProgress - renderProgress) < 0.001
+      const settled = Math.abs(targetScroll - smoothScroll) < 0.5
       if (!settled) {
         raf = requestAnimationFrame(tick)
       } else {
+        smoothScroll = targetScroll
+        apply(totalDistance)
         running = false
       }
     }
@@ -96,6 +118,15 @@ export default function ApproachSystemTransition({ approach, system }: Props) {
 
     window.addEventListener('scroll', onScroll, { passive: true })
 
+    const initRect = scrollEl.getBoundingClientRect()
+    const initTotal = scrollEl.offsetHeight - window.innerHeight
+    if (initTotal > 0) {
+      const initScrolled = clamp(-initRect.top, 0, initTotal)
+      smoothScroll = initScrolled
+      targetScroll = initScrolled
+      apply(initTotal)
+    }
+
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('scroll', onScroll)
@@ -107,11 +138,12 @@ export default function ApproachSystemTransition({ approach, system }: Props) {
       systemEl.style.borderRadius = ''
       systemEl.style.boxShadow = ''
       systemEl.style.pointerEvents = ''
+      if (dariEl) dariEl.style.transform = ''
     }
   }, [])
 
   return (
-    <div ref={scrollRef} className="ats-scroll">
+    <div ref={scrollRef} className="ats-scroll" id="portfolio-scroll-scene">
       <div className="ats-stage">
         <div className="ats-layer ats-layer--approach">
           <div ref={depthRef} className="ats-approach-depth">
@@ -120,6 +152,9 @@ export default function ApproachSystemTransition({ approach, system }: Props) {
         </div>
         <div ref={systemRef} className="ats-layer ats-layer--system">
           {system}
+        </div>
+        <div ref={dariRef} className="sd-dari">
+          {dari}
         </div>
       </div>
     </div>

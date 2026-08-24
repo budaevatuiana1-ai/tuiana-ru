@@ -7,7 +7,7 @@ export default function DariCasePage() {
       <p className="dari-page__eyebrow">CASE / DARI</p>
       <h1 className="dari-page__title">DARI</h1>
       <p className="dari-page__status">Case study in progress</p>
-      <CtaButton to="/#dari-case" arrow={false}>
+      <CtaButton to="/" arrow={false}>
         ← Вернуться к DARI
       </CtaButton>
     </section>
