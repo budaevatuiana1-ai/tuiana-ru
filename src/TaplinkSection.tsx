@@ -3,25 +3,23 @@ import './TaplinkSection.css'
 import { ruTypo } from './lib/typography'
 
 const LEFT_IMGS = [
-  { src: '/taplink/kholodova.png', alt: 'Анна Холодова — мини-сайт' },
-  { src: '/taplink/psychologist.png', alt: 'Анна Холодова — психолог' },
-  { src: '/taplink/license.png', alt: 'Светлана Галущенко — лицензия' },
-  { src: '/taplink/stepanova.png', alt: 'Любовь Степанова — мини-сайт' },
+  { src: '/taplink/kholodova.png', alt: 'Анна Холодова — мини-сайт', role: 'm' },
+  { src: '/taplink/psychologist.png', alt: 'Анна Холодова — психолог', role: 'd' },
+  { src: '/taplink/stepanova.png', alt: 'Любовь Степанова — мини-сайт', role: 'm' },
+  { src: '/taplink/consultation.png', alt: 'Любовь Степанова — консультация', role: 'd' },
 ]
 
 const RIGHT_IMGS = [
-  { src: '/taplink/panferova.png', alt: 'Анна Панферова — мини-сайт' },
-  { src: '/taplink/course.png', alt: 'Анна Панферова — курс' },
-  { src: '/taplink/galushchenko.png', alt: 'Светлана Галущенко — мини-сайт' },
-  { src: '/taplink/consultation.png', alt: 'Любовь Степанова — консультация' },
+  { src: '/taplink/panferova.png', alt: 'Анна Панферова — мини-сайт', role: 'f' },
+  { src: '/taplink/course.png', alt: 'Анна Панферова — курс', role: 'd' },
+  { src: '/taplink/galushchenko.png', alt: 'Светлана Галущенко — мини-сайт', role: 'm' },
+  { src: '/taplink/license.png', alt: 'Светлана Галущенко — лицензия', role: 'd' },
 ]
 
 export default function TaplinkSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const leftRef = useRef<HTMLDivElement>(null)
   const rightRef = useRef<HTMLDivElement>(null)
-  const rafRef = useRef(0)
-  const smoothRef = useRef(0)
 
   useEffect(() => {
     const isDesktop = window.matchMedia(
@@ -30,53 +28,59 @@ export default function TaplinkSection() {
     if (!isDesktop) return
 
     const section = sectionRef.current
-    const leftCol = leftRef.current
-    const rightCol = rightRef.current
-    if (!section || !leftCol || !rightCol) return
+    const leftFlow = leftRef.current
+    const rightFlow = rightRef.current
+    if (!section || !leftFlow || !rightFlow) return
+
+    let raf = 0
 
     function tick() {
-      const rect = section!.getBoundingClientRect()
-      const sectionH = section!.offsetHeight
+      if (!section || !leftFlow || !rightFlow) return
+      const rect = section.getBoundingClientRect()
       const vh = window.innerHeight
-      const scrollable = sectionH - vh
-      if (scrollable <= 0) return
 
-      const progress = Math.max(0, Math.min(1, -rect.top / scrollable))
-      const target = progress
+      if (rect.bottom < 0 || rect.top > vh) {
+        raf = requestAnimationFrame(tick)
+        return
+      }
 
-      smoothRef.current += (target - smoothRef.current) * 0.08
+      const scrollDelta = -rect.top
+      if (scrollDelta <= 0) {
+        raf = requestAnimationFrame(tick)
+        return
+      }
 
-      const p = smoothRef.current
-      const leftY = -p * 120
-      const rightY = -p * 60
+      const leftY = scrollDelta * 0.10
+      const rightY = -scrollDelta * 0.08
 
-      leftCol!.style.transform = `translate3d(0, ${leftY}vh, 0)`
-      rightCol!.style.transform = `translate3d(0, ${rightY}vh, 0)`
+      leftFlow.style.transform = `translate3d(0, ${leftY}px, 0)`
+      rightFlow.style.transform = `translate3d(0, ${rightY}px, 0)`
 
-      rafRef.current = requestAnimationFrame(tick)
+      raf = requestAnimationFrame(tick)
     }
 
-    rafRef.current = requestAnimationFrame(tick)
+    raf = requestAnimationFrame(tick)
 
     return () => {
-      cancelAnimationFrame(rafRef.current)
-      leftCol.style.transform = ''
-      rightCol.style.transform = ''
+      cancelAnimationFrame(raf)
+      if (leftFlow) leftFlow.style.transform = ''
+      if (rightFlow) rightFlow.style.transform = ''
     }
   }, [])
 
   return (
     <section className="taplink" ref={sectionRef}>
-      <div className="taplink__viewport">
-        <div className="taplink__col taplink__col--left" ref={leftRef}>
+      <div className="taplink__layout">
+        <div className="taplink__flow taplink__flow--left" ref={leftRef}>
           {LEFT_IMGS.map((img) => (
-            <div className="taplink__card" key={img.src}>
+            <div
+              className={`taplink__card taplink__card--${img.role}`}
+              key={img.src}
+            >
               <div className="taplink__frame">
                 <img
                   src={img.src}
                   alt={ruTypo(img.alt)}
-                  width="260"
-                  height="520"
                   draggable={false}
                 />
               </div>
@@ -85,38 +89,41 @@ export default function TaplinkSection() {
         </div>
 
         <div className="taplink__center">
-          <div className="taplink__text">
-            <p className="taplink__eyebrow">
-              МИНИ-САЙТЫ /{' '}
-              <span className="taplink__eyebrow-accent">TAPLINK</span>
-            </p>
-            <h2 className="taplink__title">
-              {ruTypo('Мини-сайты')}
-              <br />
-              {ruTypo('для экспертов')}
-            </h2>
-            <p className="taplink__desc">
-              {ruTypo(
-                'Несколько проектов для врачей, психологов и специалистов с частной практикой. Разные ниши, разные задачи, одна логика — собрать всё важное в понятную точку входа: услуги, доверие, запись.'
-              )}
-            </p>
-            <p className="taplink__sub">
-              {ruTypo(
-                'Подходят, когда нужен аккуратный mobile-first формат: быстро показать экспертность, объяснить услуги и привести человека к записи.'
-              )}
-            </p>
+          <div className="taplink__center-inner">
+            <div className="taplink__text">
+              <p className="taplink__eyebrow">
+                МИНИ-САЙТЫ /{' '}
+                <span className="taplink__eyebrow-accent">TAPLINK</span>
+              </p>
+              <h2 className="taplink__title">
+                {ruTypo('Мини-сайты')}
+                <br />
+                {ruTypo('для экспертов')}
+              </h2>
+              <p className="taplink__desc">
+                {ruTypo(
+                  'Несколько проектов для врачей, психологов и специалистов с частной практикой. Разные ниши, разные задачи, одна логика — собрать всё важное в понятную точку входа: услуги, доверие, запись.'
+                )}
+              </p>
+              <p className="taplink__sub">
+                {ruTypo(
+                  'Подходят, когда нужен аккуратный mobile-first формат: быстро показать экспертность, объяснить услуги и привести человека к записи.'
+                )}
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="taplink__col taplink__col--right" ref={rightRef}>
+        <div className="taplink__flow taplink__flow--right" ref={rightRef}>
           {RIGHT_IMGS.map((img) => (
-            <div className="taplink__card" key={img.src}>
+            <div
+              className={`taplink__card taplink__card--${img.role}`}
+              key={img.src}
+            >
               <div className="taplink__frame">
                 <img
                   src={img.src}
                   alt={ruTypo(img.alt)}
-                  width="260"
-                  height="520"
                   draggable={false}
                 />
               </div>
