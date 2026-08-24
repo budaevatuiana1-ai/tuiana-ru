@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import './TaplinkSection.css'
 import { ruTypo } from './lib/typography'
+import TaplinkDotField from './TaplinkDotField'
 
 const LEFT_IMGS = [
   { src: '/taplink/kholodova.png', alt: 'Анна Холодова — мини-сайт', role: 'm' },
@@ -70,6 +71,7 @@ export default function TaplinkSection() {
 
   return (
     <section className="taplink" ref={sectionRef}>
+      <TaplinkDotField />
       <div className="taplink__layout">
         <div className="taplink__flow taplink__flow--left" ref={leftRef}>
           {LEFT_IMGS.map((img) => (
