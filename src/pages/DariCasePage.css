@@ -1,0 +1,40 @@
+.dari-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 4vw;
+  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  color: #181C20;
+  background-color: #F5F0EB;
+}
+
+.dari-page__eyebrow {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.45);
+}
+
+.dari-page__title {
+  margin: 0;
+  font-size: clamp(72px, 8vw, 160px);
+  line-height: 0.88;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #181C20;
+}
+
+.dari-page__status {
+  margin: 0;
+  font-size: 16px;
+  color: rgba(24, 28, 32, 0.5);
+}
+
+.dari-page .cta-button {
+  margin-top: 40px;
+}

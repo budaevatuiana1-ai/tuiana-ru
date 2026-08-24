@@ -62,8 +62,14 @@
   color: rgba(24, 28, 32, 0.36);
 }
 
+.dari-case .cta-button {
+  margin-top: clamp(24px, 3vh, 40px);
+}
+
 .dari-case__visual {
+  display: block;
   width: 100%;
+  text-decoration: none;
 }
 
 .dari-case__screenshot {

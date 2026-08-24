@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom'
 import './DariCaseIntro.css'
 import { ruTypo } from './lib/typography'
+import CtaButton from './CtaButton'
 
 export default function DariCaseIntro() {
   return (
-    <section className="dari-case">
+    <section id="dari-case" className="dari-case">
       <div className="dari-case__inner">
         <div className="dari-case__text">
           <p className="dari-case__eyebrow">SELECTED CASE / 01</p>
@@ -19,8 +21,9 @@ export default function DariCaseIntro() {
           <p className="dari-case__meta">
             UX / STRUCTURE / COPY / DESIGN / DEVELOPMENT / LEGAL
           </p>
+          <CtaButton to="/projects/dari">Смотреть кейс</CtaButton>
         </div>
-        <div className="dari-case__visual">
+        <Link to="/projects/dari" className="dari-case__visual">
           <img
             className="dari-case__screenshot"
             src="/dari-hero.png"
@@ -28,7 +31,7 @@ export default function DariCaseIntro() {
             width="1920"
             height="1080"
           />
-        </div>
+        </Link>
       </div>
     </section>
   )
