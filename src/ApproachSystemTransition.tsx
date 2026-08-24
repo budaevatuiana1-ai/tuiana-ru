@@ -5,13 +5,15 @@ interface Props {
   approach: ReactNode
   system: ReactNode
   dari?: ReactNode
+  baza?: ReactNode
 }
 
-export default function ApproachSystemTransition({ approach, system, dari }: Props) {
+export default function ApproachSystemTransition({ approach, system, dari, baza }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const depthRef = useRef<HTMLDivElement>(null)
   const systemRef = useRef<HTMLDivElement>(null)
   const dariRef = useRef<HTMLDivElement>(null)
+  const bazaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -23,6 +25,7 @@ export default function ApproachSystemTransition({ approach, system, dari }: Pro
     const depthEl = depthRef.current
     const systemEl = systemRef.current
     const dariEl = dariRef.current
+    const bazaEl = bazaRef.current
     if (!scrollEl || !depthEl || !systemEl) return
 
     let smoothScroll = 0
@@ -31,6 +34,9 @@ export default function ApproachSystemTransition({ approach, system, dari }: Pro
     let running = false
 
     const approachDistance = window.innerHeight * 1.4
+    const dariDistance = window.innerHeight * 1.1
+    const bazaStart = approachDistance + dariDistance
+    const bazaDistance = window.innerHeight * 1.1
 
     function lerp(a: number, b: number, t: number) {
       return a + (b - a) * t
@@ -51,7 +57,7 @@ export default function ApproachSystemTransition({ approach, system, dari }: Pro
       return t * t * (3 - 2 * t)
     }
 
-    function apply(totalDistance: number) {
+    function apply() {
       if (!depthEl || !systemEl) return
 
       const approachProgress = clamp(smoothScroll / approachDistance, 0, 1)
@@ -79,11 +85,17 @@ export default function ApproachSystemTransition({ approach, system, dari }: Pro
       systemEl.style.pointerEvents = eased > 0.55 ? 'auto' : 'none'
 
       if (dariEl) {
-        const dariDistance = Math.max(1, totalDistance - approachDistance)
         const dariRaw = clamp((smoothScroll - approachDistance) / dariDistance, 0, 1)
-        const dariEased = dariRaw * dariRaw * (3 - 2 * dariRaw)
+        const dariEased = dariRaw * dariRaw * (3 - dariRaw * 2)
         const dariX = (1 - dariEased) * 100
         dariEl.style.transform = `translate3d(${dariX}%, 0, 0)`
+      }
+
+      if (bazaEl) {
+        const bazaRaw = clamp((smoothScroll - bazaStart) / bazaDistance, 0, 1)
+        const bazaEased = bazaRaw * bazaRaw * (3 - bazaRaw * 2)
+        const bazaX = (1 - bazaEased) * 100
+        bazaEl.style.transform = `translate3d(${bazaX}%, 0, 0)`
       }
     }
 
@@ -97,14 +109,14 @@ export default function ApproachSystemTransition({ approach, system, dari }: Pro
       targetScroll = scrolledPx
       smoothScroll = lerp(smoothScroll, targetScroll, 0.16)
 
-      apply(totalDistance)
+      apply()
 
       const settled = Math.abs(targetScroll - smoothScroll) < 0.5
       if (!settled) {
         raf = requestAnimationFrame(tick)
       } else {
         smoothScroll = targetScroll
-        apply(totalDistance)
+        apply()
         running = false
       }
     }
@@ -124,7 +136,7 @@ export default function ApproachSystemTransition({ approach, system, dari }: Pro
       const initScrolled = clamp(-initRect.top, 0, initTotal)
       smoothScroll = initScrolled
       targetScroll = initScrolled
-      apply(initTotal)
+      apply()
     }
 
     return () => {
@@ -139,6 +151,7 @@ export default function ApproachSystemTransition({ approach, system, dari }: Pro
       systemEl.style.boxShadow = ''
       systemEl.style.pointerEvents = ''
       if (dariEl) dariEl.style.transform = ''
+      if (bazaEl) bazaEl.style.transform = ''
     }
   }, [])
 
@@ -155,6 +168,9 @@ export default function ApproachSystemTransition({ approach, system, dari }: Pro
         </div>
         <div ref={dariRef} className="sd-dari">
           {dari}
+        </div>
+        <div ref={bazaRef} className="sd-baza">
+          {baza}
         </div>
       </div>
     </div>

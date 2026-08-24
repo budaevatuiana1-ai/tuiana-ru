@@ -1,6 +1,6 @@
 .ats-scroll {
   position: relative;
-  height: 350vh;
+  height: 460vh;
 }
 
 .ats-stage {
@@ -33,6 +33,14 @@
   inset: 0;
   z-index: 10;
   background-color: #F5F0EB;
+  will-change: transform;
+}
+
+.sd-baza {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background-color: #EEF2F3;
   will-change: transform;
 }
 
@@ -87,6 +95,14 @@
     background: transparent;
     will-change: auto;
   }
+
+  .sd-baza {
+    position: relative;
+    inset: auto;
+    z-index: auto;
+    background: transparent;
+    will-change: auto;
+  }
 }
 
 @media (hover: none) and (pointer: coarse) {
@@ -124,6 +140,14 @@
   }
 
   .sd-dari {
+    position: relative;
+    inset: auto;
+    z-index: auto;
+    background: transparent;
+    will-change: auto;
+  }
+
+  .sd-baza {
     position: relative;
     inset: auto;
     z-index: auto;
@@ -169,6 +193,14 @@
   }
 
   .sd-dari {
+    position: relative;
+    inset: auto;
+    z-index: auto;
+    background: transparent;
+    will-change: auto;
+  }
+
+  .sd-baza {
     position: relative;
     inset: auto;
     z-index: auto;

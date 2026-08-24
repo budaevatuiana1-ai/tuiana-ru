@@ -5,23 +5,33 @@ import ApproachSystemTransition from './ApproachSystemTransition'
 import ApproachSection from './ApproachSection'
 import SystemSection from './SystemSection'
 import DariCaseIntro from './DariCaseIntro'
+import BazaCaseIntro from './BazaCaseIntro'
+import TaplinkSection from './TaplinkSection'
 import DariCasePage from './pages/DariCasePage'
+import BazaCasePage from './pages/BazaCasePage'
 import useSmoothScroll from './hooks/useSmoothScroll'
+
+const RETURN_KEYS = [
+  'tuiana-case-return-scroll',
+  'tuiana-baza-return-scroll',
+]
 
 function HomePage() {
   const lenisRef = useSmoothScroll()
 
   useEffect(() => {
-    const savedY = sessionStorage.getItem('tuiana-case-return-scroll')
-    if (savedY !== null) {
-      sessionStorage.removeItem('tuiana-case-return-scroll')
-      const y = Number(savedY) || 0
-      if (lenisRef.current) {
-        lenisRef.current.scrollTo(y, { immediate: true })
-      } else {
-        window.scrollTo({ top: y, behavior: 'auto' })
+    for (const key of RETURN_KEYS) {
+      const saved = sessionStorage.getItem(key)
+      if (saved !== null) {
+        sessionStorage.removeItem(key)
+        const y = Number(saved) || 0
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(y, { immediate: true })
+        } else {
+          window.scrollTo({ top: y, behavior: 'auto' })
+        }
+        return
       }
-      return
     }
 
     const hash = window.location.hash
@@ -48,7 +58,9 @@ function HomePage() {
         approach={<ApproachSection />}
         system={<SystemSection />}
         dari={<DariCaseIntro />}
+        baza={<BazaCaseIntro />}
       />
+      <TaplinkSection />
     </>
   )
 }
@@ -58,6 +70,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/projects/dari" element={<DariCasePage />} />
+      <Route path="/projects/baza" element={<BazaCasePage />} />
     </Routes>
   )
 }

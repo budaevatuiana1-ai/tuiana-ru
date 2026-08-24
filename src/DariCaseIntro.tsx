@@ -9,7 +9,9 @@ export default function DariCaseIntro() {
       <div className="dari-case__main" id="dari-case-content">
         <div className="dari-case__inner">
           <div className="dari-case__text">
-            <p className="dari-case__eyebrow">SELECTED CASE / 01</p>
+            <p className="dari-case__eyebrow">
+              КЕЙС / <span className="dari-case__eyebrow-accent">01</span>
+            </p>
             <h2 className="dari-case__title">DARI</h2>
             <p className="dari-case__subtitle">
               {ruTypo('Многостраничный сайт медицинской клиники')}
@@ -46,33 +48,33 @@ export default function DariCaseIntro() {
         </div>
       </div>
 
-      <div className="dari-case__facts">
-        <div className="dari-case__facts-line" />
-        <div className="dari-case__facts-grid">
-          <div className="dari-case__fact">
-            <p className="dari-case__fact-label">
-              <span className="dari-case__fact-num">01</span>{' '}
+      <div className="sd-facts">
+        <div className="sd-facts__line" />
+        <div className="sd-facts__grid">
+          <div className="sd-facts__item">
+            <p className="sd-facts__label">
+              <span className="sd-facts__num">01</span>{' '}
               /&nbsp;АРХИТЕКТУРА
             </p>
-            <p className="dari-case__fact-text">
+            <p className="sd-facts__text">
               Услуги · специалисты · цены · БАДы
             </p>
           </div>
-          <div className="dari-case__fact">
-            <p className="dari-case__fact-label">
-              <span className="dari-case__fact-num">02</span>{' '}
+          <div className="sd-facts__item">
+            <p className="sd-facts__label">
+              <span className="sd-facts__num">02</span>{' '}
               /&nbsp;LEGAL
             </p>
-            <p className="dari-case__fact-text">
+            <p className="sd-facts__text">
               Лицензия · согласия · документы
             </p>
           </div>
-          <div className="dari-case__fact">
-            <p className="dari-case__fact-label">
-              <span className="dari-case__fact-num">03</span>{' '}
+          <div className="sd-facts__item">
+            <p className="sd-facts__label">
+              <span className="sd-facts__num">03</span>{' '}
               /&nbsp;ЗАПУСК
             </p>
-            <p className="dari-case__fact-text">
+            <p className="sd-facts__text">
               Адаптив · формы · рабочий сайт
             </p>
           </div>
