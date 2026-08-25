@@ -1,0 +1,39 @@
+.global-cursor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.global-cursor__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #D58A5C;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 120ms ease-out;
+}
+
+.global-cursor__glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(213, 138, 92, 0.28) 0%, rgba(213, 138, 92, 0) 70%);
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 120ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .global-cursor__dot,
+  .global-cursor__glow {
+    transition: none;
+  }
+}

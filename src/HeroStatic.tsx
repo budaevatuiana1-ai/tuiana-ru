@@ -3,7 +3,6 @@ import './HeroStatic.css'
 import { ruTypo } from './lib/typography'
 import ProjectPointCloud from './ProjectPointCloud'
 import HeroParticleField from './HeroParticleField'
-import HeroCursor from './HeroCursor'
 
 function HeroStatic() {
   const [introReady, setIntroReady] = useState(false)
@@ -15,7 +14,6 @@ function HeroStatic() {
 
   return (
     <section className={`hero${introReady ? ' hero--intro-ready' : ''}`}>
-      <HeroCursor />
       <HeroParticleField />
       <header className="hero__head">
         <p className="hero__tag hero__intro-item hero__intro-item--tag">

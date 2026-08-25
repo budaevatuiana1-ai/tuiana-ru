@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useInView } from './hooks/useInView'
 import { ruTypo } from './lib/typography'
 import './ServicesSection.css'
@@ -50,41 +50,9 @@ const services = [
 
 export default function ServicesSection() {
   const { ref, inView } = useInView(0.1)
-  const timers = useRef<Map<HTMLElement, ReturnType<typeof setTimeout>>>(new Map())
 
   const onEnter = useCallback((e: React.PointerEvent<HTMLElement>) => {
-    const card = e.currentTarget
-    const pending = timers.current.get(card)
-    if (pending) {
-      clearTimeout(pending)
-      timers.current.delete(card)
-    }
-
-    // Instant graphite background via inline style
-    card.style.backgroundColor = '#2F3438'
-    card.style.transitionProperty = 'transform, border-color, box-shadow'
-    card.classList.add('is-bg-active')
-    card.classList.remove('is-text-active')
-    card.classList.remove('is-dots-active')
-    card.classList.remove('is-spotlight-ready')
-
-    // Text: 100ms
-    const tText = setTimeout(() => {
-      card.classList.add('is-text-active')
-    }, 100)
-    timers.current.set(card, tText)
-
-    // Dots: 130ms
-    const tDots = setTimeout(() => {
-      card.classList.add('is-dots-active')
-    }, 130)
-    timers.current.set(card, tDots)
-
-    // Spotlight: 300ms
-    const tSpot = setTimeout(() => {
-      card.classList.add('is-spotlight-ready')
-    }, 300)
-    timers.current.set(card, tSpot)
+    e.currentTarget.classList.add('is-hovered')
   }, [])
 
   const onMove = useCallback((e: React.PointerEvent<HTMLElement>) => {
@@ -96,17 +64,7 @@ export default function ServicesSection() {
 
   const onLeave = useCallback((e: React.PointerEvent<HTMLElement>) => {
     const card = e.currentTarget
-    const pending = timers.current.get(card)
-    if (pending) {
-      clearTimeout(pending)
-      timers.current.delete(card)
-    }
-    card.classList.remove('is-spotlight-ready')
-    card.classList.remove('is-dots-active')
-    card.classList.remove('is-text-active')
-    card.classList.remove('is-bg-active')
-    card.style.removeProperty('background-color')
-    card.style.removeProperty('transition-property')
+    card.classList.remove('is-hovered')
     card.style.removeProperty('--mx')
     card.style.removeProperty('--my')
   }, [])
@@ -133,11 +91,10 @@ export default function ServicesSection() {
       </div>
 
       <div className="services__grid">
-        {services.map((s, i) => (
+        {services.map((s) => (
           <article
             key={s.num}
             className="services__card"
-            style={{ transitionDelay: `${180 + i * 80}ms` }}
             onPointerEnter={onEnter}
             onPointerMove={onMove}
             onPointerLeave={onLeave}

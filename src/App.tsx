@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
+import GlobalCursor from './GlobalCursor'
 import HeroStatic from './HeroStatic'
 import ApproachSystemTransition from './ApproachSystemTransition'
 import ApproachSection from './ApproachSection'
@@ -9,6 +10,8 @@ import BazaCaseIntro from './BazaCaseIntro'
 import TaplinkSection from './TaplinkSection'
 import ServicesSection from './ServicesSection'
 import ProcessSection from './ProcessSection'
+import AboutSection from './AboutSection'
+import ProcessAboutTransition from './ProcessAboutTransition'
 import DariCasePage from './pages/DariCasePage'
 import BazaCasePage from './pages/BazaCasePage'
 import useSmoothScroll from './hooks/useSmoothScroll'
@@ -55,6 +58,7 @@ function HomePage() {
 
   return (
     <>
+      <GlobalCursor />
       <HeroStatic />
       <ApproachSystemTransition
         approach={<ApproachSection />}
@@ -64,7 +68,10 @@ function HomePage() {
       />
       <TaplinkSection />
       <ServicesSection />
-      <ProcessSection />
+      <ProcessAboutTransition
+        process={<ProcessSection />}
+        about={<AboutSection />}
+      />
     </>
   )
 }

@@ -1,0 +1,146 @@
+.pa-scroll {
+  position: relative;
+  height: 240vh;
+}
+
+.pa-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.pa-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.pa-layer--process {
+  z-index: 1;
+}
+
+.pa-layer--about {
+  z-index: 2;
+  overflow: visible;
+  will-change: transform;
+}
+
+.pa-process-depth {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  will-change: transform, filter, opacity;
+  backface-visibility: hidden;
+}
+
+/* ---- mobile / tablet: no transition ---- */
+
+@media (max-width: 1100px) {
+  .pa-scroll {
+    height: auto;
+  }
+
+  .pa-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    isolation: auto;
+  }
+
+  .pa-layer {
+    position: relative;
+    inset: auto;
+    overflow: visible;
+  }
+
+  .pa-layer--process,
+  .pa-layer--about {
+    z-index: auto;
+  }
+
+  .pa-layer--about {
+    transform: none;
+    will-change: auto;
+    overflow: visible;
+  }
+
+  .pa-process-depth {
+    will-change: auto;
+    backface-visibility: auto;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .pa-scroll {
+    height: auto;
+  }
+
+  .pa-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    isolation: auto;
+  }
+
+  .pa-layer {
+    position: relative;
+    inset: auto;
+    overflow: visible;
+  }
+
+  .pa-layer--process,
+  .pa-layer--about {
+    z-index: auto;
+  }
+
+  .pa-layer--about {
+    transform: none;
+    will-change: auto;
+    overflow: visible;
+  }
+
+  .pa-process-depth {
+    will-change: auto;
+    backface-visibility: auto;
+  }
+}
+
+/* ---- reduced motion: no transition ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-scroll {
+    height: auto;
+  }
+
+  .pa-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    isolation: auto;
+  }
+
+  .pa-layer {
+    position: relative;
+    inset: auto;
+    overflow: visible;
+  }
+
+  .pa-layer--process,
+  .pa-layer--about {
+    z-index: auto;
+  }
+
+  .pa-layer--about {
+    transform: none;
+    will-change: auto;
+    overflow: visible;
+  }
+
+  .pa-process-depth {
+    will-change: auto;
+    backface-visibility: auto;
+  }
+}

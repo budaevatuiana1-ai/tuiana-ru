@@ -27,6 +27,7 @@ interface ProjectPointCloudProps {
   baseAlpha: number
   crop: CropConfig
   className?: string
+  containerSelector?: string
   interactionRadius?: number
   maxDisplacement?: number
   returnDamping?: number
@@ -83,6 +84,7 @@ export default function ProjectPointCloud({
   baseAlpha,
   crop,
   className,
+  containerSelector = '.hero__screen',
   interactionRadius = 0,
   maxDisplacement = 0,
   returnDamping = 0.08,
@@ -106,7 +108,7 @@ export default function ProjectPointCloud({
     const isTouch = 'ontouchstart' in window
     const interactionEnabled = interactionRadius > 0 && !prefersReduced && !isTouch
 
-    const card = canvas.closest('.hero__screen') as HTMLElement | null
+    const card = canvas.closest(containerSelector) as HTMLElement | null
     if (!card) return
 
     let tintR = 0, tintG = 0, tintB = 0
@@ -390,6 +392,7 @@ export default function ProjectPointCloud({
     particleRadius,
     baseAlpha,
     crop,
+    containerSelector,
     interactionRadius,
     maxDisplacement,
     returnDamping,

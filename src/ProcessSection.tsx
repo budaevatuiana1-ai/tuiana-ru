@@ -1,5 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
-import { ruTypo } from './lib/typography'
+import { useState } from 'react'
 import './ProcessSection.css'
 
 const steps = [
@@ -31,101 +30,44 @@ const steps = [
 ]
 
 export default function ProcessSection() {
-  const [activeStep, setActiveStep] = useState(0)
-  const [progress, setProgress] = useState(0)
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([])
-  const sectionEl = useRef<HTMLElement | null>(null)
-
-  const setStepRef = useCallback((index: number) => (el: HTMLDivElement | null) => {
-    stepRefs.current[index] = el
-  }, [])
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = []
-
-    stepRefs.current.forEach((el, i) => {
-      if (!el) return
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveStep(i)
-          }
-        },
-        {
-          rootMargin: '-35% 0px -55% 0px',
-          threshold: 0,
-        }
-      )
-      observer.observe(el)
-      observers.push(observer)
-    })
-
-    return () => observers.forEach(o => o.disconnect())
-  }, [])
-
-  useEffect(() => {
-    const onScroll = () => {
-      const section = sectionEl.current
-      if (!section) return
-
-      const rect = section.getBoundingClientRect()
-      const sectionTop = -rect.top
-      const sectionHeight = rect.height - window.innerHeight
-      const raw = sectionTop / sectionHeight
-      setProgress(Math.min(1, Math.max(0, raw)))
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const [activeRow, setActiveRow] = useState<number | null>(null)
 
   return (
-    <section
-      ref={sectionEl}
-      className="process"
-    >
+    <section className="process">
       <div className="process__layout">
         <div className="process__left">
-          <div className="process__sticky">
-            <div className="process__eyebrow">
-              ПРОЦЕСС <span className="process__eyebrow-num">/ 05</span>
-            </div>
-
-            <h2 className="process__title">
-              От задачи —<br />
-              к&nbsp;работающему проекту
-            </h2>
-
-            <p className="process__intro">
-              {ruTypo('Сначала разбираюсь в задаче и логике проекта. Потом — структура, тексты, визуальная система и только после этого дизайн и запуск.')}
-            </p>
+          <div className="process__eyebrow">
+            ПРОЦЕСС <span className="process__eyebrow-num">/ 05</span>
           </div>
+
+          <h2 className="process__title">
+            От задачи —<br />
+            к&nbsp;работающему <span className="process__title-accent">проекту</span>
+          </h2>
+
+          <p className="process__intro">
+            Сначала разбираюсь в задаче и логике проекта. Потом — структура, тексты, визуальная система и только после этого дизайн и запуск.
+          </p>
         </div>
 
         <div className="process__right">
-          <div className="process__track">
-            <div
-              className="process__track-fill"
-              style={{ '--progress': progress } as React.CSSProperties}
-            />
-
+          <div className="process__list">
             {steps.map((step, i) => (
               <div
                 key={step.num}
-                ref={setStepRef(i)}
-                className={`process__step${activeStep === i ? ' process__step--active' : ''}`}
+                className={`process__row${activeRow === i ? ' process__row--active' : ''}${activeRow !== null && activeRow !== i ? ' process__row--dimmed' : ''}`}
+                onMouseEnter={() => setActiveRow(i)}
+                onMouseLeave={() => setActiveRow(null)}
               >
-                <div className="process__step-marker">
-                  <div className="process__step-dot" />
+                <div className="process__row-header">
+                  <span className="process__num">
+                    {step.num}
+                    <span className="process__num-dash" />
+                  </span>
+                  <h3 className="process__title-text">{step.title}</h3>
                 </div>
-
-                <div className="process__step-content">
-                  <span className="process__step-num">{step.num}</span>
-                  <h3 className="process__step-title">{ruTypo(step.title)}</h3>
-                  <p className="process__step-text">{ruTypo(step.text)}</p>
-                </div>
+                <p className="process__desc">{step.text}</p>
+                <span className="process__row-line" />
               </div>
             ))}
           </div>

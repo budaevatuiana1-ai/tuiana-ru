@@ -58,8 +58,8 @@
 /* ── Card base ─────────────────────────────── */
 
 .services__card {
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(47, 52, 56, 0.06);
+  background-color: #2F3438;
+  border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: 14px;
   padding: clamp(24px, 2.8vw, 36px);
   display: flex;
@@ -68,11 +68,14 @@
   overflow: hidden;
   opacity: 0;
   transform: translateY(16px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12);
   transition:
     opacity 640ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 640ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 200ms ease-out,
-    box-shadow 200ms ease-out;
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .services--in-view .services__card {
@@ -89,15 +92,13 @@
   border-radius: inherit;
   background-image: radial-gradient(
     circle,
-    rgba(247, 243, 238, 0.1) 1px,
+    rgba(247, 243, 238, 0.08) 1px,
     transparent 1px
   );
   background-size: 18px 18px;
-  opacity: 0;
+  opacity: 1;
   pointer-events: none;
   z-index: 0;
-  /* leave: instant */
-  transition: opacity 100ms ease-out 0ms;
 }
 
 .services__card > * {
@@ -123,69 +124,24 @@
   visibility: hidden;
   pointer-events: none;
   z-index: 1;
-  /* leave: instant */
-  transition: opacity 80ms ease-out 0ms, visibility 0ms 0ms;
 }
 
-/* ── Hover: split bg + text via JS classes ──── */
+/* ── Hover: spotlight + depth ───────────────── */
 
 @media (hover: hover) {
-  .services__card.is-bg-active {
-    background-color: #2F3438;
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px rgba(47, 52, 56, 0.1);
+  .services--in-view .services__card:hover {
     transform: translateY(-3px);
-    transition:
-      opacity 640ms cubic-bezier(0.22, 1, 0.36, 1),
-      transform 640ms cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 0ms,
-      border-color 120ms ease-out,
-      box-shadow 120ms ease-out;
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow:
+      0 20px 45px rgba(47, 52, 56, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.28);
   }
 
-  .services__card.is-text-active .services__card-name {
-    color: #F1E6DA;
-  }
-
-  .services__card.is-text-active .services__card-desc {
-    color: #DFC3B0;
-  }
-
-  .services__card.is-text-active .services__card-micro {
-    color: #C8A892;
-  }
-
-  .services__card.is-text-active .services__card-tag {
-    color: #C8A892;
-    background: rgba(213, 138, 92, 0.1);
-  }
-
-  .services__card.is-text-active .services__card-foot {
-    border-color: rgba(213, 138, 92, 0.12);
-  }
-
-  .services__card.is-text-active .services__card-price {
-    color: #D58A5C;
-  }
-
-  .services__card.is-text-active .services__card-price--muted {
-    color: #D58A5C;
-  }
-
-  .services__card.is-text-active .services__card-arrow {
-    color: #D58A5C;
-    transform: translateX(4px);
-  }
-
-  .services__card.is-dots-active::before {
-    opacity: 1;
-    transition: opacity 160ms ease-out;
-  }
-
-  .services__card.is-spotlight-ready::after {
+  .services__card.is-hovered::after {
     visibility: visible;
     opacity: 1;
-    transition: opacity 180ms ease-out, visibility 0ms 0ms;
+    transition: opacity 180ms ease-out;
   }
 }
 
@@ -215,12 +171,10 @@
   font-weight: 500;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: rgba(47, 52, 56, 0.58);
-  background: rgba(47, 52, 56, 0.07);
+  color: #C8A892;
+  background: rgba(213, 138, 92, 0.1);
   border-radius: 999px;
   padding: 3px 9px;
-  transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1),
-    background 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Card name ─────────────────────────────── */
@@ -231,9 +185,8 @@
   line-height: 1.22;
   font-weight: 700;
   letter-spacing: -0.015em;
-  color: #2F3438;
+  color: #F1E6DA;
   margin: 0 0 clamp(10px, 1.2vh, 16px);
-  transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Card description ──────────────────────── */
@@ -241,18 +194,16 @@
 .services__card-desc {
   font-size: clamp(14.5px, 1.05vw, 16.5px);
   line-height: 1.65;
-  color: rgba(47, 52, 56, 0.78);
+  color: #DFC3B0;
   margin: 0 0 clamp(8px, 0.8vh, 12px);
   max-width: 640px;
-  transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .services__card-micro {
   font-size: clamp(13px, 0.9vw, 14.5px);
   line-height: 1.5;
-  color: rgba(47, 52, 56, 0.55);
+  color: #C8A892;
   margin: 0 0 clamp(16px, 2vh, 28px);
-  transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Card foot ─────────────────────────────── */
@@ -263,27 +214,22 @@
   justify-content: space-between;
   margin-top: auto;
   padding-top: clamp(12px, 1.4vh, 18px);
-  border-top: 1px solid rgba(47, 52, 56, 0.06);
-  transition: border-color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  border-top: 1px solid rgba(213, 138, 92, 0.12);
 }
 
 .services__card-price {
   font-size: clamp(18px, 1.4vw, 22px);
   font-weight: 600;
   color: #D58A5C;
-  transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .services__card-price--muted {
-  color: rgba(47, 52, 56, 0.75);
+  color: #D58A5C;
 }
 
 .services__card-arrow {
   font-size: 15px;
-  color: rgba(47, 52, 56, 0.18);
-  transition:
-    color 280ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  color: #D58A5C;
 }
 
 /* ── Also line ─────────────────────────────── */
@@ -329,18 +275,11 @@
     transition: none;
   }
 
-  .services__card::before,
-  .services__card::after {
-    transition: none;
+  .services--in-view .services__card:hover {
+    transform: none;
   }
 
-  .services__card-arrow,
-  .services__card-name,
-  .services__card-desc,
-  .services__card-micro,
-  .services__card-tag,
-  .services__card-foot,
-  .services__card-price {
+  .services__card::after {
     transition: none;
   }
 }

@@ -1,5 +1,10 @@
 import { useRef, useEffect } from 'react'
 
+interface HeroParticleFieldProps {
+  alphaMultiplier?: number
+  cursorForceMultiplier?: number
+}
+
 const DPR_CAP = 2
 const BASE_SAMPLING = 12
 const CURSOR_RADIUS = 175
@@ -58,7 +63,7 @@ function lerpColor(
   }
 }
 
-export default function HeroParticleField() {
+export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMultiplier = 1 }: HeroParticleFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mouseRef = useRef({ x: -1000, y: -1000, active: false, normX: 0, normY: 0 })
   const particlesRef = useRef<Particle[]>([])
@@ -113,7 +118,7 @@ export default function HeroParticleField() {
             y,
             vx: 0,
             vy: 0,
-            baseAlpha: layer.alphaMin + (hash % 1000) / 1000 * (layer.alphaMax - layer.alphaMin),
+            baseAlpha: (layer.alphaMin + (hash % 1000) / 1000 * (layer.alphaMax - layer.alphaMin)) * alphaMultiplier,
             radius: layer.radius,
             maxDisp: layer.maxDisp,
             returnDamp: layer.returnDamp,
@@ -154,7 +159,11 @@ export default function HeroParticleField() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const layers = [FAR, MID, NEAR]
+    const layers = [
+      { ...FAR, cursorForce: FAR.cursorForce * cursorForceMultiplier },
+      { ...MID, cursorForce: MID.cursorForce * cursorForceMultiplier },
+      { ...NEAR, cursorForce: NEAR.cursorForce * cursorForceMultiplier },
+    ]
 
     function frame() {
       if (!visible) { rafRunning = false; return }
@@ -231,7 +240,7 @@ export default function HeroParticleField() {
               : Math.pow(t / (1 - ACTIVE_RADIUS_RATIO), 2.5)
             const smoothT = Math.min(inner, 1.6)
             color = lerpColor(BASE_COLOR, HOVER_COLOR, Math.min(smoothT, 1))
-            alpha = lerp(p.baseAlpha, layer.activeAlpha, Math.min(smoothT, 1))
+            alpha = lerp(p.baseAlpha, layer.activeAlpha * alphaMultiplier, Math.min(smoothT, 1))
             const sizeT = Math.pow(Math.min(t / ACTIVE_RADIUS_RATIO, 1), 2)
             dotR = p.radius + (layer.activeRadius - p.radius) * sizeT
           }

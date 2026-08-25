@@ -1,8 +1,7 @@
-import { useCallback, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import './SystemSection.css'
 import { ruTypo } from './lib/typography'
-import SystemPointField from './SystemPointField'
-import SystemCursor from './SystemCursor'
+import HeroParticleField from './HeroParticleField'
 
 const items = [
   {
@@ -37,31 +36,9 @@ function SystemSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const rowRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  const getRowBounds = useCallback(
-    (index: number) => {
-      const section = sectionRef.current
-      const row = rowRefs.current[index]
-      if (!section || !row) return { top: 0, bottom: 0 }
-      const sectionRect = section.getBoundingClientRect()
-      const rowRect = row.getBoundingClientRect()
-      return {
-        top: rowRect.top - sectionRect.top,
-        bottom: rowRect.bottom - sectionRect.top,
-      }
-    },
-    []
-  )
-
-  const activeBounds = activeRow !== null ? getRowBounds(activeRow) : { top: 0, bottom: 0 }
-
   return (
     <section className="system" ref={sectionRef}>
-      <SystemCursor isRowActive={activeRow !== null} sectionRef={sectionRef} />
-      <SystemPointField
-        activeRowTop={activeBounds.top}
-        activeRowBottom={activeBounds.bottom}
-        hasActive={activeRow !== null}
-      />
+      <HeroParticleField alphaMultiplier={0.55} cursorForceMultiplier={0.45} />
       <div className="system__inner">
         <div className="system__left">
           <p className="system__label">02 · SYSTEM</p>
