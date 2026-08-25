@@ -66,9 +66,9 @@ function SystemSection() {
         <div className="system__left">
           <p className="system__label">02 · SYSTEM</p>
           <h2 className="system__headline">
-            ЧТО ВХОДИТ<br />
-            В ЭТУ<br />
-            <span className="system__accent">СИСТЕМУ.</span>
+            ЧТО ДЕЛАЕТ<br />
+            САЙТ<br />
+            <span className="system__accent">СИСТЕМОЙ</span>
           </h2>
         </div>
 

@@ -8,6 +8,7 @@ import DariCaseIntro from './DariCaseIntro'
 import BazaCaseIntro from './BazaCaseIntro'
 import TaplinkSection from './TaplinkSection'
 import ServicesSection from './ServicesSection'
+import ProcessSection from './ProcessSection'
 import DariCasePage from './pages/DariCasePage'
 import BazaCasePage from './pages/BazaCasePage'
 import useSmoothScroll from './hooks/useSmoothScroll'
@@ -63,6 +64,7 @@ function HomePage() {
       />
       <TaplinkSection />
       <ServicesSection />
+      <ProcessSection />
     </>
   )
 }

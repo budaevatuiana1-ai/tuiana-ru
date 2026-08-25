@@ -1,5 +1,6 @@
 import { useRef, useCallback } from 'react'
 import { useInView } from './hooks/useInView'
+import { ruTypo } from './lib/typography'
 import './ServicesSection.css'
 
 const services = [
@@ -121,12 +122,13 @@ export default function ServicesSection() {
         </div>
 
         <h2 className="services__title">
-          От короткой точки входа до&nbsp;полноценного сайта
+          {ruTypo('От короткой точки входа до\u00A0полноценного сайта')}
         </h2>
 
         <p className="services__desc">
-          Подбираю формат под задачу, а не предлагаю всем одно и то же.
-          Структуру, тексты и путь пользователя продумываю вместе с&nbsp;дизайном.
+          {ruTypo('Подбираю формат под задачу, а не предлагаю всем одно и то же.')}
+          <br />
+          {ruTypo('Структуру, тексты и путь пользователя продумываю вместе с\u00A0дизайном.')}
         </p>
       </div>
 
@@ -151,14 +153,14 @@ export default function ServicesSection() {
               )}
             </div>
 
-            <h3 className="services__card-name">{s.name}</h3>
+            <h3 className="services__card-name">{ruTypo(s.name)}</h3>
 
-            <p className="services__card-desc">{s.desc}</p>
+            <p className="services__card-desc">{ruTypo(s.desc)}</p>
 
-            <p className="services__card-micro">{s.micro}</p>
+            <p className="services__card-micro">{ruTypo(s.micro)}</p>
 
             <div className="services__card-foot">
-              <span className={`services__card-price${'priceMuted' in s && s.priceMuted ? ' services__card-price--muted' : ''}`}>{s.price}</span>
+              <span className={`services__card-price${'priceMuted' in s && s.priceMuted ? ' services__card-price--muted' : ''}`}>{ruTypo(s.price)}</span>
               <span className="services__card-arrow" aria-hidden="true">→</span>
             </div>
           </article>
@@ -166,7 +168,7 @@ export default function ServicesSection() {
       </div>
 
       <p className="services__also">
-        Также: оформление Telegram-канала · визуальная система · шаблоны для контента · сопровождение проекта
+        {ruTypo('Также: оформление Telegram-канала · визуальная система · шаблоны для контента · сопровождение проекта')}
       </p>
 
       <div className="services__cta">

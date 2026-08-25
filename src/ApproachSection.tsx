@@ -14,17 +14,17 @@ function ApproachSection() {
           <h2 className="approach__manifesto">
             <span className="approach__line approach__line--1 approach__anim">САЙТ —</span>
             <br />
-            <span className="approach__line approach__line--2 approach__anim">НЕ КАРТИНКА.</span>
+            <span className="approach__line approach__line--2 approach__anim">ЭТО НЕ КАРТИНКА.</span>
             <br />
-            <span className="approach__accent approach__line--3 approach__anim">ЭТО СИСТЕМА.</span>
+            <span className="approach__accent approach__line--3 approach__anim">ЭТО СИСТЕМА</span>
           </h2>
 
           <p className="approach__conclusion approach__anim">
             {ruTypo('Поэтому я начинаю не с цвета кнопок,')}
             <br />
-            а{' '}
+            {ruTypo('а с проработки ')}
             <span className="approach__conclusion-accent">структуры</span>,{' '}
-            <span className="approach__conclusion-accent">смысла</span>{' '}
+            <span className="approach__conclusion-accent">смыслов</span>{' '}
             {ruTypo('и пути человека по сайту.')}
           </p>
         </div>
@@ -54,7 +54,7 @@ function ApproachSection() {
               <li className="approach__item approach__anim">
                 <span className="approach__node" />
                 <span className="approach__num">04</span>
-                <span className="approach__item-text">Что сделать дальше</span>
+                <span className="approach__item-text">Как записаться или оставить заявку</span>
               </li>
             </ol>
           </div>

@@ -77,7 +77,7 @@ function HeroStatic() {
           <p className="hero__lead">
             {ruTypo('Для врачей и экспертов')}
             <br />
-            {ruTypo('с личной практикой.')}
+            {ruTypo('с личной практикой')}
           </p>
           <p className="hero__meta">{ruTypo('Стратегия · структура · тексты · дизайн · запуск')}</p>
         </div>
