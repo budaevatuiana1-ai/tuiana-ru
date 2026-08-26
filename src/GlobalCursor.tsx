@@ -14,21 +14,27 @@ export default function GlobalCursor() {
   const target = useRef({ x: -100, y: -100, size: DOT_SIZE })
   const raf = useRef(0)
   const running = useRef(false)
+  const started = useRef(false)
 
   useEffect(() => {
     const fine = matchMedia('(hover: hover) and (pointer: fine)').matches
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
     if (!fine || reduced) return
+    if (started.current) return
+    started.current = true
     setEnabled(true)
 
     function tick() {
       const d = dotRef.current
       const g = glowRef.current
-      if (!d || !g) return
+      if (!d || !g) { running.current = false; return }
 
       dot.current.x += (target.current.x - dot.current.x) * LERP
       dot.current.y += (target.current.y - dot.current.y) * LERP
       dot.current.size += (target.current.size - dot.current.size) * LERP
+
+      d.style.opacity = '1'
+      g.style.opacity = '1'
 
       const s = dot.current.size
       d.style.transform = `translate(${dot.current.x - s / 2}px, ${dot.current.y - s / 2}px)`
@@ -74,19 +80,17 @@ export default function GlobalCursor() {
     }
 
     function onEnter() {
-      dotRef.current && (dotRef.current.style.opacity = '1')
-      glowRef.current && (glowRef.current.style.opacity = '1')
       start()
     }
 
     window.addEventListener('pointermove', onMove, { passive: true })
     document.addEventListener('pointerleave', onLeave)
     document.addEventListener('pointerenter', onEnter)
+
     raf.current = requestAnimationFrame(tick)
-    dotRef.current && (dotRef.current.style.opacity = '1')
-    glowRef.current && (glowRef.current.style.opacity = '1')
 
     return () => {
+      started.current = false
       window.removeEventListener('pointermove', onMove)
       document.removeEventListener('pointerleave', onLeave)
       document.removeEventListener('pointerenter', onEnter)

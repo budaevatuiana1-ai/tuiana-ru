@@ -14,6 +14,7 @@ import AboutSection from './AboutSection'
 import CertificatesSection from './CertificatesSection'
 import ProcessAboutCertificatesTransition from './ProcessAboutCertificatesTransition'
 import ResponsibilitiesSection from './ResponsibilitiesSection'
+import ReviewsSection from './ReviewsSection'
 import DariCasePage from './pages/DariCasePage'
 import BazaCasePage from './pages/BazaCasePage'
 import useSmoothScroll from './hooks/useSmoothScroll'
@@ -76,6 +77,7 @@ function HomePage() {
         certificates={<CertificatesSection />}
       />
       <ResponsibilitiesSection />
+      <ReviewsSection />
     </>
   )
 }
