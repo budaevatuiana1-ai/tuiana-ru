@@ -85,8 +85,8 @@ export default function ReviewsSection() {
     if (!el1 || !el2) return
 
     function measure(el: HTMLDivElement, state: TrackState) {
-      const total = el.scrollWidth
-      state.setWidth = total / 2
+      const gap = parseFloat(getComputedStyle(el).gap) || 0
+      state.setWidth = (el.scrollWidth - gap) / 2
       state.pos = 0
     }
 
@@ -102,8 +102,8 @@ export default function ReviewsSection() {
 
     const w1 = state1.current.setWidth
     const w2 = state2.current.setWidth
-    state1.current.speed = w1 / 55
-    state2.current.speed = w2 / 65
+    state1.current.speed = w1 / 69
+    state2.current.speed = w2 / 80
     state2.current.pos = -w2
 
     el1.style.transform = `translate3d(0, 0, 0)`
@@ -193,25 +193,32 @@ export default function ReviewsSection() {
   return (
     <section className="reviews">
       <div className="reviews__inner">
-        <div
-          className="reviews__track reviews__track--1"
-          onMouseEnter={onEnter1}
-          onMouseLeave={onLeave1}
-        >
-          <div className="reviews__track-inner" ref={track1Ref}>
-            <TrackCards items={row1} onOpen={openLightbox} />
-            <TrackCards items={row1} onOpen={openLightbox} />
+        <div className="reviews__header">
+          <div className="reviews__eyebrow">
+            ОТЗЫВЫ <span className="reviews__eyebrow-num">/ 04</span>
           </div>
+          <h2 className="reviews__title">Отзывы<br />о совместной работе</h2>
         </div>
-        <div
-          className="reviews__track reviews__track--2"
-          onMouseEnter={onEnter2}
-          onMouseLeave={onLeave2}
-        >
-          <div className="reviews__track-inner" ref={track2Ref}>
-            <TrackCards items={row2} onOpen={openLightbox} />
-            <TrackCards items={row2} onOpen={openLightbox} />
-          </div>
+      </div>
+
+      <div
+        className="reviews__track reviews__track--1"
+        onMouseEnter={onEnter1}
+        onMouseLeave={onLeave1}
+      >
+        <div className="reviews__track-inner" ref={track1Ref}>
+          <TrackCards items={row1} onOpen={openLightbox} />
+          <TrackCards items={row1} onOpen={openLightbox} />
+        </div>
+      </div>
+      <div
+        className="reviews__track reviews__track--2"
+        onMouseEnter={onEnter2}
+        onMouseLeave={onLeave2}
+      >
+        <div className="reviews__track-inner" ref={track2Ref}>
+          <TrackCards items={row2} onOpen={openLightbox} />
+          <TrackCards items={row2} onOpen={openLightbox} />
         </div>
       </div>
 

@@ -1,13 +1,41 @@
 .reviews {
   background: #F7F3EE;
-  padding: clamp(60px, 8vh, 100px) 0;
+  padding: clamp(40px, 5vh, 64px) 0;
   overflow: hidden;
+  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .reviews__inner {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4vw;
+}
+
+.reviews__header {
+  max-width: 720px;
+  margin-bottom: clamp(24px, 3vh, 40px);
+}
+
+.reviews__eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(47, 52, 56, 0.5);
+  margin: 0 0 clamp(12px, 1.5vh, 20px);
+}
+
+.reviews__eyebrow-num {
+  color: #D58A5C;
+}
+
+.reviews__title {
+  margin: 0 0 clamp(12px, 1.5vh, 20px);
+  font-size: clamp(36px, 4.2vw, 64px);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #2F3438;
 }
 
 /* ── Tracks ─────────────────────────────── */
@@ -46,30 +74,30 @@
 /* ── Size variants ──────────────────────── */
 
 .reviews__card--sm {
-  width: clamp(90px, 9vw, 125px);
+  width: clamp(151px, 15.1vw, 211px);
 }
 
 .reviews__card--md {
-  width: clamp(125px, 12.5vw, 165px);
+  width: clamp(116px, 11.6vw, 153px);
 }
 
 .reviews__card--lg {
-  width: clamp(155px, 15.5vw, 205px);
+  width: clamp(144px, 14.4vw, 191px);
 }
 
 /* ── Tablet ─────────────────────────────── */
 
 @media (max-width: 900px) {
   .reviews__card--sm {
-    width: 75px;
+    width: 126px;
   }
 
   .reviews__card--md {
-    width: 100px;
+    width: 93px;
   }
 
   .reviews__card--lg {
-    width: 130px;
+    width: 121px;
   }
 }
 
@@ -85,15 +113,15 @@
   }
 
   .reviews__card--sm {
-    width: 55px;
+    width: 92px;
   }
 
   .reviews__card--md {
-    width: 80px;
+    width: 74px;
   }
 
   .reviews__card--lg {
-    width: 105px;
+    width: 98px;
   }
 }
 
