@@ -10,6 +10,7 @@ export default function AboutSection() {
   return (
     <section
       ref={ref}
+      id="about"
       className={`about${inView ? ' about--in-view' : ''}`}
     >
       <HeroParticleField />

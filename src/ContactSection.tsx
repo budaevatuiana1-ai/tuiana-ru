@@ -3,7 +3,7 @@ import './ContactSection.css'
 const socials = [
   { label: 'Telegram-канал', href: 'https://t.me/tuiana_ai_2' },
   { label: 'MAX-канал', href: 'https://max.ru/join/l4b4TZfcXXeDO7125wpWYlHtR2fUwyUkRJ4qahIL_yE' },
-  { label: 'VK', href: 'https://vk.ru/tuiana' },
+  { label: 'VK', href: 'https://vk.ru/tuianadesign' },
   { label: 'Instagram', href: 'https://www.instagram.com/tuiana.design/' },
 ]
 

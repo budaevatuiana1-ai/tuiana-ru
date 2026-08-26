@@ -33,7 +33,7 @@ export default function ProcessSection() {
   const [activeRow, setActiveRow] = useState<number | null>(null)
 
   return (
-    <section className="process">
+    <section className="process" id="process">
       <div className="process__layout">
         <div className="process__left">
           <div className="process__eyebrow">

@@ -72,6 +72,7 @@ export default function ServicesSection() {
   return (
     <section
       ref={ref}
+      id="services"
       className={`services${inView ? ' services--in-view' : ''}`}
     >
       <div className="services__intro">

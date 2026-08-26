@@ -191,7 +191,7 @@ export default function ReviewsSection() {
   }
 
   return (
-    <section className="reviews">
+    <section className="reviews" id="reviews">
       <div className="reviews__inner">
         <div className="reviews__header">
           <div className="reviews__eyebrow">
