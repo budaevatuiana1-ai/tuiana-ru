@@ -3,7 +3,7 @@ import './GlobalCursor.css'
 
 const DOT_SIZE = 6
 const DOT_HOVER = 8
-const LERP = 0.32
+const LERP = 1
 
 export default function GlobalCursor() {
   const [enabled, setEnabled] = useState(false)
