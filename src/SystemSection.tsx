@@ -44,7 +44,7 @@ function SystemSection() {
           <p className="system__label">02 · SYSTEM</p>
           <h2 className="system__headline">
             ЧТО ДЕЛАЕТ<br />
-            САЙТ<br />
+            <span className="system__line2">САЙТ</span><br />
             <span className="system__accent">СИСТЕМОЙ</span>
           </h2>
         </div>

@@ -1,5 +1,6 @@
 import { useInView } from './hooks/useInView'
 import { ruTypo } from './lib/typography'
+import HeroParticleField from './HeroParticleField'
 import './ResponsibilitiesSection.css'
 
 const items = [
@@ -31,6 +32,7 @@ export default function ResponsibilitiesSection() {
       ref={ref}
       className={`resp${inView ? ' resp--in-view' : ''}`}
     >
+      <HeroParticleField />
       <div className="resp__inner">
         <div className="resp__header">
           <div className="resp__eyebrow">
@@ -38,7 +40,7 @@ export default function ResponsibilitiesSection() {
           </div>
 
           <h2 className="resp__title">
-            {ruTypo('Вам не нужно приходить')}
+            {ruTypo('Вам ')}<span className="resp__title-accent">{ruTypo('не нужно')}</span>{ruTypo(' приходить')}
             <br />
             {ruTypo('с готовым решением')}
           </h2>
