@@ -12,8 +12,8 @@ import ServicesSection from './ServicesSection'
 import ProcessSection from './ProcessSection'
 import AboutSection from './AboutSection'
 import CertificatesSection from './CertificatesSection'
-import AboutCertificatesTransition from './AboutCertificatesTransition'
-import ProcessAboutTransition from './ProcessAboutTransition'
+import ProcessAboutCertificatesTransition from './ProcessAboutCertificatesTransition'
+import ResponsibilitiesSection from './ResponsibilitiesSection'
 import DariCasePage from './pages/DariCasePage'
 import BazaCasePage from './pages/BazaCasePage'
 import useSmoothScroll from './hooks/useSmoothScroll'
@@ -70,15 +70,12 @@ function HomePage() {
       />
       <TaplinkSection />
       <ServicesSection />
-      <ProcessAboutTransition
+      <ProcessAboutCertificatesTransition
         process={<ProcessSection />}
-        about={
-          <AboutCertificatesTransition
-            about={<AboutSection />}
-            certificates={<CertificatesSection />}
-          />
-        }
+        about={<AboutSection />}
+        certificates={<CertificatesSection />}
       />
+      <ResponsibilitiesSection />
     </>
   )
 }
