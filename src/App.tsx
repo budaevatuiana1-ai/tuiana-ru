@@ -11,6 +11,8 @@ import TaplinkSection from './TaplinkSection'
 import ServicesSection from './ServicesSection'
 import ProcessSection from './ProcessSection'
 import AboutSection from './AboutSection'
+import CertificatesSection from './CertificatesSection'
+import AboutCertificatesTransition from './AboutCertificatesTransition'
 import ProcessAboutTransition from './ProcessAboutTransition'
 import DariCasePage from './pages/DariCasePage'
 import BazaCasePage from './pages/BazaCasePage'
@@ -70,7 +72,12 @@ function HomePage() {
       <ServicesSection />
       <ProcessAboutTransition
         process={<ProcessSection />}
-        about={<AboutSection />}
+        about={
+          <AboutCertificatesTransition
+            about={<AboutSection />}
+            certificates={<CertificatesSection />}
+          />
+        }
       />
     </>
   )

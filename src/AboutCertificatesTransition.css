@@ -1,0 +1,135 @@
+.act-scroll {
+  position: relative;
+  height: 240vh;
+}
+
+.act-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.act-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.act-layer--about {
+  z-index: 1;
+}
+
+.act-layer--certs {
+  z-index: 2;
+  background: #F7F3EE;
+  clip-path: ellipse(0% 0% at 50% 100%);
+  will-change: clip-path;
+}
+
+.act-layer--certs .certs {
+  height: 100%;
+}
+
+.act-certs-flow {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ---- mobile / tablet: no transition ---- */
+
+@media (max-width: 1100px) {
+  .act-scroll {
+    height: auto;
+  }
+
+  .act-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    isolation: auto;
+  }
+
+  .act-layer {
+    position: relative;
+    inset: auto;
+  }
+
+  .act-layer--about,
+  .act-layer--certs {
+    z-index: auto;
+  }
+
+  .act-layer--certs {
+    clip-path: none;
+  }
+
+  .act-certs-flow {
+    display: none;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .act-scroll {
+    height: auto;
+  }
+
+  .act-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    isolation: auto;
+  }
+
+  .act-layer {
+    position: relative;
+    inset: auto;
+  }
+
+  .act-layer--about,
+  .act-layer--certs {
+    z-index: auto;
+  }
+
+  .act-layer--certs {
+    clip-path: none;
+  }
+
+  .act-certs-flow {
+    display: none;
+  }
+}
+
+/* ---- reduced motion: no transition ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .act-scroll {
+    height: auto;
+  }
+
+  .act-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    isolation: auto;
+  }
+
+  .act-layer {
+    position: relative;
+    inset: auto;
+  }
+
+  .act-layer--about,
+  .act-layer--certs {
+    z-index: auto;
+  }
+
+  .act-layer--certs {
+    clip-path: none;
+  }
+
+  .act-certs-flow {
+    display: none;
+  }
+}
