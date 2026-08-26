@@ -13,10 +13,16 @@
 /* ── Tracks ─────────────────────────────── */
 
 .reviews__track {
+  overflow: hidden;
+}
+
+.reviews__track-inner {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 0 4vw;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* ── Cards ──────────────────────────────── */
@@ -74,9 +80,8 @@
     padding: clamp(40px, 6vh, 60px) 0;
   }
 
-  .reviews__track {
+  .reviews__track-inner {
     gap: 8px;
-    padding: 0 4vw;
   }
 
   .reviews__card--sm {
@@ -89,6 +94,15 @@
 
   .reviews__card--lg {
     width: 105px;
+  }
+}
+
+/* ── Reduced motion ─────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews__track--1 .reviews__track-inner,
+  .reviews__track--2 .reviews__track-inner {
+    animation: none;
   }
 }
 

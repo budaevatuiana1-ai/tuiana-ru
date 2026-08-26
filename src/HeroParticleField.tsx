@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react'
+import { isGlobalRafPaused } from './rafPause'
 
 interface HeroParticleFieldProps {
   alphaMultiplier?: number
@@ -68,6 +69,7 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
   const mouseRef = useRef({ x: -1000, y: -1000, active: false, normX: 0, normY: 0 })
   const particlesRef = useRef<Particle[]>([])
   const rafRef = useRef<number>(0)
+  const mouseInsideRef = useRef(false)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -143,6 +145,7 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
     }
 
     function onPointerLeave() {
+      mouseInsideRef.current = false
       mouseRef.current.active = false
       mouseRef.current.x = -1000
       mouseRef.current.y = -1000
@@ -155,6 +158,10 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
 
     hero.addEventListener('pointermove', onPointerMove, { passive: true })
     hero.addEventListener('pointerleave', onPointerLeave, { passive: true })
+    hero.addEventListener('pointerenter', () => {
+      mouseInsideRef.current = true
+      if (visible && !rafRunning) startRaf()
+    }, { passive: true })
 
     const ctx = canvas.getContext('2d')
     if (!ctx) return
@@ -166,7 +173,7 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
     ]
 
     function frame() {
-      if (!visible) { rafRunning = false; return }
+      if (!visible || (isGlobalRafPaused() && !mouseInsideRef.current)) { rafRunning = false; return }
       rafRef.current = requestAnimationFrame(frame)
 
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
