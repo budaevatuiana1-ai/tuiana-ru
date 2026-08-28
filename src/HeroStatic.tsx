@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import './HeroStatic.css'
 import { ruTypo } from './lib/typography'
 import HeroParticleField from './HeroParticleField'
@@ -11,6 +11,12 @@ function HeroStatic() {
   useEffect(() => {
     const id = requestAnimationFrame(() => setIntroReady(true))
     return () => cancelAnimationFrame(id)
+  }, [])
+
+  const handleContact = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    const el = document.getElementById('contact')
+    if (el) el.scrollIntoView({ behavior: 'instant' })
   }, [])
 
   return (
@@ -45,7 +51,7 @@ function HeroStatic() {
           </p>
           <p className="hero__meta">{ruTypo('Стратегия · структура · тексты · дизайн · запуск')}</p>
         </div>
-        <a href="#contact" className="hero__cta hero__intro-item hero__intro-item--cta">
+        <a href="#contact" className="hero__cta hero__intro-item hero__intro-item--cta" onClick={handleContact}>
           <span>Обсудить проект</span>
           <span className="hero__cta-arrow" aria-hidden="true">→</span>
         </a>

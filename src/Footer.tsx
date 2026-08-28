@@ -16,6 +16,12 @@ function scrollToPacScroll(offset: number) {
   window.scrollTo({ top: target, behavior: 'instant' })
 }
 
+function scrollToId(id: string) {
+  const el = document.getElementById(id)
+  if (!el) return
+  el.scrollIntoView({ behavior: 'instant' })
+}
+
 export default function Footer() {
   const handleProcess = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
@@ -26,6 +32,16 @@ export default function Footer() {
     e.preventDefault()
     const transitionDistance = window.innerHeight * 1.4
     scrollToPacScroll(transitionDistance * 0.9)
+  }, [])
+
+  const handleAnchor = useCallback((id: string) => (e: React.MouseEvent) => {
+    e.preventDefault()
+    scrollToId(id)
+  }, [])
+
+  const handleTop = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }, [])
 
   return (
@@ -48,11 +64,11 @@ export default function Footer() {
           <div className="footer__col">
             <div className="footer__col-label">Навигация</div>
             <ul className="footer__links">
-              <li><a className="footer__link" href="#services">Услуги</a></li>
+              <li><a className="footer__link" href="#services" onClick={handleAnchor('services')}>Услуги</a></li>
               <li><a className="footer__link" href="#process" onClick={handleProcess}>Как я работаю</a></li>
               <li><a className="footer__link" href="#about" onClick={handleAbout}>Обо мне</a></li>
-              <li><a className="footer__link" href="#reviews">Отзывы</a></li>
-              <li><a className="footer__link" href="#contact">Контакты</a></li>
+              <li><a className="footer__link" href="#reviews" onClick={handleAnchor('reviews')}>Отзывы</a></li>
+              <li><a className="footer__link" href="#contact" onClick={handleAnchor('contact')}>Контакты</a></li>
             </ul>
           </div>
 
@@ -77,7 +93,7 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <span className="footer__copy">© 2026 Tuiana Design</span>
-          <a className="footer__top" href="#">Наверх ↑</a>
+          <a className="footer__top" href="#" onClick={handleTop}>Наверх ↑</a>
         </div>
       </div>
     </footer>
