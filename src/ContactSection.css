@@ -90,10 +90,11 @@
   gap: 16px;
   height: clamp(76px, 8vh, 88px);
   padding: 0 clamp(20px, 2vw, 32px);
-  border: 1px solid rgba(47, 52, 56, 0.12);
+  border: 1px solid rgba(213, 138, 92, 0.24);
   border-bottom: none;
   text-decoration: none;
   color: #2F3438;
+  background: rgba(213, 138, 92, 0.06);
   transition:
     background 0.22s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.22s cubic-bezier(0.22, 1, 0.36, 1),
@@ -101,7 +102,7 @@
 }
 
 .contact__action:last-child {
-  border-bottom: 1px solid rgba(47, 52, 56, 0.12);
+  border-bottom: 1px solid rgba(213, 138, 92, 0.24);
 }
 
 .contact__action:hover {
@@ -132,42 +133,18 @@
 
 .contact__action-arrow {
   font-size: 20px;
-  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  color: #D58A5C;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), color 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .contact__action:hover .contact__action-arrow {
   transform: translate(4px, -2px);
+  color: #FFFFFF;
 }
 
 .contact__action:focus-visible {
   outline: 2px solid #D58A5C;
   outline-offset: 3px;
-}
-
-/* ── Steps row ──────────────────────────── */
-
-.contact__steps {
-  display: flex;
-  align-items: center;
-  gap: clamp(12px, 1.5vw, 20px);
-  padding: clamp(24px, 3vh, 40px) 0;
-  border-top: 1px solid rgba(47, 52, 56, 0.08);
-  margin-bottom: clamp(32px, 4vh, 52px);
-}
-
-.contact__step {
-  font-size: clamp(12px, 1vw, 15px);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: rgba(47, 52, 56, 0.65);
-  white-space: nowrap;
-}
-
-.contact__step-arrow {
-  font-size: 14px;
-  color: #D58A5C;
-  flex-shrink: 0;
 }
 
 /* ── Socials row ────────────────────────── */
@@ -221,11 +198,6 @@
   .contact__grid {
     grid-template-columns: 1fr;
     gap: clamp(32px, 4vh, 48px);
-  }
-
-  .contact__steps {
-    flex-wrap: wrap;
-    gap: clamp(8px, 1vh, 12px) clamp(12px, 1.5vw, 16px);
   }
 }
 

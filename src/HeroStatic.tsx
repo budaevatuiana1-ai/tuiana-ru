@@ -15,6 +15,7 @@ function HeroStatic() {
 
   const handleContact = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
+    e.stopPropagation()
     const el = document.getElementById('contact')
     if (el) el.scrollIntoView({ behavior: 'instant' })
   }, [])

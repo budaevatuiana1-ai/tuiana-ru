@@ -63,8 +63,6 @@ export default function TaplinkSection() {
   const rightGalleryRef = useRef<HTMLDivElement>(null)
   const mobileGalleryRef = useRef<HTMLDivElement>(null)
 
-  const left = useFlowScroll(leftScrollRef)
-  const right = useFlowScroll(rightScrollRef)
   const mobile = useFlowScroll(mobileGalleryRef)
 
   const mobileUpdateRef = useRef(mobile.update)
@@ -213,22 +211,6 @@ export default function TaplinkSection() {
               </div>
             ))}
           </div>
-          <button
-            className="taplink__arrow taplink__arrow--left"
-            onClick={left.scrollLeft}
-            aria-label="Прокрутить влево"
-            style={{ visibility: left.atStart ? 'hidden' : 'visible' }}
-          >
-            ←
-          </button>
-          <button
-            className="taplink__arrow taplink__arrow--right"
-            onClick={left.scrollRight}
-            aria-label="Прокрутить вправо"
-            style={{ visibility: left.atEnd ? 'hidden' : 'visible' }}
-          >
-            →
-          </button>
         </div>
 
         <div className="taplink__center">
@@ -274,22 +256,6 @@ export default function TaplinkSection() {
               </div>
             ))}
           </div>
-          <button
-            className="taplink__arrow taplink__arrow--left"
-            onClick={right.scrollLeft}
-            aria-label="Прокрутить влево"
-            style={{ visibility: right.atStart ? 'hidden' : 'visible' }}
-          >
-            ←
-          </button>
-          <button
-            className="taplink__arrow taplink__arrow--right"
-            onClick={right.scrollRight}
-            aria-label="Прокрутить вправо"
-            style={{ visibility: right.atEnd ? 'hidden' : 'visible' }}
-          >
-            →
-          </button>
         </div>
       </div>
 

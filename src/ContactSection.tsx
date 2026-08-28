@@ -59,15 +59,6 @@ export default function ContactSection() {
           </div>
         </div>
 
-        {/* ── Steps row ── */}
-        <div className="contact__steps">
-          <span className="contact__step">Вы описываете задачу</span>
-          <span className="contact__step-arrow" aria-hidden="true">→</span>
-          <span className="contact__step">Я уточняю главное</span>
-          <span className="contact__step-arrow" aria-hidden="true">→</span>
-          <span className="contact__step">Предлагаю подходящий формат</span>
-        </div>
-
         {/* ── Socials row ── */}
         <div className="contact__socials">
           <span className="contact__socials-label">Я в соцсетях</span>
