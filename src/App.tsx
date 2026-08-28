@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
 import GlobalCursor from './GlobalCursor'
+import GlobalMenu from './GlobalMenu'
 import HeroStatic from './HeroStatic'
 import ApproachSystemTransition from './ApproachSystemTransition'
 import ApproachSection from './ApproachSection'
@@ -88,11 +89,14 @@ function HomePage() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/projects/dari" element={<DariCasePage />} />
-      <Route path="/projects/baza" element={<BazaCasePage />} />
-    </Routes>
+    <>
+      <GlobalMenu />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/projects/dari" element={<DariCasePage />} />
+        <Route path="/projects/baza" element={<BazaCasePage />} />
+      </Routes>
+    </>
   )
 }
 
