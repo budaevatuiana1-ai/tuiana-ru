@@ -10,11 +10,17 @@
 
 .approach__label {
   margin: 0 0 clamp(32px, 5vh, 64px);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(47, 52, 56, 0.55);
+}
+
+@media (min-width: 1101px) {
+  .approach__label {
+    font-size: 16px;
+  }
 }
 
 .approach__body {
@@ -110,7 +116,7 @@
 
 .approach__item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
   padding: 14px 0;
   font-size: clamp(16px, 1.05vw, 18px);
@@ -146,6 +152,18 @@
 
 .approach__item-text {
   color: rgba(47, 52, 56, 0.82);
+}
+
+.approach__item-content {
+  min-width: 0;
+}
+
+.approach__item-desc {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(47, 52, 56, 0.72);
+  margin: 6px 0 0;
 }
 
 /* ---- animation initial states ---- */
@@ -323,5 +341,71 @@
   .approach__route-line {
     transform: scaleY(1);
     transition: none;
+  }
+}
+
+/* ---- desktop: align with SystemSection composition ---- */
+
+@media (min-width: 1101px) {
+  .approach {
+    padding: clamp(110px, 10vh, 150px) 4vw clamp(100px, 9vh, 140px);
+  }
+
+  .approach__body {
+    grid-template-columns: minmax(340px, 0.75fr) minmax(560px, 1.25fr);
+    gap: clamp(60px, 6vw, 140px);
+    margin-top: 0;
+    align-items: start;
+  }
+
+  .approach__left {
+    position: sticky;
+    top: clamp(80px, 8vh, 120px);
+  }
+
+  .approach__manifesto {
+    font-size: clamp(52px, 5.2vw, 92px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+
+  .approach__route-line {
+    display: none;
+  }
+
+  .approach__node {
+    display: none;
+  }
+
+  .approach__route {
+    padding-left: 0;
+  }
+
+  .approach__item {
+    padding: 20px 0;
+    border-top: 1px solid rgba(47, 52, 56, 0.14);
+    gap: 14px;
+  }
+
+  .approach__item + .approach__item {
+    margin-top: 0;
+  }
+
+  .approach__item:last-child {
+    border-bottom: 1px solid rgba(47, 52, 56, 0.14);
+  }
+
+  .approach__num {
+    font-size: 12px;
+  }
+
+  .approach__item-text {
+    font-size: clamp(26px, 2vw, 36px);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .approach__item-desc {
+    font-size: clamp(15px, 0.95vw, 16px);
   }
 }

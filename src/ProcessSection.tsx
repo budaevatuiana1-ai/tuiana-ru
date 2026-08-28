@@ -37,7 +37,7 @@ export default function ProcessSection() {
       <div className="process__layout">
         <div className="process__left">
           <div className="process__eyebrow">
-            ПРОЦЕСС <span className="process__eyebrow-num">/ 05</span>
+            ПРОЦЕСС
           </div>
 
           <h2 className="process__title">

@@ -45,7 +45,7 @@
 
 .hero__wordmark {
   margin: 0;
-  font-size: clamp(80px, 11vw, 210px);
+  font-size: clamp(60px, 7.5vw, 145px);
   line-height: 0.82;
   letter-spacing: -0.05em;
   font-weight: 700;
@@ -100,23 +100,6 @@
   display: block;
   width: 100%;
   height: auto;
-}
-
-.dari__interactive-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  border-radius: inherit;
-}
-
-.baza__interactive-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  border-radius: inherit;
-  z-index: 2;
 }
 
 .hero__screen--baza {
@@ -226,6 +209,28 @@
 .hero__cta:focus-visible {
   outline: 2px solid #D58A5C;
   outline-offset: 3px;
+}
+
+@media (min-width: 1101px) {
+  .hero__wordmark {
+    color: rgba(247, 243, 238, 0.72);
+  }
+
+  .hero__tag {
+    font-size: 13px;
+  }
+
+  .hero__eyebrow {
+    font-size: 16px;
+  }
+
+  .hero__meta {
+    font-size: 18px;
+  }
+
+  .hero__cta {
+    font-size: 17px;
+  }
 }
 
 /* ---- hero wordmark reveal wrapper ---- */

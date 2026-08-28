@@ -108,8 +108,10 @@
 }
 
 .footer__top {
-  font-size: clamp(12px, 0.9vw, 14px);
-  color: rgba(247, 243, 238, 0.35);
+  font-size: 16px;
+  font-weight: 600;
+  color: #D58A5C;
+  opacity: 1;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -154,5 +156,13 @@
 
   .footer__col--about {
     margin-bottom: 0;
+  }
+}
+
+/* ── Desktop ─────────────────────────────── */
+
+@media (min-width: 1101px) {
+  .footer__top {
+    font-size: 18px;
   }
 }

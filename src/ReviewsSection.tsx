@@ -113,6 +113,7 @@ export default function ReviewsSection() {
     let running = false
 
     function tick(now: number) {
+      if (!el1 || !el2) return
       const dt = (now - lastTime.current) / 1000
       lastTime.current = now
 
@@ -195,7 +196,7 @@ export default function ReviewsSection() {
       <div className="reviews__inner">
         <div className="reviews__header">
           <div className="reviews__eyebrow">
-            ОТЗЫВЫ <span className="reviews__eyebrow-num">/ 04</span>
+            ОТЗЫВЫ
           </div>
           <h2 className="reviews__title">Отзывы<br />о совместной работе</h2>
         </div>

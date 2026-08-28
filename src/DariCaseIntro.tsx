@@ -10,7 +10,7 @@ export default function DariCaseIntro() {
         <div className="dari-case__inner">
           <div className="dari-case__text">
             <p className="dari-case__eyebrow">
-              КЕЙС / <span className="dari-case__eyebrow-accent">01</span>
+              КЕЙС <span className="dari-case__eyebrow-accent">01</span>
             </p>
             <h2 className="dari-case__title">DARI</h2>
             <p className="dari-case__subtitle">

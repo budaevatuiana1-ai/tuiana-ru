@@ -27,16 +27,12 @@
 /* ── Eyebrow ─────────────────────────────── */
 
 .process__eyebrow {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(47, 52, 56, 0.5);
   margin-bottom: clamp(24px, 3vh, 40px);
-}
-
-.process__eyebrow-num {
-  color: #D58A5C;
 }
 
 /* ── Headline ────────────────────────────── */
@@ -177,6 +173,20 @@
 
 .process__row--active .process__row-line {
   transform: scaleX(1);
+}
+
+/* ── Desktop ─────────────────────────────── */
+
+@media (min-width: 1101px) {
+  .process__eyebrow {
+    font-size: 16px;
+  }
+
+  .process__title {
+    font-size: clamp(46px, 4.6vw, 80px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+  }
 }
 
 /* ── Reduced motion ──────────────────────── */

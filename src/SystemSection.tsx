@@ -41,7 +41,7 @@ function SystemSection() {
       <HeroParticleField alphaMultiplier={0.55} cursorForceMultiplier={0.45} />
       <div className="system__inner">
         <div className="system__left">
-          <p className="system__label">02 · SYSTEM</p>
+          <p className="system__label">СИСТЕМА</p>
           <h2 className="system__headline">
             ЧТО ДЕЛАЕТ<br />
             <span className="system__line2">САЙТ</span><br />

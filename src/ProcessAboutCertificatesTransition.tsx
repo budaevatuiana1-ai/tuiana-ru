@@ -7,8 +7,8 @@ interface Props {
   certificates: ReactNode
 }
 
-const REVEAL_START = 0.13
-const REVEAL_END = 0.72
+const REVEAL_START = 0.19
+const REVEAL_END = 0.78
 
 export default function ProcessAboutCertificatesTransition({
   process,
@@ -61,14 +61,9 @@ export default function ProcessAboutCertificatesTransition({
       return t * t * (3 - 2 * t)
     }
 
-    function apply() {
+    function apply(rawScrolled: number, totalDistance: number) {
       if (!depthEl || !aboutEl || !certsEl) return
-
-      const rect = scrollEl!.getBoundingClientRect()
-      const totalDistance = scrollEl!.offsetHeight - window.innerHeight
       if (totalDistance <= 0) return
-
-      const rawScrolled = clamp(-rect.top, 0, totalDistance)
 
       /* ── Phase 1: Process → About (lerp-smoothed) ── */
       const p1 = clamp(smoothScroll / transitionDistance, 0, 1)
@@ -121,14 +116,14 @@ export default function ProcessAboutCertificatesTransition({
       targetScroll = scrolledPx
       smoothScroll = lerp(smoothScroll, targetScroll, 0.16)
 
-      apply()
+      apply(scrolledPx, totalDistance)
 
       const settled = Math.abs(targetScroll - smoothScroll) < 0.5
       if (!settled) {
         raf = requestAnimationFrame(tick)
       } else {
         smoothScroll = targetScroll
-        apply()
+        apply(scrolledPx, totalDistance)
         running = false
       }
     }
@@ -148,7 +143,7 @@ export default function ProcessAboutCertificatesTransition({
       const initScrolled = clamp(-initRect.top, 0, initTotal)
       smoothScroll = initScrolled
       targetScroll = initScrolled
-      apply()
+      apply(initScrolled, initTotal)
     }
 
     return () => {

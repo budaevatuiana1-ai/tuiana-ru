@@ -8,7 +8,7 @@ export default function BazaCaseIntro() {
       <div className="baza-case__inner">
         <div className="baza-case__text">
           <p className="baza-case__eyebrow">
-            КЕЙС /{' '}
+            КЕЙС{' '}
             <span className="baza-case__eyebrow-accent">02</span>
           </p>
           <h2 className="baza-case__title">BAZA</h2>

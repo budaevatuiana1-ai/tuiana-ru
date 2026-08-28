@@ -15,7 +15,7 @@ export default function ContactSection() {
           {/* ── Left column ── */}
           <div className="contact__left">
             <div className="contact__eyebrow">
-              КОНТАКТЫ <span className="contact__eyebrow-num">/ 05</span>
+              КОНТАКТЫ
             </div>
 
             <h2 className="contact__title">

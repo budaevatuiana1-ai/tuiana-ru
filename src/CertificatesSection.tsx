@@ -72,7 +72,7 @@ export default function CertificatesSection() {
       <div className="certs__inner">
         <div className="certs__header">
           <div className="certs__eyebrow">
-            ОБУЧЕНИЕ <span className="certs__eyebrow-num">/ 02</span>
+            ОБУЧЕНИЕ
           </div>
 
           <h2 className="certs__title">

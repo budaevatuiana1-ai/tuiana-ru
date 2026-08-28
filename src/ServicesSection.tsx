@@ -134,7 +134,7 @@ export default function ServicesSection() {
     >
       <div className="services__intro">
         <div className="services__eyebrow">
-          УСЛУГИ <span className="services__eyebrow-num">/ 05</span>
+          УСЛУГИ
         </div>
 
         <h2 className="services__title">

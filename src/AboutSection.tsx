@@ -17,7 +17,7 @@ export default function AboutSection() {
       <div className="about__top">
         <div className="about__header">
           <div className="about__eyebrow">
-            ОБО МНЕ <span className="about__eyebrow-num">/ 03</span>
+            ОБО МНЕ
           </div>
 
           <h2 className="about__title">

@@ -36,7 +36,7 @@ export default function ResponsibilitiesSection() {
       <div className="resp__inner">
         <div className="resp__header">
           <div className="resp__eyebrow">
-            ЧТО БЕРУ НА СЕБЯ <span className="resp__eyebrow-num">/ 03</span>
+            ЧТО БЕРУ НА СЕБЯ
           </div>
 
           <h2 className="resp__title">

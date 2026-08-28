@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import './HeroStatic.css'
 import { ruTypo } from './lib/typography'
-import ProjectPointCloud from './ProjectPointCloud'
 import HeroParticleField from './HeroParticleField'
 
 function HeroStatic() {
@@ -28,44 +27,9 @@ function HeroStatic() {
         <div className="hero__projects-group">
         <div className="hero__screen hero__screen--dari hero__intro-item hero__intro-item--dari">
           <img src="/hero/dari.png" alt="Проект DARI" draggable={false} />
-          <div className="dari__interactive-layer">
-            <ProjectPointCloud
-              imageSrc="/hero/dari.png"
-              sampling={6}
-              particleRadius={0.7}
-              baseAlpha={0}
-              crop={{ mode: 'heightFit', translateXPercent: 0.12 }}
-              interactionRadius={145}
-              maxDisplacement={28}
-              returnDamping={0.11}
-              activeAlpha={0.95}
-              activeRadius={1.2}
-              interactionStrength={1.0}
-              tintColor="#D58A5C"
-              tintStrength={0.4}
-            />
-          </div>
         </div>
         <div className="hero__screen hero__screen--baza hero__intro-item hero__intro-item--baza">
           <img src="/hero/nasha-baza.png" alt="Проект Наша База" draggable={false} />
-          <div className="baza__interactive-layer">
-            <ProjectPointCloud
-              imageSrc="/hero/nasha-baza.png"
-              sampling={6}
-              particleRadius={0.65}
-              baseAlpha={0}
-              crop={{ mode: 'coverFit', objectPositionPercent: 52 }}
-              interactionRadius={125}
-              maxDisplacement={20}
-              returnDamping={0.07}
-              activeAlpha={0.90}
-              activeRadius={1.08}
-              interactionStrength={0.78}
-              tintColor="#D58A5C"
-              tintStrength={0.38}
-              velocityInfluence={0.14}
-            />
-          </div>
         </div>
         </div>
       </div>
