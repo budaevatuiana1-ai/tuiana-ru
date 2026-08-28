@@ -21,6 +21,9 @@ export default function ApproachSystemTransition({ approach, system, dari, baza 
     ).matches
     if (prefersReduced) return
 
+    const isCoarse = window.matchMedia('(pointer: coarse)').matches
+    if (isCoarse) return
+
     const scrollEl = scrollRef.current
     const depthEl = depthRef.current
     const systemEl = systemRef.current

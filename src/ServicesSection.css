@@ -284,6 +284,17 @@
   }
 }
 
+/* ── Carousel wrapper (base — hidden on desktop) ── */
+
+.services__carousel {
+  position: relative;
+}
+
+.services__arrow,
+.services__swipe-hint {
+  display: none;
+}
+
 /* ── Tablet ────────────────────────────────── */
 
 @media (max-width: 900px) {
@@ -311,6 +322,10 @@
     padding: 0 5vw;
   }
 
+  .services__carousel {
+    overflow: visible;
+  }
+
   .services__grid {
     display: flex;
     overflow-x: auto;
@@ -327,7 +342,7 @@
   }
 
   .services__card {
-    flex: 0 0 80vw;
+    flex: 0 0 77vw;
     scroll-snap-align: start;
     padding: clamp(20px, 4vw, 28px);
     min-height: auto;
@@ -336,6 +351,62 @@
   .services__card:nth-child(n) {
     grid-column: auto;
     grid-row: auto;
+  }
+
+  .services__card-arrow {
+    display: none;
+  }
+
+  .services__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(247, 243, 238, 0.85);
+    color: #2F3438;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    transition: background 200ms ease;
+    padding: 0;
+    line-height: 1;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .services__arrow:active {
+    background: rgba(213, 138, 92, 0.9);
+    color: #fff;
+  }
+
+  .services__arrow--left {
+    left: 4px;
+  }
+
+  .services__arrow--right {
+    right: 4px;
+  }
+
+  .services__swipe-hint {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(47, 52, 56, 0.55);
+    margin-top: 16px;
+    padding: 0 5vw;
+  }
+
+  .services__swipe-hint span {
+    color: #D58A5C;
   }
 
   .services__also {

@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useInView } from './hooks/useInView'
 import { ruTypo } from './lib/typography'
 import './ServicesSection.css'
@@ -69,6 +69,63 @@ export default function ServicesSection() {
     card.style.removeProperty('--my')
   }, [])
 
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [atStart, setAtStart] = useState(true)
+  const [atEnd, setAtEnd] = useState(false)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    function update() {
+      const cards = Array.from(el!.querySelectorAll('.services__card')) as HTMLElement[]
+      if (cards.length === 0) return
+      const sl = el!.scrollLeft
+      let best = 0
+      let bestDist = Infinity
+      for (let i = 0; i < cards.length; i++) {
+        const d = Math.abs(cards[i].offsetLeft - sl)
+        if (d < bestDist) {
+          bestDist = d
+          best = i
+        }
+      }
+      setAtStart(best === 0)
+      setAtEnd(best === cards.length - 1)
+    }
+
+    update()
+    el.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      el.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+
+  const scrollToCard = useCallback((direction: -1 | 1) => {
+    const el = scrollRef.current
+    if (!el) return
+    const cards = Array.from(el.querySelectorAll('.services__card')) as HTMLElement[]
+    if (cards.length === 0) return
+    const sl = el.scrollLeft
+    let bestIdx = 0
+    let bestDist = Infinity
+    for (let i = 0; i < cards.length; i++) {
+      const d = Math.abs(cards[i].offsetLeft - sl)
+      if (d < bestDist) {
+        bestDist = d
+        bestIdx = i
+      }
+    }
+    const target = bestIdx + direction
+    if (target < 0 || target >= cards.length) return
+    el.scrollTo({ left: cards[target].offsetLeft, behavior: 'smooth' })
+  }, [])
+
+  const scrollLeft = useCallback(() => scrollToCard(-1), [scrollToCard])
+  const scrollRight = useCallback(() => scrollToCard(1), [scrollToCard])
+
   return (
     <section
       ref={ref}
@@ -91,39 +148,63 @@ export default function ServicesSection() {
         </p>
       </div>
 
-      <div className="services__grid">
-        {services.map((s) => (
-          <article
-            key={s.num}
-            className="services__card"
-            onPointerEnter={onEnter}
-            onPointerMove={onMove}
-            onPointerLeave={onLeave}
+      <div className="services__carousel">
+        <div className="services__grid" ref={scrollRef}>
+          {services.map((s) => (
+            <article
+              key={s.num}
+              className="services__card"
+              onPointerEnter={onEnter}
+              onPointerMove={onMove}
+              onPointerLeave={onLeave}
+            >
+              <div className="services__card-head">
+                <span className="services__card-num">{s.num}</span>
+                {s.tags.length > 0 && (
+                  <div className="services__card-tags">
+                    {s.tags.map(t => (
+                      <span key={t} className="services__card-tag">{t}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <h3 className="services__card-name">{ruTypo(s.name)}</h3>
+
+              <p className="services__card-desc">{ruTypo(s.desc)}</p>
+
+              <p className="services__card-micro">{ruTypo(s.micro)}</p>
+
+              <div className="services__card-foot">
+                <span className={`services__card-price${'priceMuted' in s && s.priceMuted ? ' services__card-price--muted' : ''}`}>{ruTypo(s.price)}</span>
+                <span className="services__card-arrow" aria-hidden="true">→</span>
+              </div>
+            </article>
+          ))}
+        </div>
+        {!atStart && (
+          <button
+            className="services__arrow services__arrow--left"
+            onClick={scrollLeft}
+            aria-label="Предыдущая услуга"
           >
-            <div className="services__card-head">
-              <span className="services__card-num">{s.num}</span>
-              {s.tags.length > 0 && (
-                <div className="services__card-tags">
-                  {s.tags.map(t => (
-                    <span key={t} className="services__card-tag">{t}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <h3 className="services__card-name">{ruTypo(s.name)}</h3>
-
-            <p className="services__card-desc">{ruTypo(s.desc)}</p>
-
-            <p className="services__card-micro">{ruTypo(s.micro)}</p>
-
-            <div className="services__card-foot">
-              <span className={`services__card-price${'priceMuted' in s && s.priceMuted ? ' services__card-price--muted' : ''}`}>{ruTypo(s.price)}</span>
-              <span className="services__card-arrow" aria-hidden="true">→</span>
-            </div>
-          </article>
-        ))}
+            ←
+          </button>
+        )}
+        {!atEnd && (
+          <button
+            className="services__arrow services__arrow--right"
+            onClick={scrollRight}
+            aria-label="Следующая услуга"
+          >
+            →
+          </button>
+        )}
       </div>
+
+      <p className="services__swipe-hint">
+        Листайте услуги <span aria-hidden="true">→</span>
+      </p>
 
       <p className="services__also">
         {ruTypo('Также: оформление Telegram-канала · визуальная система · шаблоны для контента · сопровождение проекта')}
