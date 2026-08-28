@@ -4,13 +4,15 @@ import { useInView } from './hooks/useInView'
 import { ruTypo } from './lib/typography'
 import './CertificatesSection.css'
 
+const BASE = import.meta.env.BASE_URL
+
 const certs = [
   {
     num: '01',
     label: 'WEB DESIGN',
     title: 'Профессия Веб-дизайнер',
     org: 'Zerocoder · 189 академических часов',
-    src: '/certificates/web-designer-zerocoder.webp',
+    src: `${BASE}certificates/web-designer-zerocoder.webp`,
     alt: 'Сертификат Веб-дизайнер Zerocoder',
   },
   {
@@ -18,7 +20,7 @@ const certs = [
     label: 'AI',
     title: 'Нейросети: специалист по работе с системами искусственного интеллекта',
     org: 'Повышение квалификации · 144 часа',
-    src: '/certificates/ai-specialist-certificate.webp',
+    src: `${BASE}certificates/ai-specialist-certificate.webp`,
     alt: 'Сертификат Специалист по ИИ',
   },
 ]

@@ -4,6 +4,8 @@ import HeroParticleField from './HeroParticleField'
 import ProjectPointCloud from './ProjectPointCloud'
 import './AboutSection.css'
 
+const BASE = import.meta.env.BASE_URL
+
 export default function AboutSection() {
   const { ref, inView } = useInView(0.15)
 
@@ -33,12 +35,12 @@ export default function AboutSection() {
 
         <div className="about__photo">
           <img
-            src="/about/tuiana-office.webp"
+            src={`${BASE}about/tuiana-office.webp`}
             alt={ruTypo('Туiana — в студии')}
             draggable={false}
           />
           <ProjectPointCloud
-            imageSrc="/about/tuiana-office.webp"
+            imageSrc={`${BASE}about/tuiana-office.webp`}
             sampling={6}
             particleRadius={0.7}
             baseAlpha={0}

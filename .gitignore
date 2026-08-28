@@ -12,6 +12,19 @@ dist
 dist-ssr
 *.local
 
+# Environment variables
+.env
+.env.*
+
+# Documents (should not be in repo)
+*.docx
+*.xlsx
+*.pdf
+~$*
+
+# Source originals
+public/*/source/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

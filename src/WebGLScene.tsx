@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
+const BASE = import.meta.env.BASE_URL
+
 const SAMPLE_STEP_COARSE = 14
 const SAMPLE_STEP_FINE = 10
 const MIN_BRIGHTNESS = 35
@@ -105,7 +107,7 @@ function mountScene(container: HTMLElement): () => void {
     render()
   }
   heroImage.addEventListener('load', handleHeroImageLoad)
-  heroImage.src = '/dari-hero.png'
+  heroImage.src = `${BASE}dari-hero.png`
 
   const handleResize = () => {
     const w = container.clientWidth || window.innerWidth

@@ -3,6 +3,8 @@ import './DariCaseIntro.css'
 import { ruTypo } from './lib/typography'
 import CtaButton from './CtaButton'
 
+const BASE = import.meta.env.BASE_URL
+
 export default function DariCaseIntro() {
   return (
     <section id="dari-case" className="dari-case">
@@ -39,7 +41,7 @@ export default function DariCaseIntro() {
           <Link to="/projects/dari" className="dari-case__visual">
             <img
               className="dari-case__screenshot"
-              src="/dari-hero.png"
+              src={`${BASE}dari-hero.png`}
               alt={ruTypo('Сайт DARI — главная страница')}
               width="1920"
               height="1080"

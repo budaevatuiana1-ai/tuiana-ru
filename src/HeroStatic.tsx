@@ -3,6 +3,8 @@ import './HeroStatic.css'
 import { ruTypo } from './lib/typography'
 import HeroParticleField from './HeroParticleField'
 
+const BASE = import.meta.env.BASE_URL
+
 function HeroStatic() {
   const [introReady, setIntroReady] = useState(false)
 
@@ -26,10 +28,10 @@ function HeroStatic() {
       <div className="hero__projects">
         <div className="hero__projects-group">
         <div className="hero__screen hero__screen--dari hero__intro-item hero__intro-item--dari">
-          <img src="/hero/dari.png" alt="Проект DARI" draggable={false} />
+          <img src={`${BASE}hero/dari.png`} alt="Проект DARI" draggable={false} />
         </div>
         <div className="hero__screen hero__screen--baza hero__intro-item hero__intro-item--baza">
-          <img src="/hero/nasha-baza.png" alt="Проект Наша База" draggable={false} />
+          <img src={`${BASE}hero/nasha-baza.png`} alt="Проект Наша База" draggable={false} />
         </div>
         </div>
       </div>

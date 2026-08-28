@@ -2,6 +2,8 @@ import './BazaCaseIntro.css'
 import { ruTypo } from './lib/typography'
 import CtaButton from './CtaButton'
 
+const BASE = import.meta.env.BASE_URL
+
 export default function BazaCaseIntro() {
   return (
     <section className="baza-case">
@@ -38,7 +40,7 @@ export default function BazaCaseIntro() {
         <div className="baza-case__visual">
           <img
             className="baza-case__screenshot"
-            src="/hero/nasha-baza.png"
+            src={`${BASE}hero/nasha-baza.png`}
             alt={ruTypo('Сайт BAZA — главная страница')}
             width="1920"
             height="1080"

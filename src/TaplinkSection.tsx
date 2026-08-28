@@ -3,18 +3,20 @@ import './TaplinkSection.css'
 import { ruTypo } from './lib/typography'
 import TaplinkDotField from './TaplinkDotField'
 
+const BASE = import.meta.env.BASE_URL
+
 const LEFT_IMGS = [
-  { src: '/taplink/kholodova.png', alt: 'Анна Холодова — мини-сайт', role: 'm' },
-  { src: '/taplink/psychologist.png', alt: 'Анна Холодова — психолог', role: 'd' },
-  { src: '/taplink/stepanova.png', alt: 'Любовь Степанова — мини-сайт', role: 'm' },
-  { src: '/taplink/consultation.png', alt: 'Любовь Степанова — консультация', role: 'd' },
+  { src: `${BASE}taplink/kholodova.png`, alt: 'Анна Холодова — мини-сайт', role: 'm' },
+  { src: `${BASE}taplink/psychologist.png`, alt: 'Анна Холодова — психолог', role: 'd' },
+  { src: `${BASE}taplink/stepanova.png`, alt: 'Любовь Степанова — мини-сайт', role: 'm' },
+  { src: `${BASE}taplink/consultation.png`, alt: 'Любовь Степанова — консультация', role: 'd' },
 ]
 
 const RIGHT_IMGS = [
-  { src: '/taplink/panferova.png', alt: 'Анна Панферова — мини-сайт', role: 'f' },
-  { src: '/taplink/course.png', alt: 'Анна Панферова — курс', role: 'd' },
-  { src: '/taplink/galushchenko.png', alt: 'Светлана Галущенко — мини-сайт', role: 'm' },
-  { src: '/taplink/license.png', alt: 'Светлана Галущенко — лицензия', role: 'd' },
+  { src: `${BASE}taplink/panferova.png`, alt: 'Анна Панферова — мини-сайт', role: 'f' },
+  { src: `${BASE}taplink/course.png`, alt: 'Анна Панферова — курс', role: 'd' },
+  { src: `${BASE}taplink/galushchenko.png`, alt: 'Светлана Галущенко — мини-сайт', role: 'm' },
+  { src: `${BASE}taplink/license.png`, alt: 'Светлана Галущенко — лицензия', role: 'd' },
 ]
 
 const ALL_IMGS = [...LEFT_IMGS, ...RIGHT_IMGS]
