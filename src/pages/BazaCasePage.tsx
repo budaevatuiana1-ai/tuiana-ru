@@ -1,7 +1,12 @@
+import { useEffect } from 'react'
 import './BazaCasePage.css'
 import CtaButton from '../CtaButton'
 
 export default function BazaCasePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <section className="baza-page">
       <p className="baza-page__eyebrow">КЕЙС / BAZA</p>

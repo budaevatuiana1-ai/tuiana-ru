@@ -191,7 +191,7 @@ export default function TaplinkSection() {
   }, [])
 
   return (
-    <section className="taplink" ref={sectionRef}>
+    <section className="taplink" id="taplink" ref={sectionRef}>
       <TaplinkDotField />
       <div className="taplink__layout">
         <div className="taplink__flow taplink__flow--left" ref={leftGalleryRef}>

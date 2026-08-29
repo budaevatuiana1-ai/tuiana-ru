@@ -37,7 +37,7 @@
 
 .footer__grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: clamp(32px, 4vw, 64px);
   margin-bottom: clamp(48px, 6vh, 80px);
 }
@@ -90,6 +90,12 @@
 .footer__link:focus-visible {
   outline: 2px solid #D58A5C;
   outline-offset: 3px;
+}
+
+.footer__link--home {
+  font-size: calc(clamp(14px, 1.1vw, 17px) + 2px);
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 /* ── Bottom ──────────────────────────────── */

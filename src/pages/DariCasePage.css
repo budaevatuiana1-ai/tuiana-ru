@@ -1,27 +1,43 @@
 .dari-page {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 80px 4vw;
   font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   color: #181C20;
   background-color: #F5F0EB;
 }
 
+/* ── Hero ────────────────────────────── */
+
+.dari-page__hero {
+  padding: clamp(80px, 10vh, 160px) 4vw clamp(60px, 6vh, 100px);
+}
+
+.dari-page__hero-inner {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.42fr) minmax(480px, 0.58fr);
+  gap: clamp(40px, 5vw, 100px);
+  align-items: start;
+}
+
+.dari-page__text {
+  position: sticky;
+  top: clamp(80px, 8vh, 120px);
+}
+
 .dari-page__eyebrow {
-  margin: 0;
-  font-size: 11px;
+  margin: 0 0 clamp(20px, 2.5vh, 40px);
+  font-size: 17px;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(24, 28, 32, 0.45);
 }
 
+.dari-page__eyebrow-accent {
+  color: #C4634A;
+}
+
 .dari-page__title {
-  margin: 0;
+  margin: 0 0 clamp(16px, 2vh, 32px);
   font-size: clamp(72px, 8vw, 160px);
   line-height: 0.88;
   font-weight: 700;
@@ -29,12 +45,1393 @@
   color: #181C20;
 }
 
-.dari-page__status {
+.dari-page__subtitle {
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  font-size: clamp(18px, 1.6vw, 26px);
+  line-height: 1.35;
+  font-weight: 500;
+  color: #181C20;
+}
+
+.dari-page__desc {
+  margin: 0 0 clamp(32px, 4vh, 56px);
+  font-size: clamp(15px, 1.15vw, 19px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+  max-width: 480px;
+}
+
+.dari-page__meta {
   margin: 0;
-  font-size: 16px;
-  color: rgba(24, 28, 32, 0.5);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.36);
 }
 
 .dari-page .cta-button {
-  margin-top: 40px;
+  margin-top: clamp(24px, 3vh, 40px);
+}
+
+.dari-page__visual {
+  display: block;
+  width: 100%;
+}
+
+.dari-page__screenshot {
+  display: block;
+  width: 120%;
+  margin-left: -20%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+}
+
+/* ── Before / исходная ситуация ────────── */
+
+.dari-before {
+  padding: clamp(60px, 8vh, 120px) 4vw clamp(80px, 8vh, 140px);
+  background-color: #FBF8F4;
+}
+
+.dari-before__inner {
+  display: grid;
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: clamp(40px, 5vw, 100px);
+  align-items: start;
+}
+
+.dari-before__text {
+  position: static;
+}
+
+.dari-before__eyebrow {
+  margin: 0 0 clamp(16px, 2vh, 32px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-before__title {
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  font-size: clamp(24px, 2.2vw, 38px);
+  line-height: 1.25;
+  font-weight: 600;
+  color: #181C20;
+}
+
+.dari-before__desc {
+  margin: 0 0 clamp(32px, 4vh, 48px);
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+}
+
+.dari-before__theses {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vh, 32px);
+}
+
+.dari-before__thesis {
+  margin: 0;
+}
+
+.dari-before__thesis-label {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.45);
+}
+
+.dari-before__thesis-num {
+  color: #C4634A;
+}
+
+.dari-before__thesis-text {
+  margin: 0;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.55;
+  color: #181C20;
+}
+
+.dari-before__visual {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 24px);
+  align-items: center;
+  width: 82%;
+  margin-left: auto;
+}
+
+.dari-before__main-img,
+.dari-before__side-img {
+  width: 100%;
+}
+
+.dari-before__main-img img,
+.dari-before__side-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+}
+
+/* ── Logic / новая архитектура ─────────── */
+
+.dari-logic {
+  padding: clamp(60px, 8vh, 120px) 4vw clamp(80px, 8vh, 140px);
+}
+
+.dari-logic__header {
+  max-width: 640px;
+  margin-bottom: clamp(48px, 6vh, 80px);
+}
+
+.dari-logic__eyebrow {
+  margin: 0 0 clamp(16px, 2vh, 32px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-logic__title {
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  font-size: clamp(24px, 2.2vw, 38px);
+  line-height: 1.25;
+  font-weight: 600;
+  color: #181C20;
+}
+
+.dari-logic__desc {
+  margin: 0;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+}
+
+.dari-logic__flow {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(20px, 2.5vw, 40px);
+}
+
+.dari-logic__step {
+  flex: 1;
+  min-width: 0;
+}
+
+.dari-logic__step-num {
+  margin: 0 0 clamp(8px, 1vh, 14px);
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1;
+  font-weight: 700;
+  color: #C4634A;
+}
+
+.dari-logic__step-label {
+  margin: 0 0 clamp(6px, 0.8vh, 10px);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #181C20;
+}
+
+.dari-logic__step-text {
+  margin: 0;
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.5;
+  color: rgba(24, 28, 32, 0.55);
+}
+
+.dari-logic__arrow {
+  flex-shrink: 0;
+  align-self: center;
+  margin-top: clamp(8px, 1vh, 16px);
+  font-size: 22px;
+  color: rgba(213, 138, 92, 0.55);
+}
+
+/* ── Services / услуги и направления ────── */
+
+.dari-services {
+  padding: clamp(60px, 8vh, 120px) 4vw clamp(80px, 8vh, 140px);
+}
+
+.dari-services__inner {
+  display: grid;
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: clamp(40px, 5vw, 100px);
+  align-items: start;
+}
+
+.dari-services__text {
+  /* no sticky — lighter feel */
+}
+
+.dari-services__eyebrow {
+  margin: 0 0 clamp(16px, 2vh, 32px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-services__title {
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  font-size: clamp(24px, 2.2vw, 38px);
+  line-height: 1.25;
+  font-weight: 600;
+  color: #181C20;
+}
+
+.dari-services__desc {
+  margin: 0 0 clamp(32px, 4vh, 48px);
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+}
+
+.dari-services__theses {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vh, 32px);
+}
+
+.dari-services__thesis {
+  margin: 0;
+}
+
+.dari-services__thesis-label {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.45);
+}
+
+.dari-services__thesis-num {
+  color: #C4634A;
+}
+
+.dari-services__thesis-text {
+  margin: 0;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.55;
+  color: #181C20;
+}
+
+.dari-services__visual {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(20px, 2vw, 28px);
+}
+
+.dari-services__main-img {
+  flex: 0 0 54%;
+  min-width: 0;
+}
+
+.dari-services__side-img {
+  flex: 0 0 42%;
+  min-width: 0;
+}
+
+.dari-services__main-img img,
+.dari-services__side-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+}
+
+/* ── Specialists / специалисты ─────────── */
+
+.dari-specialists {
+  padding: clamp(60px, 8vh, 120px) 4vw clamp(80px, 8vh, 140px);
+  background-color: #FBF8F4;
+}
+
+.dari-specialists__inner {
+  display: grid;
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: clamp(40px, 5vw, 100px);
+  align-items: start;
+}
+
+.dari-specialists__text {
+  /* no sticky — lighter feel */
+}
+
+.dari-specialists__eyebrow {
+  margin: 0 0 clamp(16px, 2vh, 32px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-specialists__title {
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  font-size: clamp(24px, 2.2vw, 38px);
+  line-height: 1.25;
+  font-weight: 600;
+  color: #181C20;
+}
+
+.dari-specialists__desc {
+  margin: 0 0 clamp(32px, 4vh, 48px);
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+}
+
+.dari-specialists__theses {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vh, 32px);
+}
+
+.dari-specialists__thesis {
+  margin: 0;
+}
+
+.dari-specialists__thesis-label {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.45);
+}
+
+.dari-specialists__thesis-num {
+  color: #C4634A;
+}
+
+.dari-specialists__thesis-text {
+  margin: 0;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.55;
+  color: #181C20;
+}
+
+.dari-specialists__visual {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(20px, 2vw, 28px);
+}
+
+.dari-specialists__main-img {
+  flex: 0 0 54%;
+  min-width: 0;
+}
+
+.dari-specialists__side-img {
+  flex: 0 0 42%;
+  min-width: 0;
+}
+
+.dari-specialists__main-img img,
+.dari-specialists__side-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+}
+
+/* ── Clinic / клиника ────────────────── */
+
+.dari-clinic {
+  padding: clamp(60px, 8vh, 120px) 4vw clamp(80px, 8vh, 140px);
+}
+
+.dari-clinic__inner {
+  display: grid;
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: clamp(40px, 5vw, 100px);
+  align-items: start;
+}
+
+.dari-clinic__eyebrow {
+  margin: 0 0 clamp(16px, 2vh, 32px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-clinic__title {
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  font-size: clamp(24px, 2.2vw, 38px);
+  line-height: 1.25;
+  font-weight: 600;
+  color: #181C20;
+}
+
+.dari-clinic__desc {
+  margin: 0 0 clamp(32px, 4vh, 48px);
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+}
+
+.dari-clinic__theses {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vh, 32px);
+}
+
+.dari-clinic__thesis {
+  margin: 0;
+}
+
+.dari-clinic__thesis-label {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.45);
+}
+
+.dari-clinic__thesis-num {
+  color: #C4634A;
+}
+
+.dari-clinic__thesis-text {
+  margin: 0;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.55;
+  color: #181C20;
+}
+
+.dari-clinic__visual {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: clamp(12px, 1.5vw, 20px);
+}
+
+.dari-clinic__main-img {
+  flex: 0 0 70%;
+  min-width: 0;
+}
+
+.dari-clinic__main-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+}
+
+.dari-clinic__side {
+  flex: 0 0 30%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vw, 12px);
+}
+
+.dari-clinic__side-item {
+  flex: 1;
+  min-height: 0;
+}
+
+.dari-clinic__side-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+}
+
+/* ── Supplements / БАДы и нутрицевтики ── */
+
+.dari-supplements {
+  padding: clamp(60px, 8vh, 120px) 4vw clamp(80px, 8vh, 140px);
+}
+
+.dari-supplements__inner {
+  display: grid;
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: clamp(40px, 5vw, 100px);
+  align-items: start;
+}
+
+.dari-supplements__eyebrow {
+  margin: 0 0 clamp(16px, 2vh, 32px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-supplements__title {
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  font-size: clamp(24px, 2.2vw, 38px);
+  line-height: 1.25;
+  font-weight: 600;
+  color: #181C20;
+}
+
+.dari-supplements__desc {
+  margin: 0;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+}
+
+.dari-supplements__visual {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: clamp(20px, 2vw, 24px);
+}
+
+.dari-supplements__main-img {
+  flex: 0 0 64%;
+  min-width: 0;
+}
+
+.dari-supplements__side-img {
+  flex: 0 0 36%;
+  min-width: 0;
+}
+
+.dari-supplements__main-img img,
+.dari-supplements__side-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+}
+
+/* ── Legal / юридическая часть ─────────── */
+
+.dari-legal {
+  padding: clamp(60px, 8vh, 120px) 4vw clamp(80px, 8vh, 140px);
+  background-color: #FBF8F4;
+}
+
+.dari-legal__top {
+  display: grid;
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: clamp(40px, 5vw, 100px);
+  align-items: start;
+  margin-bottom: clamp(40px, 5vh, 72px);
+}
+
+.dari-legal__eyebrow {
+  margin: 0 0 clamp(16px, 2vh, 32px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-legal__title {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 46px);
+  line-height: 1.2;
+  font-weight: 600;
+  color: #181C20;
+}
+
+.dari-legal__desc {
+  margin: clamp(28px, 3.4vh, 44px) 0 0;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+}
+
+.dari-legal__docs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 3vw, 36px);
+  max-width: 88%;
+  margin: 0 auto;
+}
+
+.dari-legal__doc {
+  margin: 0;
+  min-width: 0;
+}
+
+.dari-legal__doc-frame {
+  overflow: hidden;
+  height: clamp(440px, 52vh, 640px);
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(47, 52, 56, 0.10);
+  padding: 9px;
+  box-shadow: 0 8px 24px rgba(47, 52, 56, 0.04);
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.dari-legal__doc-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.dari-legal__caption {
+  margin-top: clamp(12px, 1.5vh, 18px);
+}
+
+.dari-legal__caption-label {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-legal__caption-text {
+  margin: 0;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.5;
+  color: #181C20;
+}
+
+/* ── Responsive / адаптивность ─────────── */
+
+.dari-responsive {
+  padding: clamp(60px, 8vh, 120px) 4vw clamp(80px, 8vh, 140px);
+}
+
+.dari-responsive__inner {
+  display: grid;
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: clamp(40px, 5vw, 100px);
+  align-items: stretch;
+}
+
+.dari-responsive__eyebrow {
+  margin: 0 0 clamp(16px, 2vh, 32px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-responsive__title {
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  font-size: clamp(24px, 2.2vw, 38px);
+  line-height: 1.25;
+  font-weight: 600;
+  color: #181C20;
+}
+
+.dari-responsive__desc {
+  margin: 0;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.62);
+}
+
+.dari-responsive__left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dari-responsive__text {
+  max-width: 100%;
+}
+
+.dari-responsive__mockup {
+  margin-top: clamp(24px, 3vh, 40px);
+  width: 72%;
+  transform: scale(0.8);
+  transform-origin: left top;
+}
+
+.dari-responsive__mockup img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+}
+
+.dari-responsive__visual {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(20px, 2vw, 24px);
+  min-width: 0;
+  height: 100%;
+}
+
+.dari-responsive__shot {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.dari-responsive__shot-frame {
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+  box-sizing: border-box;
+  transform: scale(0.8);
+  transform-origin: top center;
+}
+
+.dari-responsive__shot-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ── Result / результат ──────────────── */
+
+.dari-result {
+  padding: clamp(80px, 10vh, 160px) 4vw clamp(90px, 10vh, 180px);
+  background-color: #2F3438;
+}
+
+.dari-result__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.dari-result__eyebrow {
+  margin: 0 0 clamp(20px, 2.5vh, 36px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-result__title {
+  margin: 0 0 clamp(20px, 2.5vh, 36px);
+  max-width: 20ch;
+  font-size: clamp(30px, 3.4vw, 52px);
+  line-height: 1.18;
+  font-weight: 600;
+  color: #F7F3EE;
+}
+
+.dari-result__desc {
+  margin: 0 0 clamp(48px, 6vh, 88px);
+  max-width: 62ch;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.65;
+  color: rgba(247, 243, 238, 0.62);
+}
+
+.dari-result__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(28px, 4vw, 64px);
+}
+
+.dari-result__item {
+  padding-left: clamp(20px, 2vw, 32px);
+  border-left: 1px solid rgba(247, 243, 238, 0.16);
+}
+
+.dari-result__num {
+  margin: 0 0 clamp(14px, 1.6vh, 22px);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #C4634A;
+}
+
+.dari-result__item-title {
+  margin: 0 0 clamp(10px, 1.2vh, 16px);
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.3;
+  font-weight: 600;
+  color: #F7F3EE;
+}
+
+.dari-result__item-text {
+  margin: 0;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.6;
+  color: rgba(247, 243, 238, 0.62);
+}
+
+/* ── Review / отзыв ───────────────────── */
+
+.dari-review {
+  padding: clamp(48px, 6vh, 80px) 4vw clamp(56px, 6vh, 88px);
+  background-color: #FBF8F4;
+}
+
+.dari-review__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: clamp(48px, 5vw, 80px);
+  align-items: start;
+}
+
+.dari-review__text {
+  max-width: 680px;
+}
+
+.dari-review__eyebrow {
+  margin: 0 0 clamp(20px, 2.5vh, 32px);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4634A;
+}
+
+.dari-review__quote {
+  margin: 0 0 clamp(18px, 2vh, 28px);
+  font-size: clamp(22px, 1.8vw, 28px);
+  line-height: 1.35;
+  font-weight: 600;
+  color: #2F3438;
+}
+
+.dari-review__sub {
+  margin: 0 0 clamp(20px, 2.5vh, 32px);
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: rgba(47, 52, 56, 0.62);
+}
+
+.dari-review__author {
+  margin: 0;
+  font-size: clamp(16px, 1.2vw, 20px);
+  font-weight: 600;
+  color: #2F3438;
+}
+
+.dari-review__visual {
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dari-review__img {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(47, 52, 56, 0.10),
+    0 8px 24px rgba(47, 52, 56, 0.05);
+}
+
+/* ── Desktop large ───────────────────── */
+
+@media (min-width: 1101px) {
+  .dari-page__eyebrow {
+    font-size: 20px;
+  }
+}
+
+/* ── Tablet ──────────────────────────── */
+
+@media (max-width: 900px) {
+  .dari-page__hero {
+    padding: clamp(60px, 8vh, 100px) 4vw clamp(48px, 5vh, 80px);
+  }
+
+  .dari-page__hero-inner {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .dari-page__text {
+    position: static;
+  }
+
+  .dari-page__title {
+    font-size: clamp(56px, 14vw, 96px);
+  }
+
+  .dari-page__screenshot {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .dari-before__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .dari-before__text {
+    position: static;
+  }
+
+  .dari-before__visual {
+    width: 100%;
+    margin-left: 0;
+    gap: clamp(16px, 2vw, 20px);
+    padding-bottom: 0;
+  }
+
+  .dari-services__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .dari-services__visual {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dari-services__main-img,
+  .dari-services__side-img {
+    flex: none;
+    width: 82%;
+  }
+
+  .dari-logic__flow {
+    flex-direction: column;
+    gap: clamp(24px, 3vh, 40px);
+  }
+
+  .dari-logic__arrow {
+    align-self: flex-start;
+    transform: rotate(90deg);
+    margin-top: 0;
+    margin-left: clamp(8px, 1vw, 12px);
+  }
+
+  .dari-specialists__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .dari-specialists__visual {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .dari-specialists__main-img,
+  .dari-specialists__side-img {
+    flex: none;
+    width: 82%;
+  }
+
+  .dari-clinic__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .dari-clinic__visual {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .dari-clinic__main-img,
+  .dari-clinic__side {
+    flex: none;
+    width: 100%;
+  }
+
+  .dari-clinic__side {
+    flex-direction: row;
+    gap: clamp(8px, 1vw, 12px);
+  }
+
+  .dari-supplements__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .dari-supplements__visual {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dari-supplements__main-img,
+  .dari-supplements__side-img {
+    flex: none;
+    width: 82%;
+  }
+
+  .dari-legal__top {
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 4vh, 40px);
+  }
+
+  .dari-legal__docs {
+    grid-template-columns: 1fr;
+    max-width: 680px;
+    gap: clamp(28px, 4vh, 48px);
+  }
+
+  .dari-responsive__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .dari-responsive__mockup {
+    flex: none;
+    width: 100%;
+    max-width: 560px;
+    transform: none;
+  }
+
+  .dari-responsive__visual {
+    flex-direction: column;
+    gap: clamp(16px, 2vw, 24px);
+    height: auto;
+  }
+
+  .dari-responsive__shot {
+    height: auto;
+  }
+
+  .dari-responsive__shot-frame {
+    height: auto;
+    border-radius: 10px;
+    transform: none;
+  }
+
+  .dari-review__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+    align-items: start;
+  }
+
+  .dari-review__img {
+    max-width: none;
+    width: 100%;
+  }
+
+  .dari-responsive__shot-frame img {
+    height: auto;
+  }
+}
+
+/* ── Mobile ──────────────────────────── */
+
+@media (max-width: 640px) {
+  .dari-page__hero {
+    padding: 56px 5vw 48px;
+  }
+
+  .dari-page__eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+
+  .dari-page__subtitle {
+    font-size: 17px;
+  }
+
+  .dari-page__desc {
+    font-size: 15px;
+  }
+
+  .dari-page__meta {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+  }
+
+  .dari-before {
+    padding: 48px 5vw 56px;
+  }
+
+  .dari-before__eyebrow {
+    font-size: 11px;
+  }
+
+  .dari-before__title {
+    font-size: 22px;
+  }
+
+  .dari-before__desc {
+    font-size: 15px;
+  }
+
+  .dari-logic {
+    padding: 48px 5vw 56px;
+  }
+
+  .dari-logic__eyebrow {
+    font-size: 11px;
+  }
+
+  .dari-logic__title {
+    font-size: 22px;
+  }
+
+  .dari-logic__desc {
+    font-size: 15px;
+  }
+
+  .dari-services {
+    padding: 48px 5vw 56px;
+  }
+
+  .dari-services__eyebrow {
+    font-size: 11px;
+  }
+
+  .dari-services__title {
+    font-size: 22px;
+  }
+
+  .dari-services__desc {
+    font-size: 15px;
+  }
+
+  .dari-services__main-img,
+  .dari-services__side-img {
+    width: 100%;
+  }
+
+  .dari-specialists {
+    padding: 48px 5vw 56px;
+  }
+
+  .dari-specialists__eyebrow {
+    font-size: 11px;
+  }
+
+  .dari-specialists__title {
+    font-size: 22px;
+  }
+
+  .dari-specialists__desc {
+    font-size: 15px;
+  }
+
+  .dari-specialists__main-img,
+  .dari-specialists__side-img {
+    width: 100%;
+  }
+
+  .dari-clinic {
+    padding: 48px 5vw 56px;
+  }
+
+  .dari-clinic__eyebrow {
+    font-size: 11px;
+  }
+
+  .dari-clinic__title {
+    font-size: 22px;
+  }
+
+  .dari-clinic__desc {
+    font-size: 15px;
+  }
+
+  .dari-clinic__side {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .dari-supplements {
+    padding: 48px 5vw 56px;
+  }
+
+  .dari-supplements__eyebrow {
+    font-size: 11px;
+  }
+
+  .dari-supplements__title {
+    font-size: 22px;
+  }
+
+  .dari-supplements__desc {
+    font-size: 15px;
+  }
+
+  .dari-supplements__main-img,
+  .dari-supplements__side-img {
+    width: 100%;
+  }
+
+  .dari-legal {
+    padding: 48px 5vw 56px;
+  }
+
+  .dari-legal__eyebrow {
+    font-size: 11px;
+  }
+
+  .dari-legal__title {
+    font-size: 24px;
+  }
+
+  .dari-legal__desc {
+    font-size: 15px;
+  }
+
+  .dari-legal__docs {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 32px;
+  }
+
+  .dari-legal__doc {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .dari-legal__doc-frame {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .dari-legal__doc-frame img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: top center;
+  }
+
+  .dari-responsive {
+    padding: 48px 5vw 56px;
+  }
+
+  .dari-responsive__eyebrow {
+    font-size: 11px;
+  }
+
+  .dari-responsive__title {
+    font-size: 22px;
+  }
+
+  .dari-responsive__desc {
+    font-size: 15px;
+  }
+
+  .dari-responsive__mockup {
+    max-width: 100%;
+    transform: none;
+  }
+
+  .dari-responsive__visual {
+    flex-direction: column;
+    gap: 12px;
+    height: auto;
+  }
+
+  .dari-responsive__shot {
+    height: auto;
+  }
+
+  .dari-responsive__shot-frame {
+    height: auto;
+    border-radius: 8px;
+    transform: none;
+  }
+
+  .dari-responsive__shot-frame img {
+    height: auto;
+  }
+
+  .dari-result {
+    padding: 64px 5vw 72px;
+  }
+
+  .dari-result__title {
+    font-size: 26px;
+    margin-bottom: 28px;
+  }
+
+  .dari-result__desc {
+    font-size: 15px;
+    margin-bottom: clamp(40px, 6vh, 56px);
+  }
+
+  .dari-result__list {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .dari-result__item {
+    padding-left: 0;
+    padding-top: clamp(24px, 4vh, 32px);
+    border-left: none;
+    border-top: 1px solid rgba(247, 243, 238, 0.16);
+  }
+
+  .dari-result__item:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .dari-review {
+    padding: 48px 5vw 56px;
+  }
+
+  .dari-review__eyebrow {
+    font-size: 11px;
+  }
+
+  .dari-review__quote {
+    font-size: 22px;
+  }
+
+  .dari-review__sub {
+    font-size: 15px;
+  }
+
+  .dari-review__img {
+    max-width: none;
+    width: 100%;
+  }
 }

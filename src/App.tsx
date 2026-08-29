@@ -31,6 +31,53 @@ function HomePage() {
   const lenisRef = useSmoothScroll()
 
   useEffect(() => {
+    const homeTarget = sessionStorage.getItem('tuiana-home-target')
+    if (homeTarget !== null) {
+      const scrollToId = (id: string) => {
+        const el = document.getElementById(id)
+        if (el) el.scrollIntoView({ behavior: 'instant' })
+      }
+      const scrollToPacScroll = (offset: number) => {
+        const pacEl = document.querySelector('.pac-scroll')
+        if (!pacEl) return
+        const target = pacEl.getBoundingClientRect().top + window.scrollY + offset
+        window.scrollTo({ top: target, behavior: 'instant' })
+      }
+
+      const raf = requestAnimationFrame(() => {
+        switch (homeTarget) {
+          case 'top':
+            window.scrollTo({ top: 0, behavior: 'instant' })
+            break
+          case 'services':
+            scrollToId('services')
+            break
+          case 'cases':
+            scrollToId('cases')
+            break
+          case 'taplink':
+            scrollToId('taplink')
+            break
+          case 'process':
+            scrollToPacScroll(0)
+            break
+          case 'about':
+            scrollToPacScroll(window.innerHeight * 1.4 * 0.9)
+            break
+          case 'reviews':
+            scrollToId('reviews')
+            break
+          case 'contact':
+            scrollToId('contact')
+            break
+        }
+        sessionStorage.removeItem('tuiana-home-target')
+        sessionStorage.removeItem('tuiana-case-return-scroll')
+        sessionStorage.removeItem('tuiana-baza-return-scroll')
+      })
+      return () => cancelAnimationFrame(raf)
+    }
+
     for (const key of RETURN_KEYS) {
       const saved = sessionStorage.getItem(key)
       if (saved !== null) {
@@ -64,7 +111,6 @@ function HomePage() {
 
   return (
     <>
-      <GlobalCursor />
       <HeroStatic />
       <ApproachSystemTransition
         approach={<ApproachSection />}
@@ -90,6 +136,7 @@ function HomePage() {
 function App() {
   return (
     <>
+      <GlobalCursor />
       <GlobalMenu />
       <Routes>
         <Route path="/" element={<HomePage />} />

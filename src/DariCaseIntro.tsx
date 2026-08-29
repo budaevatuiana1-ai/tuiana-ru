@@ -7,7 +7,7 @@ const BASE = import.meta.env.BASE_URL
 
 export default function DariCaseIntro() {
   return (
-    <section id="dari-case" className="dari-case">
+    <section id="cases" className="dari-case">
       <div className="dari-case__main" id="dari-case-content">
         <div className="dari-case__inner">
           <div className="dari-case__text">
@@ -41,7 +41,7 @@ export default function DariCaseIntro() {
           <Link to="/projects/dari" className="dari-case__visual">
             <img
               className="dari-case__screenshot"
-              src={`${BASE}dari-hero.png`}
+              src={`${BASE}dari-hero.webp`}
               alt={ruTypo('Сайт DARI — главная страница')}
               width="1920"
               height="1080"

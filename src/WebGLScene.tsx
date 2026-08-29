@@ -107,7 +107,7 @@ function mountScene(container: HTMLElement): () => void {
     render()
   }
   heroImage.addEventListener('load', handleHeroImageLoad)
-  heroImage.src = `${BASE}dari-hero.png`
+  heroImage.src = `${BASE}dari-hero.webp`
 
   const handleResize = () => {
     const w = container.clientWidth || window.innerWidth

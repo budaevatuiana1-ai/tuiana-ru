@@ -112,6 +112,22 @@
   margin-top: 22px;
 }
 
+.global-menu-panel__item--child {
+  font-size: 15px;
+  color: rgba(247, 243, 238, 0.6);
+  padding-left: 18px;
+}
+
+.global-menu-panel__item--child + .global-menu-panel__item--child {
+  margin-top: 8px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .global-menu-panel__item--child:hover {
+    color: #d58a5c;
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .global-menu-panel__item:hover {
     color: #d58a5c;
@@ -148,5 +164,17 @@
 
   .global-menu-panel__item {
     font-size: 17px;
+  }
+
+  .global-menu-panel__item--child {
+    font-size: 14px;
+  }
+}
+
+@media (max-height: 700px) {
+  .global-menu-panel {
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 }

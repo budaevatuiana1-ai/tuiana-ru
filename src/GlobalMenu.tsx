@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useState, useCallback, useRef, useEffect, Fragment } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './GlobalMenu.css'
 
 function scrollToId(id: string) {
@@ -15,9 +15,15 @@ function scrollToPacScroll(offset: number) {
   window.scrollTo({ top: target, behavior: 'instant' })
 }
 
+interface MenuChild {
+  label: string
+  action: () => void
+}
+
 interface MenuItem {
   label: string
   action: () => void
+  children?: MenuChild[]
 }
 
 export default function GlobalMenu() {
@@ -26,31 +32,58 @@ export default function GlobalMenu() {
   const panelRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
   const isHome = location.pathname === '/'
+  const navigate = useNavigate()
 
   const close = useCallback(() => {
     setIsOpen(false)
     btnRef.current?.focus()
   }, [])
 
+  const goHomeSection = useCallback(
+    (target: string) => {
+      sessionStorage.setItem('tuiana-home-target', target)
+      navigate('/')
+    },
+    [navigate]
+  )
+
   const toggle = useCallback(() => setIsOpen((v) => !v), [])
 
   const items: MenuItem[] = isHome
     ? [
+        { label: 'Главная', action: () => window.scrollTo({ top: 0, behavior: 'instant' }) },
         { label: 'Услуги', action: () => scrollToId('services') },
-        { label: 'Как я работаю', action: () => scrollToPacScroll(0) },
+        {
+          label: 'Кейсы',
+          action: () => scrollToId('cases'),
+          children: [
+            { label: 'DARI', action: () => navigate('/projects/dari') },
+            { label: 'Наша База', action: () => navigate('/projects/baza') },
+            { label: 'Taplink / мини-сайты', action: () => scrollToId('taplink') },
+          ],
+        },
         { label: 'Обо мне', action: () => scrollToPacScroll(window.innerHeight * 1.4 * 0.9) },
         { label: 'Отзывы', action: () => scrollToId('reviews') },
         { label: 'Контакты', action: () => scrollToId('contact') },
       ]
     : [
-        { label: 'Услуги', action: () => {} },
-        { label: 'Как я работаю', action: () => {} },
-        { label: 'Обо мне', action: () => {} },
-        { label: 'Отзывы', action: () => {} },
-        { label: 'Контакты', action: () => {} },
+        { label: 'Главная', action: () => goHomeSection('top') },
+        { label: 'Услуги', action: () => goHomeSection('services') },
+        {
+          label: 'Кейсы',
+          action: () => goHomeSection('cases'),
+          children: [
+            { label: 'DARI', action: () => navigate('/projects/dari') },
+            { label: 'Наша База', action: () => navigate('/projects/baza') },
+            { label: 'Taplink / мини-сайты', action: () => goHomeSection('taplink') },
+          ],
+        },
+        { label: 'Обо мне', action: () => goHomeSection('about') },
+        { label: 'Отзывы', action: () => goHomeSection('reviews') },
+        { label: 'Контакты', action: () => goHomeSection('contact') },
       ]
 
-  const handleItemClick = useCallback((item: MenuItem) => {
+  const handleItemClick = useCallback((item: { action: () => void }) => {
     item.action()
     close()
   }, [close])
@@ -103,14 +136,25 @@ export default function GlobalMenu() {
         aria-label="Меню"
       >
         {items.map((item) => (
-          <button
-            key={item.label}
-            type="button"
-            className="global-menu-panel__item"
-            onClick={() => handleItemClick(item)}
-          >
-            {item.label}
-          </button>
+          <Fragment key={item.label}>
+            <button
+              type="button"
+              className="global-menu-panel__item"
+              onClick={() => handleItemClick(item)}
+            >
+              {item.label}
+            </button>
+            {item.children?.map((child) => (
+              <button
+                key={child.label}
+                type="button"
+                className="global-menu-panel__item global-menu-panel__item--child"
+                onClick={() => handleItemClick(child)}
+              >
+                {child.label}
+              </button>
+            ))}
+          </Fragment>
         ))}
       </div>
     </>

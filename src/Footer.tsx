@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import StaticParticleField from './StaticParticleField'
 import './Footer.css'
 
@@ -7,6 +8,19 @@ const socialLinks = [
   { label: 'MAX', href: 'https://max.ru/u/f9LHodD0cOJDGbO0Sorwblf99n3A7bCVNPyelDjsJJW77eyRZo7ssG4wJr4' },
   { label: 'VK', href: 'https://vk.ru/tuianadesign' },
   { label: 'Instagram', href: 'https://www.instagram.com/tuiana.design/' },
+]
+
+const siteLinks = [
+  { label: 'Главная', target: 'top' },
+  { label: 'Услуги', target: 'services' },
+  { label: 'Обо мне', target: 'about' },
+  { label: 'Отзывы', target: 'reviews' },
+  { label: 'Контакты', target: 'contact' },
+]
+
+const caseLinks = [
+  { label: 'DARI', route: '/projects/dari' },
+  { label: 'Наша База', route: '/projects/baza' },
 ]
 
 function scrollToPacScroll(offset: number) {
@@ -23,21 +37,40 @@ function scrollToId(id: string) {
 }
 
 export default function Footer() {
-  const handleProcess = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
-    scrollToPacScroll(0)
-  }, [])
+  const location = useLocation()
+  const navigate = useNavigate()
+  const isHome = location.pathname === '/'
 
-  const handleAbout = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
-    const transitionDistance = window.innerHeight * 1.4
-    scrollToPacScroll(transitionDistance * 0.9)
-  }, [])
+  const handleSite = useCallback(
+    (target: string) => (e: React.MouseEvent) => {
+      e.preventDefault()
+      if (isHome) {
+        if (target === 'top') {
+          window.scrollTo({ top: 0, behavior: 'instant' })
+        } else if (target === 'services') {
+          scrollToId('services')
+        } else if (target === 'about') {
+          scrollToPacScroll(window.innerHeight * 1.4 * 0.9)
+        } else if (target === 'reviews') {
+          scrollToId('reviews')
+        } else if (target === 'contact') {
+          scrollToId('contact')
+        }
+      } else {
+        sessionStorage.setItem('tuiana-home-target', target)
+        navigate('/')
+      }
+    },
+    [isHome, navigate]
+  )
 
-  const handleAnchor = useCallback((id: string) => (e: React.MouseEvent) => {
-    e.preventDefault()
-    scrollToId(id)
-  }, [])
+  const handleCase = useCallback(
+    (route: string) => (e: React.MouseEvent) => {
+      e.preventDefault()
+      navigate(route)
+    },
+    [navigate]
+  )
 
   const handleTop = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
@@ -62,13 +95,36 @@ export default function Footer() {
           </div>
 
           <div className="footer__col">
-            <div className="footer__col-label">Навигация</div>
+            <div className="footer__col-label">Сайт</div>
             <ul className="footer__links">
-              <li><a className="footer__link" href="#services" onClick={handleAnchor('services')}>Услуги</a></li>
-              <li><a className="footer__link" href="#process" onClick={handleProcess}>Как я работаю</a></li>
-              <li><a className="footer__link" href="#about" onClick={handleAbout}>Обо мне</a></li>
-              <li><a className="footer__link" href="#reviews" onClick={handleAnchor('reviews')}>Отзывы</a></li>
-              <li><a className="footer__link" href="#contact" onClick={handleAnchor('contact')}>Контакты</a></li>
+              {siteLinks.map((l) => (
+                <li key={l.label}>
+                  <a
+                    className={`footer__link${l.target === 'top' ? ' footer__link--home' : ''}`}
+                    href={isHome ? '#' : '/'}
+                    onClick={handleSite(l.target)}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="footer__col">
+            <div className="footer__col-label">Кейсы</div>
+            <ul className="footer__links">
+              {caseLinks.map((l) => (
+                <li key={l.route}>
+                  <a
+                    className="footer__link"
+                    href={l.route}
+                    onClick={handleCase(l.route)}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
