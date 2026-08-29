@@ -20,6 +20,7 @@ import ContactSection from './ContactSection'
 import Footer from './Footer'
 import DariCasePage from './pages/DariCasePage'
 import BazaCasePage from './pages/BazaCasePage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import useSmoothScroll from './hooks/useSmoothScroll'
 
 const RETURN_KEYS = [
@@ -142,6 +143,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/projects/dari" element={<DariCasePage />} />
         <Route path="/projects/baza" element={<BazaCasePage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
       </Routes>
     </>
   )

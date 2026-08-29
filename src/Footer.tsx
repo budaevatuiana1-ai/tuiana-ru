@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, Link } from 'react-router-dom'
 import StaticParticleField from './StaticParticleField'
 import './Footer.css'
 
@@ -149,6 +149,9 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <span className="footer__copy">© 2026 Tuiana Design</span>
+          <Link className="footer__privacy" to="/privacy">
+            Политика обработки персональных данных
+          </Link>
           <a className="footer__top" href="#" onClick={handleTop}>Наверх ↑</a>
         </div>
       </div>

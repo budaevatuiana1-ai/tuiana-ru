@@ -104,8 +104,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 20px;
   padding-top: clamp(24px, 3vh, 36px);
   border-top: 1px solid rgba(247, 243, 238, 0.08);
+}
+
+.footer__privacy {
+  font-size: clamp(12px, 0.9vw, 14px);
+  color: rgba(247, 243, 238, 0.3);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer__privacy:hover {
+  color: #D58A5C;
+}
+
+.footer__privacy:focus-visible {
+  outline: 2px solid #D58A5C;
+  outline-offset: 3px;
 }
 
 .footer__copy {
