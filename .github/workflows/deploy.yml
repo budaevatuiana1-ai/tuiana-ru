@@ -33,9 +33,10 @@ jobs:
         run: npm ci
 
       - name: Build
-        env:
-          VITE_GITHUB_PAGES: "true"
-        run: npm run build -- --base=/tuiana-ru/
+        run: npm run build -- --base=/
+
+      - name: Generate route HTML
+        run: node scripts/build-routes.mjs
 
       - name: Remove private source files
         run: rm -rf dist/about/source dist/certificates/source
