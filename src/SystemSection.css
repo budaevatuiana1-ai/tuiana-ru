@@ -3,7 +3,7 @@
   min-height: 100vh;
   background-color: #2F3438;
   padding: clamp(110px, 10vh, 150px) 4vw clamp(100px, 9vh, 140px);
-  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   color: #F7F3EE;
   box-sizing: border-box;
   overflow: hidden;

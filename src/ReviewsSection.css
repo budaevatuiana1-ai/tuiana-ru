@@ -2,7 +2,7 @@
   background: #F7F3EE;
   padding: clamp(40px, 5vh, 64px) 0;
   overflow: hidden;
-  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .reviews__inner {

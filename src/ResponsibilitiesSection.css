@@ -3,7 +3,7 @@
   background: #2F3438;
   padding: clamp(80px, 10vh, 120px) 4vw clamp(80px, 10vh, 120px);
   overflow: hidden;
-  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* ── Inner ───────────────────────────────── */

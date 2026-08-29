@@ -1,7 +1,7 @@
 .contact {
   background: #FFFFFF;
   padding: clamp(80px, 10vh, 120px) 4vw clamp(80px, 10vh, 120px);
-  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .contact__inner {

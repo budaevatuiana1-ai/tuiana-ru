@@ -4,7 +4,7 @@
   padding: clamp(110px, 10vh, 150px) 4vw clamp(100px, 9vh, 140px);
   position: relative;
   border-top: 1px solid rgba(47, 52, 56, 0.06);
-  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   box-sizing: border-box;
 }
 

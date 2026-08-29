@@ -21,7 +21,7 @@
 }
 
 .certs__bg-text {
-  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   font-size: clamp(48px, 7vw, 120px);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -67,7 +67,7 @@
 }
 
 .certs__title {
-  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   font-size: clamp(36px, 4.2vw, 64px);
   line-height: 1.08;
   font-weight: 700;

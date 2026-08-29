@@ -2,7 +2,7 @@
   position: relative;
   background: #2F3438;
   padding: clamp(80px, 10vh, 120px) 4vw clamp(40px, 5vh, 64px);
-  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   overflow: hidden;
 }
 

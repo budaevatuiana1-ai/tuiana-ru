@@ -2,7 +2,7 @@
   position: relative;
   background-color: #F5F0EB;
   padding: clamp(80px, 10vh, 160px) 4vw clamp(80px, 8vh, 120px);
-  font-family: 'Inter', 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   color: #181C20;
   box-sizing: border-box;
   display: flex;
