@@ -111,6 +111,29 @@
   color: rgba(24, 28, 32, 0.45);
 }
 
+.privacy__analytics-btn {
+  display: inline-block;
+  font-family: inherit;
+  font-size: clamp(14px, 1vw, 16px);
+  color: rgba(24, 28, 32, 0.5);
+  background: none;
+  border: 1px solid rgba(24, 28, 32, 0.2);
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.privacy__analytics-btn:hover {
+  color: #c4634a;
+  border-color: #c4634a;
+}
+
+.privacy__analytics-btn:focus-visible {
+  outline: 2px solid #d58a5c;
+  outline-offset: 3px;
+}
+
 @media (max-width: 640px) {
   .privacy__inner {
     padding: 88px 5vw 64px;

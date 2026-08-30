@@ -77,6 +77,10 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [])
 
+  const handleAnalytics = useCallback(() => {
+    window.dispatchEvent(new Event('tuiana:open-analytics-settings'))
+  }, [])
+
   return (
     <footer className="footer">
       <StaticParticleField />
@@ -152,6 +156,13 @@ export default function Footer() {
           <Link className="footer__privacy" to="/privacy">
             Политика обработки персональных данных
           </Link>
+          <button
+            type="button"
+            className="footer__analytics"
+            onClick={handleAnalytics}
+          >
+            Настройки аналитики
+          </button>
           <a className="footer__top" href="#" onClick={handleTop}>Наверх ↑</a>
         </div>
       </div>

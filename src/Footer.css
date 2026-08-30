@@ -126,6 +126,26 @@
   outline-offset: 3px;
 }
 
+.footer__analytics {
+  font-family: inherit;
+  font-size: clamp(12px, 0.9vw, 14px);
+  color: rgba(247, 243, 238, 0.3);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.footer__analytics:hover {
+  color: #D58A5C;
+}
+
+.footer__analytics:focus-visible {
+  outline: 2px solid #D58A5C;
+  outline-offset: 3px;
+}
+
 .footer__copy {
   font-size: clamp(12px, 0.9vw, 14px);
   color: rgba(247, 243, 238, 0.3);
