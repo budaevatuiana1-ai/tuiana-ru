@@ -47,6 +47,7 @@
 
 .dari-page__subtitle {
   margin: 0 0 clamp(16px, 2vh, 28px);
+  max-width: 420px;
   font-size: clamp(18px, 1.6vw, 26px);
   line-height: 1.35;
   font-weight: 500;
@@ -688,8 +689,8 @@
 
 .dari-legal__title {
   margin: 0;
-  font-size: clamp(28px, 3vw, 46px);
-  line-height: 1.2;
+  font-size: clamp(24px, 2.2vw, 38px);
+  line-height: 1.25;
   font-weight: 600;
   color: #181C20;
 }
@@ -874,8 +875,8 @@
 .dari-result__title {
   margin: 0 0 clamp(20px, 2.5vh, 36px);
   max-width: 20ch;
-  font-size: clamp(30px, 3.4vw, 52px);
-  line-height: 1.18;
+  font-size: clamp(24px, 2.2vw, 38px);
+  line-height: 1.25;
   font-weight: 600;
   color: #F7F3EE;
 }
@@ -1326,7 +1327,7 @@
   }
 
   .dari-legal__title {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .dari-legal__desc {
@@ -1403,8 +1404,8 @@
     padding: 64px 5vw 72px;
   }
 
-  .dari-result__title {
-    font-size: 26px;
+.dari-result__title {
+  font-size: 22px;
     margin-bottom: 28px;
   }
 

@@ -59,7 +59,7 @@ export default function DariCasePage() {
           <div className="dari-before__text">
             <p className="dari-before__eyebrow">НА СТАРТЕ</p>
             <h2 className="dari-before__title">
-              {ruTypo('Информация была. Не хватало единой логики.')}
+              {ruTypo('Информация была. Не хватало единой логики')}
             </h2>
             <p className="dari-before__desc">
               {ruTypo(
@@ -118,7 +118,7 @@ export default function DariCasePage() {
         <div className="dari-logic__header">
           <p className="dari-logic__eyebrow">НОВАЯ ЛОГИКА</p>
           <h2 className="dari-logic__title">
-            {ruTypo('Собрали сайт вокруг пути пациента.')}
+            {ruTypo('Собрали сайт вокруг пути пациента')}
           </h2>
           <p className="dari-logic__desc">
             {ruTypo(
@@ -165,7 +165,7 @@ export default function DariCasePage() {
           <div className="dari-services__text">
             <p className="dari-services__eyebrow">УСЛУГИ И НАПРАВЛЕНИЯ</p>
             <h2 className="dari-services__title">
-              {ruTypo('Сделали услуги понятными и структурированными.')}
+              {ruTypo('Сделали услуги понятными и структурированными')}
             </h2>
             <p className="dari-services__desc">
               {ruTypo(
@@ -225,7 +225,7 @@ export default function DariCasePage() {
           <div className="dari-specialists__text">
             <p className="dari-specialists__eyebrow">СПЕЦИАЛИСТЫ</p>
             <h2 className="dari-specialists__title">
-              {ruTypo('У каждого специалиста — своя страница и путь к записи.')}
+              {ruTypo('У каждого специалиста — своя страница и путь к записи')}
             </h2>
             <p className="dari-specialists__desc">
               {ruTypo(
@@ -285,7 +285,7 @@ export default function DariCasePage() {
           <div className="dari-clinic__text">
             <p className="dari-clinic__eyebrow">КЛИНИКА</p>
             <h2 className="dari-clinic__title">
-              {ruTypo('Реальное пространство стало частью визуальной системы сайта.')}
+              {ruTypo('Реальное пространство стало частью визуальной системы сайта')}
             </h2>
             <p className="dari-clinic__desc">
               {ruTypo(
@@ -355,7 +355,7 @@ export default function DariCasePage() {
           <div className="dari-supplements__text">
             <p className="dari-supplements__eyebrow">БАДЫ И НУТРИЦЕВТИКИ</p>
             <h2 className="dari-supplements__title">
-              {ruTypo('Выделили отдельное направление с продуктами и рекомендациями.')}
+              {ruTypo('Выделили отдельное направление с продуктами и рекомендациями')}
             </h2>
             <p className="dari-supplements__desc">
               {ruTypo(
@@ -389,7 +389,7 @@ export default function DariCasePage() {
           <div className="dari-legal__intro">
             <p className="dari-legal__eyebrow">ЮРИДИЧЕСКАЯ ЧАСТЬ</p>
             <h2 className="dari-legal__title">
-              {ruTypo('Юридические требования стали частью структуры сайта.')}
+              {ruTypo('Юридические требования стали частью структуры сайта')}
             </h2>
           </div>
           <p className="dari-legal__desc">
@@ -440,7 +440,7 @@ export default function DariCasePage() {
             <div className="dari-responsive__text">
               <p className="dari-responsive__eyebrow">АДАПТИВНОСТЬ</p>
               <h2 className="dari-responsive__title">
-                {ruTypo('Сайт работает как единая система и на большом экране, и в телефоне.')}
+                {ruTypo('Сайт работает как единая система и на большом экране, и в телефоне')}
               </h2>
               <p className="dari-responsive__desc">
                 {ruTypo(
@@ -497,7 +497,7 @@ export default function DariCasePage() {
           <p className="dari-result__eyebrow">РЕЗУЛЬТАТ</p>
           <h2 className="dari-result__title">
             {ruTypo(
-              'Разрозненная информация превратилась в единую систему для пациента.'
+              'Разрозненная информация превратилась в единую систему для пациента'
             )}
           </h2>
           <p className="dari-result__desc">
