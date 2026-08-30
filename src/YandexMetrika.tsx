@@ -3,7 +3,11 @@ import { useLocation } from 'react-router-dom'
 
 declare global {
   interface Window {
-    ym: (id: number, method: string, ...args: unknown[]) => void
+    ym: {
+      (...args: unknown[]): void
+      a?: unknown[][]
+      l?: number
+    }
   }
 }
 
@@ -14,6 +18,16 @@ const TAG_JS_URL = 'https://mc.yandex.ru/metrika/tag.js'
 const COUNTER_ID = 109523910
 
 let tagPromise: Promise<void> | null = null
+
+function ensureYmStub() {
+  if (typeof window.ym === 'function') return
+  window.ym = Object.assign(
+    (...args: unknown[]) => {
+      ;(window.ym.a = window.ym.a || []).push(args)
+    },
+    { a: [] as unknown[][], l: Date.now() }
+  )
+}
 
 function loadTag(): Promise<void> {
   if (tagPromise) return tagPromise
@@ -99,6 +113,8 @@ export default function YandexMetrika() {
     }
 
     let cancelled = false
+
+    ensureYmStub()
 
     loadTag().then(() => {
       if (cancelled) return
