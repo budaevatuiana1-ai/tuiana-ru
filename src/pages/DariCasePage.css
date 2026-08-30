@@ -70,8 +70,24 @@
   color: rgba(24, 28, 32, 0.36);
 }
 
-.dari-page .cta-button {
+.dari-page__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 18px);
   margin-top: clamp(24px, 3vh, 40px);
+}
+
+.dari-page__cta .cta-button--primary {
+  background: #7A3038;
+  border-color: #7A3038;
+  color: #FFF;
+}
+
+.dari-page__cta .cta-button--primary:hover {
+  background: #65272E;
+  border-color: #65272E;
+  color: #FFF;
 }
 
 .dari-page__visual {

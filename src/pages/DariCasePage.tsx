@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import './DariCasePage.css'
 import { ruTypo } from '../lib/typography'
 import CtaButton from '../CtaButton'
+import ExternalCtaButton from '../ExternalCtaButton'
 import ContactSection from '../ContactSection'
 import Footer from '../Footer'
 
@@ -32,9 +33,14 @@ export default function DariCasePage() {
             <p className="dari-page__meta">
               UX / STRUCTURE / COPY / DESIGN / DEVELOPMENT / LEGAL
             </p>
-            <CtaButton to="/" arrow={false}>
-              ← На главную
-            </CtaButton>
+            <div className="dari-page__cta">
+              <ExternalCtaButton href="https://dari-clinic.ru" primary>
+                Посмотреть сайт ↗
+              </ExternalCtaButton>
+              <CtaButton to="/" arrow={false}>
+                ← На главную
+              </CtaButton>
+            </div>
           </div>
           <div className="dari-page__visual">
             <img

@@ -45,3 +45,21 @@
   outline: 2px solid #181C20;
   outline-offset: 3px;
 }
+
+/* ── Primary: filled accent background ── */
+.cta-button--primary {
+  background: transparent;
+  border-color: rgba(24, 28, 32, 0.3);
+  color: #181C20;
+}
+
+.cta-button--primary:hover {
+  background: #181C20;
+  border-color: #181C20;
+  color: #F5F0EB;
+}
+
+/* ── Secondary: no arrow, ghost style ── */
+.cta-button--secondary .cta-button__arrow {
+  display: none;
+}
