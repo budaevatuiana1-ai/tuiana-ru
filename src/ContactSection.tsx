@@ -56,6 +56,13 @@ export default function ContactSection() {
               <span className="contact__action-label">Написать в MAX</span>
               <span className="contact__action-arrow" aria-hidden="true">↗</span>
             </a>
+
+            <div className="contact__legal">
+              <p className="contact__legal-title">Официально и прозрачно</p>
+              <p className="contact__legal-text">
+                Работаю по договору, принимаю оплату как самозанятая и выдаю чек
+              </p>
+            </div>
           </div>
         </div>
 
