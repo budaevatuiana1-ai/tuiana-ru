@@ -569,11 +569,13 @@
   .tp-viewer__inner {
     width: 100%;
     max-width: none;
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
     max-height: none;
     margin: 0;
     border-radius: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .tp-viewer__header {
