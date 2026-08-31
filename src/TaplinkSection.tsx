@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import './TaplinkSection.css'
 import { ruTypo } from './lib/typography'
 import TaplinkDotField from './TaplinkDotField'
@@ -235,6 +236,9 @@ export default function TaplinkSection() {
                   'Подходят, когда нужен аккуратный mobile-first формат: быстро показать экспертность, объяснить услуги и привести человека к записи.'
                 )}
               </p>
+              <Link to="/projects/taplink" className="taplink__projects-link">
+                Смотреть проекты →
+              </Link>
             </div>
           </div>
         </div>
