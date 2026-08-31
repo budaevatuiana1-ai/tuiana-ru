@@ -46,11 +46,13 @@
 }
 
 .dari-page__subtitle {
-  margin: 0 0 clamp(16px, 2vh, 28px);
+  display: block;
+  margin: clamp(8px, 1vh, 16px) 0 clamp(16px, 2vh, 28px);
   max-width: 420px;
   font-size: clamp(18px, 1.6vw, 26px);
   line-height: 1.35;
   font-weight: 500;
+  letter-spacing: 0;
   color: #181C20;
 }
 

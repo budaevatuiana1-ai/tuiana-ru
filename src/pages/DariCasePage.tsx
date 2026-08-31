@@ -21,10 +21,12 @@ export default function DariCasePage() {
             <p className="dari-page__eyebrow">
               КЕЙС 01 / <span className="dari-page__eyebrow-accent">МЕДИЦИНСКИЙ САЙТ</span>
             </p>
-            <h1 className="dari-page__title">DARI</h1>
-            <p className="dari-page__subtitle">
-              {ruTypo('Многостраничный сайт центра эстетической косметологии')}
-            </p>
+            <h1 className="dari-page__title">
+              ДАРИ
+              <span className="dari-page__subtitle">
+                {ruTypo('Многостраничный сайт центра эстетической косметологии')}
+              </span>
+            </h1>
             <p className="dari-page__desc">
               {ruTypo(
                 'Не просто новый дизайн, а единая цифровая система клиники — от структуры услуг и страниц специалистов до документов и понятного пути пациента к записи.'
