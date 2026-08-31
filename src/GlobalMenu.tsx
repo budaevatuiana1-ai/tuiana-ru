@@ -59,7 +59,7 @@ export default function GlobalMenu() {
           children: [
             { label: 'DARI', action: () => navigate('/projects/dari') },
             { label: 'Наша База', action: () => navigate('/projects/baza') },
-            { label: 'Taplink / мини-сайты', action: () => scrollToId('taplink') },
+            { label: 'Taplink / мини-сайты', action: () => navigate('/projects/taplink') },
           ],
         },
         { label: 'Обо мне', action: () => scrollToPacScroll(window.innerHeight * 1.4 * 0.9) },
@@ -75,7 +75,7 @@ export default function GlobalMenu() {
           children: [
             { label: 'DARI', action: () => navigate('/projects/dari') },
             { label: 'Наша База', action: () => navigate('/projects/baza') },
-            { label: 'Taplink / мини-сайты', action: () => goHomeSection('taplink') },
+            { label: 'Taplink / мини-сайты', action: () => navigate('/projects/taplink') },
           ],
         },
         { label: 'Обо мне', action: () => goHomeSection('about') },
