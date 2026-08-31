@@ -16,7 +16,7 @@ const baseHtml = readFileSync(distIndex, 'utf8')
 const HOME = {
   out: null, // root index.html
   url: 'https://tuiana.ru/',
-  title: 'Tuiana Design — сайты для врачей и экспертов',
+  title: 'Сайты для врачей с личной практикой — Tuiana Design',
   description:
     'Разрабатываю сайты, лендинги и мини-сайты для врачей и экспертов с личной практикой: структура, тексты, дизайн, адаптация и запуск под ключ.',
 }

@@ -29,7 +29,7 @@ function HeroStatic() {
           WEB DESIGN · AI VISUALS · DIGITAL PRODUCTS
         </p>
         <div className="hero__wordmark-wrap">
-          <h1 className="hero__wordmark">TUIANA DESIGN</h1>
+          <span className="hero__wordmark">TUIANA DESIGN</span>
         </div>
       </header>
       <div className="hero__projects">
@@ -44,12 +44,14 @@ function HeroStatic() {
       </div>
       <footer className="hero__foot">
         <div className="hero__intro-item hero__intro-item--foot">
-          <p className="hero__eyebrow">САЙТЫ ПОД КЛЮЧ</p>
-          <p className="hero__lead">
-            {ruTypo('Для врачей и экспертов')}
-            <br />
-            {ruTypo('с личной практикой')}
-          </p>
+          <h1>
+            <span className="hero__eyebrow">САЙТЫ ПОД КЛЮЧ</span>
+            <span className="hero__lead">
+              {ruTypo('Для врачей и экспертов')}
+              <br />
+              {ruTypo('с личной практикой')}
+            </span>
+          </h1>
           <p className="hero__meta">{ruTypo('Стратегия · структура · тексты · дизайн · запуск')}</p>
         </div>
         <a href="#contact" className="hero__cta hero__intro-item hero__intro-item--cta" onClick={handleContact}>
