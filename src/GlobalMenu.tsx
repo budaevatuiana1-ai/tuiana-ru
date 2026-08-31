@@ -57,7 +57,7 @@ export default function GlobalMenu() {
           label: 'Кейсы',
           action: () => scrollToId('cases'),
           children: [
-            { label: 'DARI', action: () => navigate('/projects/dari') },
+            { label: 'Дари', action: () => navigate('/projects/dari') },
             { label: 'Наша База', action: () => navigate('/projects/baza') },
             { label: 'Taplink / мини-сайты', action: () => navigate('/projects/taplink') },
           ],
@@ -73,7 +73,7 @@ export default function GlobalMenu() {
           label: 'Кейсы',
           action: () => goHomeSection('cases'),
           children: [
-            { label: 'DARI', action: () => navigate('/projects/dari') },
+            { label: 'Дари', action: () => navigate('/projects/dari') },
             { label: 'Наша База', action: () => navigate('/projects/baza') },
             { label: 'Taplink / мини-сайты', action: () => navigate('/projects/taplink') },
           ],

@@ -14,7 +14,7 @@ export default function DariCaseIntro() {
             <p className="dari-case__eyebrow">
               КЕЙС <span className="dari-case__eyebrow-accent">01</span>
             </p>
-            <h2 className="dari-case__title">DARI</h2>
+            <h2 className="dari-case__title">Дари</h2>
             <p className="dari-case__subtitle">
               {ruTypo('Многостраничный сайт медицинской клиники')}
             </p>
@@ -42,7 +42,7 @@ export default function DariCaseIntro() {
             <img
               className="dari-case__screenshot"
               src={`${BASE}dari-hero.webp`}
-              alt={ruTypo('Сайт DARI — главная страница')}
+              alt={ruTypo('Сайт Дари — главная страница')}
               width="1920"
               height="1080"
             />

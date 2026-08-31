@@ -35,7 +35,7 @@ function HeroStatic() {
       <div className="hero__projects">
         <div className="hero__projects-group">
         <div className="hero__screen hero__screen--dari hero__intro-item hero__intro-item--dari">
-          <img src={`${BASE}hero/dari.png`} alt="Проект DARI" draggable={false} />
+          <img src={`${BASE}hero/dari.png`} alt="Проект Дари" draggable={false} />
         </div>
         <div className="hero__screen hero__screen--baza hero__intro-item hero__intro-item--baza">
           <img src={`${BASE}hero/nasha-baza.png`} alt="Проект Наша База" draggable={false} />

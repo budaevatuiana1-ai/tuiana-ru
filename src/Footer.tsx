@@ -19,7 +19,7 @@ const siteLinks = [
 ]
 
 const caseLinks = [
-  { label: 'DARI', route: '/projects/dari' },
+  { label: 'Дари', route: '/projects/dari' },
   { label: 'Наша База', route: '/projects/baza' },
   { label: 'Taplink / мини-сайты', route: '/projects/taplink' },
 ]

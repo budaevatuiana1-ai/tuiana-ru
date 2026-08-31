@@ -48,7 +48,7 @@ export default function DariCasePage() {
             <img
               className="dari-page__screenshot"
               src={`${BASE}dari-hero.webp`}
-              alt={ruTypo('Сайт DARI — главная страница')}
+              alt={ruTypo('Сайт Дари — главная страница')}
               width="1920"
               height="1080"
             />
@@ -99,7 +99,7 @@ export default function DariCasePage() {
             <div className="dari-before__main-img">
               <img
                 src={`${BASE}dari/old-home.webp`}
-                alt={ruTypo('Старая версия сайта DARI — главная страница')}
+                alt={ruTypo('Старая версия сайта Дари — главная страница')}
                 width="1440"
                 height="900"
               />
@@ -107,7 +107,7 @@ export default function DariCasePage() {
             <div className="dari-before__side-img">
               <img
                 src={`${BASE}dari/old-services.webp`}
-                alt={ruTypo('Старая версия сайта DARI — страница услуг')}
+                alt={ruTypo('Старая версия сайта Дари — страница услуг')}
                 width="1440"
                 height="900"
               />
@@ -205,7 +205,7 @@ export default function DariCasePage() {
             <div className="dari-services__main-img">
               <img
                 src={`${BASE}dari/services-overview.webp`}
-                alt={ruTypo('Страница услуг DARI — общий вид')}
+                alt={ruTypo('Страница услуг Дари — общий вид')}
                 width="1440"
                 height="900"
               />
@@ -213,7 +213,7 @@ export default function DariCasePage() {
             <div className="dari-services__side-img">
               <img
                 src={`${BASE}dari/services-grid.webp`}
-                alt={ruTypo('Сетка услуг DARI — категории')}
+                alt={ruTypo('Сетка услуг Дари — категории')}
                 width="1440"
                 height="900"
               />
@@ -265,7 +265,7 @@ export default function DariCasePage() {
             <div className="dari-specialists__main-img">
               <img
                 src={`${BASE}dari/specialists-grid.webp`}
-                alt={ruTypo('Список специалистов DARI — сетка карточек')}
+                alt={ruTypo('Список специалистов Дари — сетка карточек')}
                 width="1440"
                 height="900"
               />
@@ -273,7 +273,7 @@ export default function DariCasePage() {
             <div className="dari-specialists__side-img">
               <img
                 src={`${BASE}dari/specialist-page.webp`}
-                alt={ruTypo('Страница специалиста DARI')}
+                alt={ruTypo('Страница специалиста Дари')}
                 width="1440"
                 height="900"
               />
@@ -325,7 +325,7 @@ export default function DariCasePage() {
             <div className="dari-clinic__main-img">
               <img
                 src={`${BASE}dari/clinic-gallery.webp`}
-                alt={ruTypo('Галерея клиники DARI — общий вид пространства')}
+                alt={ruTypo('Галерея клиники Дари — общий вид пространства')}
                 width="1440"
                 height="900"
               />
@@ -334,7 +334,7 @@ export default function DariCasePage() {
               <div className="dari-clinic__side-item">
                 <img
                   src={`${BASE}dari/clinic-room-01.webp`}
-                  alt={ruTypo('Кабинет клиники DARI')}
+                  alt={ruTypo('Кабинет клиники Дари')}
                   width="720"
                   height="480"
                 />
@@ -342,7 +342,7 @@ export default function DariCasePage() {
               <div className="dari-clinic__side-item">
                 <img
                   src={`${BASE}dari/clinic-room-02.webp`}
-                  alt={ruTypo('Процедурный кабинет DARI')}
+                  alt={ruTypo('Процедурный кабинет Дари')}
                   width="720"
                   height="480"
                 />
@@ -369,7 +369,7 @@ export default function DariCasePage() {
             <div className="dari-supplements__main-img">
               <img
                 src={`${BASE}dari/supplements-grid.webp`}
-                alt={ruTypo('Каталог БАДов DARI — обзор категории')}
+                alt={ruTypo('Каталог БАДов Дари — обзор категории')}
                 width="1440"
                 height="900"
               />
@@ -377,7 +377,7 @@ export default function DariCasePage() {
             <div className="dari-supplements__side-img">
               <img
                 src={`${BASE}dari/supplement-detail.webp`}
-                alt={ruTypo('Карточка товара DARI — подробная информация')}
+                alt={ruTypo('Карточка товара Дари — подробная информация')}
                 width="1440"
                 height="900"
               />
@@ -405,7 +405,7 @@ export default function DariCasePage() {
             <div className="dari-legal__doc-frame">
               <img
                 src={`${BASE}dari/privacy-policy.webp`}
-                alt={ruTypo('Политика обработки персональных данных DARI')}
+                alt={ruTypo('Политика обработки персональных данных Дари')}
                 width="1440"
                 height="900"
               />
@@ -421,7 +421,7 @@ export default function DariCasePage() {
             <div className="dari-legal__doc-frame">
               <img
                 src={`${BASE}dari/paid-services-rules.webp`}
-                alt={ruTypo('Правила предоставления платных медицинских услуг DARI')}
+                alt={ruTypo('Правила предоставления платных медицинских услуг Дари')}
                 width="1440"
                 height="900"
               />
@@ -453,7 +453,7 @@ export default function DariCasePage() {
             <div className="dari-responsive__mockup">
               <img
                 src={`${BASE}dari/responsive-mockup.webp`}
-                alt={ruTypo('Адаптивная вёрстка DARI — desktop и мобильный вид')}
+                alt={ruTypo('Адаптивная вёрстка Дари — desktop и мобильный вид')}
                 width="1440"
                 height="900"
               />
@@ -464,7 +464,7 @@ export default function DariCasePage() {
               <div className="dari-responsive__shot-frame">
                 <img
                   src={`${BASE}dari/mobile-home.webp`}
-                  alt={ruTypo('Мобильная версия DARI — главная страница')}
+                  alt={ruTypo('Мобильная версия Дари — главная страница')}
                   width="380"
                   height="820"
                 />
@@ -474,7 +474,7 @@ export default function DariCasePage() {
               <div className="dari-responsive__shot-frame">
                 <img
                   src={`${BASE}dari/mobile-services.webp`}
-                  alt={ruTypo('Мобильная версия DARI — страница услуг')}
+                  alt={ruTypo('Мобильная версия Дари — страница услуг')}
                   width="380"
                   height="820"
                 />
@@ -484,7 +484,7 @@ export default function DariCasePage() {
               <div className="dari-responsive__shot-frame">
                 <img
                   src={`${BASE}dari/mobile-specialists.webp`}
-                  alt={ruTypo('Мобильная версия DARI — страница специалистов')}
+                  alt={ruTypo('Мобильная версия Дари — страница специалистов')}
                   width="380"
                   height="820"
                 />
@@ -557,7 +557,7 @@ export default function DariCasePage() {
             <img
               className="dari-review__img"
               src={`${BASE}dari/review-dari.webp`}
-              alt={ruTypo('Отзыв клиента DARI — скриншот переписки')}
+              alt={ruTypo('Отзыв клиента Дари — скриншот переписки')}
             />
           </div>
         </div>
