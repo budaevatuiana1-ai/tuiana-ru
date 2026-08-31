@@ -37,6 +37,13 @@ const ROUTES = [
       'Кейс Tuiana Design: разработка структуры и дизайна проекта «Наша База», организация большого объёма информации и адаптация сайта для разных устройств.',
   },
   {
+    out: 'projects/taplink',
+    url: 'https://tuiana.ru/projects/taplink',
+    title: 'Taplink и мини-сайты для врачей и экспертов — Tuiana Design',
+    description:
+      'Мини-сайты в Taplink для врачей, психологов и экспертов с частной практикой: структура, тексты, дизайн и примеры проектов.',
+  },
+  {
     out: 'privacy',
     url: 'https://tuiana.ru/privacy',
     title: 'Политика обработки персональных данных | Tuiana Design',

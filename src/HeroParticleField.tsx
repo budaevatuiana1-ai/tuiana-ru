@@ -4,6 +4,9 @@ import { isGlobalRafPaused } from './rafPause'
 interface HeroParticleFieldProps {
   alphaMultiplier?: number
   cursorForceMultiplier?: number
+  baseColor?: { r: number; g: number; b: number }
+  hoverColor?: { r: number; g: number; b: number }
+  lightMode?: boolean
 }
 
 const DPR_CAP = 2
@@ -48,6 +51,22 @@ const NEAR = {
   activeAlpha: 0.62, activeRadius: 1.05,
 }
 
+const FAR_LIGHT = {
+  ...FAR,
+  alphaMin: 0.12, alphaMax: 0.18,
+  activeAlpha: 0.24,
+}
+const MID_LIGHT = {
+  ...MID,
+  alphaMin: 0.22, alphaMax: 0.30,
+  activeAlpha: 0.50,
+}
+const NEAR_LIGHT = {
+  ...NEAR,
+  alphaMin: 0.34, alphaMax: 0.44,
+  activeAlpha: 0.62,
+}
+
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t
 }
@@ -64,7 +83,7 @@ function lerpColor(
   }
 }
 
-export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMultiplier = 1 }: HeroParticleFieldProps) {
+export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMultiplier = 1, baseColor = BASE_COLOR, hoverColor = HOVER_COLOR, lightMode = false }: HeroParticleFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mouseRef = useRef({ x: -1000, y: -1000, active: false, normX: 0, normY: 0 })
   const particlesRef = useRef<Particle[]>([])
@@ -166,10 +185,14 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const LAYERS = lightMode
+      ? [FAR_LIGHT, MID_LIGHT, NEAR_LIGHT]
+      : [FAR, MID, NEAR]
+
     const layers = [
-      { ...FAR, cursorForce: FAR.cursorForce * cursorForceMultiplier },
-      { ...MID, cursorForce: MID.cursorForce * cursorForceMultiplier },
-      { ...NEAR, cursorForce: NEAR.cursorForce * cursorForceMultiplier },
+      { ...LAYERS[0], cursorForce: LAYERS[0].cursorForce * cursorForceMultiplier },
+      { ...LAYERS[1], cursorForce: LAYERS[1].cursorForce * cursorForceMultiplier },
+      { ...LAYERS[2], cursorForce: LAYERS[2].cursorForce * cursorForceMultiplier },
     ]
 
     function frame() {
@@ -230,7 +253,7 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
         p.y += p.vy
 
         // Draw
-        let color = BASE_COLOR
+        let color = baseColor
         let alpha = p.baseAlpha
         let dotR = p.radius
 
@@ -246,7 +269,7 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
               ? 1 + (t - (1 - ACTIVE_RADIUS_RATIO)) / ACTIVE_RADIUS_RATIO * 0.6
               : Math.pow(t / (1 - ACTIVE_RADIUS_RATIO), 2.5)
             const smoothT = Math.min(inner, 1.6)
-            color = lerpColor(BASE_COLOR, HOVER_COLOR, Math.min(smoothT, 1))
+            color = lerpColor(baseColor, hoverColor, Math.min(smoothT, 1))
             alpha = lerp(p.baseAlpha, layer.activeAlpha * alphaMultiplier, Math.min(smoothT, 1))
             const sizeT = Math.pow(Math.min(t / ACTIVE_RADIUS_RATIO, 1), 2)
             dotR = p.radius + (layer.activeRadius - p.radius) * sizeT
@@ -291,7 +314,7 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
       resizeObserver.disconnect()
       observer.disconnect()
     }
-  }, [])
+  }, [lightMode])
 
   return (
     <canvas

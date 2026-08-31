@@ -1,0 +1,192 @@
+.tp-approach {
+  position: relative;
+  background-color: #FAF9F7;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  color: #181C20;
+  padding: clamp(96px, 10vh, 148px) 0 clamp(96px, 12vh, 175px);
+  overflow: hidden;
+}
+
+.tp-approach__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: 0 4vw;
+  display: grid;
+  grid-template-columns: 0.40fr 0.60fr;
+  gap: clamp(28px, 4vw, 72px);
+  align-items: start;
+}
+
+/* ── Left column ── */
+
+.tp-approach__text {
+  max-width: 460px;
+  position: sticky;
+  top: clamp(72px, 9vh, 130px);
+}
+
+.tp-approach__eyebrow {
+  margin: 0 0 clamp(14px, 1.8vh, 24px);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.48);
+}
+
+.tp-approach__title {
+  margin: 0 0 clamp(17px, 2.4vh, 30px);
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #181C20;
+}
+
+.tp-approach__desc {
+  margin: 0;
+  font-size: clamp(14px, 1.05vw, 17px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.6);
+}
+
+/* ── Right column: editorial steps ── */
+
+.tp-approach__steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.tp-approach__step {
+  display: flex;
+  gap: clamp(14px, 1.6vw, 22px);
+  padding: clamp(22px, 2.5vh, 34px) 0;
+  border-top: 1px solid rgba(24, 28, 32, 0.08);
+}
+
+.tp-approach__step:last-child {
+  border-bottom: 1px solid rgba(24, 28, 32, 0.08);
+}
+
+.tp-approach__step-num {
+  flex: none;
+  width: 44px;
+  padding-top: 2px;
+  font-size: clamp(14px, 1.1vw, 17px);
+  font-weight: 600;
+  color: #D58A5C;
+  letter-spacing: 0.02em;
+}
+
+.tp-approach__step-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.tp-approach__step-title {
+  margin: 0 0 clamp(6px, 0.8vh, 10px);
+  font-size: clamp(18px, 1.5vw, 24px);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #181C20;
+}
+
+.tp-approach__step-desc {
+  margin: 0;
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.55);
+}
+
+/* ── Dotted background — reuse Hero pattern ── */
+
+.tp-approach--dotted canvas {
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 760px) {
+  .tp-approach {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: clamp(72px, 9vh, 96px) 16px clamp(72px, 9vh, 96px);
+  }
+
+  .tp-approach__inner {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 4.5vh, 48px);
+    padding: 0;
+  }
+
+  .tp-approach__text {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    position: static;
+    top: auto;
+    padding-right: 80px;
+  }
+
+  .tp-approach__title {
+    font-size: clamp(24px, 6.5vw, 34px);
+    overflow-wrap: break-word;
+  }
+
+  .tp-approach__desc {
+    overflow-wrap: break-word;
+  }
+
+  .tp-approach__steps {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .tp-approach__step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px;
+    padding: clamp(18px, 2.4vh, 24px) 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .tp-approach__step-num {
+    width: 32px;
+    font-size: 13px;
+  }
+
+  .tp-approach__step-body {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  .tp-approach__step-title {
+    font-size: clamp(15px, 4vw, 19px);
+    overflow-wrap: break-word;
+  }
+
+  .tp-approach__step-desc {
+    font-size: clamp(13px, 3.5vw, 15px);
+    overflow-wrap: break-word;
+  }
+
+  .tp-approach--dotted canvas {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
