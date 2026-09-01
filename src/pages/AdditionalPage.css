@@ -1,0 +1,217 @@
+.additional-page {
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  color: #181C20;
+  background-color: #F7F3EE;
+}
+
+/* ── Hero ─────────────────────────────────── */
+
+.additional-hero {
+  position: relative;
+  padding: clamp(100px, 12vh, 160px) 4vw clamp(60px, 8vh, 100px);
+  overflow: hidden;
+}
+
+.additional-hero__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: clamp(32px, 4vw, 64px);
+}
+
+/* ── Left: text ───────────────────────────── */
+
+.additional-hero__text {
+  flex: 0 0 47%;
+  max-width: 560px;
+}
+
+.additional-hero__eyebrow {
+  margin: 0 0 clamp(14px, 2vh, 24px);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(24, 28, 32, 0.48);
+}
+
+.additional-hero__title {
+  margin: 0 0 clamp(18px, 2.4vh, 30px);
+  font-size: clamp(32px, 3.8vw, 54px);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #181C20;
+  max-width: 600px;
+}
+
+.additional-hero__desc {
+  margin: 0 0 clamp(16px, 2vh, 24px);
+  font-size: clamp(15px, 1.15vw, 19px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.65);
+  max-width: 560px;
+}
+
+.additional-hero__formats {
+  margin: 0;
+  font-size: clamp(12px, 0.9vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(24, 28, 32, 0.35);
+}
+
+/* ── Right: visual collage ────────────────── */
+
+.additional-hero__visual {
+  flex: 1;
+  position: relative;
+  width: 580px;
+  height: 560px;
+}
+
+.additional-hero__img {
+  position: absolute;
+  object-fit: cover;
+  border-radius: 12px;
+  transition:
+    transform 460ms cubic-bezier(.22, 1, .36, 1),
+    box-shadow 460ms cubic-bezier(.22, 1, .36, 1),
+    z-index 0ms;
+}
+
+/* hero-ai — dominant, centered */
+.additional-hero__img--ai {
+  width: 72%;
+  height: 88%;
+  top: 6%;
+  left: 4%;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 2px 4px rgba(24, 28, 32, 0.04),
+    0 8px 20px rgba(24, 28, 32, 0.06),
+    0 24px 48px rgba(24, 28, 32, 0.10);
+  transform: translateY(-3px);
+}
+
+/* presentation — top-right accent, above reels */
+.additional-hero__img--presentation {
+  width: 38%;
+  height: 36%;
+  top: -4%;
+  right: -5%;
+  z-index: 3;
+  transform: rotate(2deg);
+  box-shadow:
+    0 0 0 2px #F7F3EE,
+    0 18px 38px rgba(24, 28, 32, 0.20);
+}
+
+/* reels — bottom-right, strong overlap with hero-ai */
+.additional-hero__img--reels {
+  width: 42%;
+  height: auto;
+  bottom: -4%;
+  right: -11%;
+  z-index: 2;
+  box-shadow:
+    0 0 0 2px #F7F3EE,
+    0 22px 46px rgba(24, 28, 32, 0.16);
+}
+
+/* ── Desktop hover ─────────────────────────── */
+
+@media (hover: hover) and (pointer: fine) {
+  .additional-hero__img--ai:hover {
+    transform: translateY(-6px) scale(1.012);
+    box-shadow:
+      0 4px 8px rgba(24, 28, 32, 0.05),
+      0 12px 28px rgba(24, 28, 32, 0.08),
+      0 32px 60px rgba(24, 28, 32, 0.12);
+    z-index: 5;
+  }
+
+  .additional-hero__img--presentation:hover {
+    transform: translateY(-10px) scale(1.03) rotate(0.5deg);
+    box-shadow:
+      0 0 0 2px #F7F3EE,
+      0 24px 50px rgba(24, 28, 32, 0.24);
+    z-index: 5;
+  }
+
+  .additional-hero__img--reels:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow:
+      0 0 0 2px #F7F3EE,
+      0 30px 58px rgba(24, 28, 32, 0.20);
+    z-index: 5;
+  }
+}
+
+/* ── Reduced motion ────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .additional-hero__img {
+    transition: none;
+  }
+}
+
+/* ── Mobile ───────────────────────────────── */
+
+@media (max-width: 760px) {
+  .additional-hero {
+    padding: clamp(80px, 10vh, 120px) 16px clamp(48px, 6vh, 72px);
+  }
+
+  .additional-hero__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .additional-hero__text {
+    flex: none;
+    max-width: none;
+  }
+
+  .additional-hero__title {
+    font-size: clamp(28px, 7.5vw, 40px);
+    max-width: none;
+  }
+
+  .additional-hero__desc {
+    font-size: clamp(14px, 3.8vw, 16px);
+  }
+
+  .additional-hero__visual {
+    flex: none;
+    width: 100%;
+    max-width: 380px;
+    height: 380px;
+    margin: clamp(28px, 4vh, 36px) auto 0;
+    position: relative;
+  }
+
+  .additional-hero__img--ai {
+    width: 74%;
+    height: auto;
+    top: 32px;
+    left: 0;
+  }
+
+  .additional-hero__img--presentation {
+    width: 44%;
+    height: auto;
+    top: 0;
+    right: 0;
+  }
+
+  .additional-hero__img--reels {
+    width: 43%;
+    height: auto;
+    bottom: 4%;
+    right: 0;
+  }
+}

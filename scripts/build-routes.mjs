@@ -50,6 +50,13 @@ const ROUTES = [
     description:
       'Политика в отношении обработки персональных данных на сайте Tuiana Design — tuiana.ru. Оператор: Будаева Туяна Валерьевна.',
   },
+  {
+    out: 'additional',
+    url: 'https://tuiana.ru/additional',
+    title: 'Дополнительные услуги — AI-визуал, презентации, видео | Tuiana Design',
+    description:
+      'AI-визуал, презентации, видео, PDF-материалы и digital-оформление для экспертов. Дополнительно к сайту или как отдельная задача.',
+  },
 ]
 
 // Remove a previously injected SEO block so the script is safe to re-run.
