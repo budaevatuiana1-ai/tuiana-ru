@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import './AdditionalPage.css'
+import { ruTypo } from '../lib/typography'
 import StaticParticleField from '../StaticParticleField'
 import Footer from '../Footer'
 
@@ -46,6 +47,55 @@ export default function AdditionalPage() {
                 src="/additional/hero-reels.jpg"
                 alt="Видео-ролик"
               />
+            </div>
+          </div>
+        </section>
+
+        {/* ── AI Visual ── */}
+        <section className="additional-ai">
+          <StaticParticleField />
+          <div className="additional-ai__inner">
+            <div className="additional-ai__text">
+              <p className="additional-ai__eyebrow">AI-ВИЗУАЛ</p>
+              <h2 className="additional-ai__title">
+                {ruTypo('Нет подходящих фотографий?')}<br />
+                <span className="additional-ai__title-accent">{ruTypo('Это не мешает')}</span>{ruTypo(' начать работу над сайтом.')}
+              </h2>
+              <p className="additional-ai__desc">
+                {ruTypo('Если своих кадров недостаточно, я могу подготовить серию изображений на основе ваших фото — в нужной стилистике и сразу с учётом того, где они будут использоваться.')}
+              </p>
+              <p className="additional-ai__formats">
+                {ruTypo('Для сайта и Taplink · соцсетей · баннеров · презентаций')}
+              </p>
+              <p className="additional-ai__accent">
+                {ruTypo('Один исходник — несколько кадров для разных задач.')}
+              </p>
+            </div>
+
+            <div className="additional-ai__visual">
+              <div className="additional-ai__source">
+                <img
+                  className="additional-ai__source-img"
+                  src="/additional/ai-source.jpg"
+                  alt={ruTypo('Исходное фото')}
+                />
+                <span className="additional-ai__source-label">Исходное фото</span>
+              </div>
+
+              <span className="additional-ai__arrow">→</span>
+
+              <div className="additional-ai__results">
+                <img
+                  className="additional-ai__result additional-ai__result--back"
+                  src="/additional/ai-result-workplace-portrait.jpg.png"
+                  alt={ruTypo('AI-визуал')}
+                />
+                <img
+                  className="additional-ai__result additional-ai__result--front"
+                  src="/additional/ai-result-workspace.png"
+                  alt={ruTypo('AI-визуал рабочее пространство')}
+                />
+              </div>
             </div>
           </div>
         </section>
