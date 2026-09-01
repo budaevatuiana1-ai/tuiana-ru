@@ -14,7 +14,7 @@ export default function DariCaseIntro() {
             <p className="dari-case__eyebrow">
               КЕЙС <span className="dari-case__eyebrow-accent">01</span>
             </p>
-            <h2 className="dari-case__title">Дари</h2>
+            <h2 className="dari-case__title">ДАРИ</h2>
             <p className="dari-case__subtitle">
               {ruTypo('Многостраничный сайт медицинской клиники')}
             </p>

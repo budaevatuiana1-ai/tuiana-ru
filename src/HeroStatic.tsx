@@ -46,6 +46,7 @@ function HeroStatic() {
         <div className="hero__intro-item hero__intro-item--foot">
           <h1>
             <span className="hero__eyebrow">САЙТЫ ПОД КЛЮЧ</span>
+            <br />
             <span className="hero__lead">
               {ruTypo('Для врачей и экспертов')}
               <br />

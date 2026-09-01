@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { setGlobalRafPaused } from './rafPause'
 import './ReviewsSection.css'
 
@@ -57,6 +57,16 @@ interface TrackState {
 
 export default function ReviewsSection() {
   const [activeSrc, setActiveSrc] = useState<string | null>(null)
+
+  const mobileQuery = useMemo(() => matchMedia('(max-width: 600px)'), [])
+  const [isMobile, setIsMobile] = useState(() => mobileQuery.matches)
+
+  useEffect(() => {
+    function onChange(e: MediaQueryListEvent) { setIsMobile(e.matches) }
+    mobileQuery.addEventListener('change', onChange)
+    return () => mobileQuery.removeEventListener('change', onChange)
+  }, [mobileQuery])
+
   const track1Ref = useRef<HTMLDivElement>(null)
   const track2Ref = useRef<HTMLDivElement>(null)
   const state1 = useRef<TrackState>({ pos: 0, setWidth: 0, speed: 0, paused: false })
@@ -80,7 +90,7 @@ export default function ReviewsSection() {
 
   useEffect(() => {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) return
+    if (reduced || isMobile) return
 
     const el1 = track1Ref.current
     const el2 = track2Ref.current
@@ -204,6 +214,8 @@ export default function ReviewsSection() {
         </div>
       </div>
 
+      <div className="reviews__hint">Листайте отзывы → · Нажмите, чтобы увеличить</div>
+
       <div
         className="reviews__track reviews__track--1"
         onMouseEnter={onEnter1}
@@ -211,7 +223,7 @@ export default function ReviewsSection() {
       >
         <div className="reviews__track-inner" ref={track1Ref}>
           <TrackCards items={row1} onOpen={openLightbox} />
-          <TrackCards items={row1} onOpen={openLightbox} />
+          {!isMobile && <TrackCards items={row1} onOpen={openLightbox} />}
         </div>
       </div>
       <div
@@ -221,7 +233,7 @@ export default function ReviewsSection() {
       >
         <div className="reviews__track-inner" ref={track2Ref}>
           <TrackCards items={row2} onOpen={openLightbox} />
-          <TrackCards items={row2} onOpen={openLightbox} />
+          {!isMobile && <TrackCards items={row2} onOpen={openLightbox} />}
         </div>
       </div>
 

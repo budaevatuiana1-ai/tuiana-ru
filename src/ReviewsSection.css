@@ -103,11 +103,36 @@
   }
 }
 
+/* ── Hint (mobile only) ────────────────── */
+
+.reviews__hint {
+  display: none;
+}
+
 /* ── Mobile ─────────────────────────────── */
 
 @media (max-width: 600px) {
   .reviews {
     padding: clamp(40px, 6vh, 60px) 0;
+  }
+
+  .reviews__hint {
+    display: block;
+    padding: 0 4vw clamp(8px, 1vh, 12px);
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(47, 52, 56, 0.4);
+  }
+
+  .reviews__track {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .reviews__track::-webkit-scrollbar {
+    display: none;
   }
 
   .reviews__track-inner {

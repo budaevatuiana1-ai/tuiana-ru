@@ -237,7 +237,7 @@ export default function TaplinkSection() {
                 )}
               </p>
               <Link to="/projects/taplink" className="taplink__projects-link">
-                Смотреть проекты →
+                Подробнее о Taplink →
               </Link>
             </div>
           </div>
