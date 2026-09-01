@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import './TaplinkProjectsShowcase.css'
 import { ruTypo } from './lib/typography'
 
@@ -71,11 +71,13 @@ const PROJECTS: Project[] = [
 function Viewer({
   project,
   onClose,
+  onDismiss,
   onPrev,
   onNext,
 }: {
   project: Project
   onClose: () => void
+  onDismiss: () => void
   onPrev: () => void
   onNext: () => void
 }) {
@@ -93,11 +95,18 @@ function Viewer({
       if (e.key === 'ArrowRight') onNext()
     }
     window.addEventListener('keydown', onKeyDown)
+
+    function onPopState() {
+      if (document.querySelector('.tp-viewer')) onDismiss()
+    }
+    window.addEventListener('popstate', onPopState)
+
     return () => {
       document.body.style.overflow = prev
       window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('popstate', onPopState)
     }
-  }, [onClose, onPrev, onNext])
+  }, [onClose, onDismiss, onPrev, onNext])
 
   function onOverlayClick(e: React.MouseEvent) {
     if (e.target === overlayRef.current) onClose()
@@ -126,6 +135,12 @@ function Viewer({
             ref={closeRef}
           >
             ×
+          </button>
+          <button
+            className="tp-viewer__dismiss"
+            onClick={onClose}
+          >
+            Закрыть кейс ×
           </button>
         </div>
 
@@ -204,16 +219,41 @@ function Viewer({
 export default function TaplinkProjectsShowcase() {
   const [viewerIndex, setViewerIndex] = useState<number | null>(null)
   const triggerRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const hasHistoryEntry = useRef(false)
 
-  const open = useCallback((i: number) => setViewerIndex(i), [])
+  const mobileQuery = useMemo(() => matchMedia('(max-width: 760px)'), [])
+  const [isMobile, setIsMobile] = useState(() => mobileQuery.matches)
 
-  const close = useCallback(() => {
+  useEffect(() => {
+    function onChange(e: MediaQueryListEvent) { setIsMobile(e.matches) }
+    mobileQuery.addEventListener('change', onChange)
+    return () => mobileQuery.removeEventListener('change', onChange)
+  }, [mobileQuery])
+
+  const open = useCallback((i: number) => {
+    setViewerIndex(i)
+    if (isMobile) {
+      history.pushState({ tpViewer: true }, '')
+      hasHistoryEntry.current = true
+    }
+  }, [isMobile])
+
+  const dismiss = useCallback(() => {
     const idx = viewerIndex
+    hasHistoryEntry.current = false
     setViewerIndex(null)
     if (idx !== null) {
       requestAnimationFrame(() => triggerRefs.current[idx]?.focus())
     }
   }, [viewerIndex])
+
+  const close = useCallback(() => {
+    if (isMobile && hasHistoryEntry.current) {
+      history.back()
+    } else {
+      dismiss()
+    }
+  }, [isMobile, dismiss])
 
   const prev = useCallback(() => {
     setViewerIndex((i) => (i !== null ? (i + PROJECTS.length - 1) % PROJECTS.length : null))
@@ -280,6 +320,7 @@ export default function TaplinkProjectsShowcase() {
         <Viewer
           project={PROJECTS[viewerIndex]}
           onClose={close}
+          onDismiss={dismiss}
           onPrev={prev}
           onNext={next}
         />
