@@ -12,7 +12,7 @@ const socialLinks = [
 
 const siteLinks = [
   { label: 'Главная', target: 'top' },
-  { label: 'Услуги', target: 'services' },
+  { label: 'Услуги и цены', target: 'services' },
   { label: 'Обо мне', target: 'about' },
   { label: 'Отзывы', target: 'reviews' },
   { label: 'Контакты', target: 'contact' },
