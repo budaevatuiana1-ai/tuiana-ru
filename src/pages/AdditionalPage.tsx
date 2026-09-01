@@ -99,6 +99,65 @@ export default function AdditionalPage() {
             </div>
           </div>
         </section>
+
+        {/* ── Presentations ── */}
+        <section className="additional-presentations">
+          <div className="additional-presentations__inner">
+            <div className="additional-presentations__text">
+              <p className="additional-presentations__eyebrow">ПРЕЗЕНТАЦИИ</p>
+              <h2 className="additional-presentations__title">
+                {ruTypo('Не просто оформить слайды,\nа собрать понятную подачу')}
+              </h2>
+              <p className="additional-presentations__desc">
+                {ruTypo('Помогаю выстроить структуру, расставить смысловые акценты и собрать визуальную систему, в которой человеку легко следить за вашей мыслью.')}
+              </p>
+              <p className="additional-presentations__applications">
+                {ruTypo('выступления и конференции · обучение · презентации услуг · коммерческие предложения')}
+              </p>
+              <p className="additional-presentations__accent">
+                {ruTypo('Структура · тексты · дизайн · визуал')}
+              </p>
+            </div>
+
+            <div className="additional-presentations__gallery">
+              <div className="additional-presentations__project">
+                <img
+                  className="additional-presentations__img"
+                  src="/additional/presentation-notebooklm.png"
+                  alt="NotebookLM — презентация"
+                />
+                <div className="additional-presentations__caption">
+                  <p className="additional-presentations__caption-title">NotebookLM</p>
+                  <p className="additional-presentations__caption-desc">Презентация о работе с информацией</p>
+                </div>
+              </div>
+
+              <div className="additional-presentations__project">
+                <img
+                  className="additional-presentations__img"
+                  src="/additional/presentation-crimea.png"
+                  alt="Любимый Крым — презентация"
+                />
+                <div className="additional-presentations__caption">
+                  <p className="additional-presentations__caption-title">Любимый Крым</p>
+                  <p className="additional-presentations__caption-desc">Презентация авторского тура</p>
+                </div>
+              </div>
+
+              <div className="additional-presentations__project">
+                <img
+                  className="additional-presentations__img"
+                  src="/additional/presentation-baikal.png"
+                  alt="Байкал — презентация"
+                />
+                <div className="additional-presentations__caption">
+                  <p className="additional-presentations__caption-title">Байкал</p>
+                  <p className="additional-presentations__caption-desc">Информационная презентация</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
