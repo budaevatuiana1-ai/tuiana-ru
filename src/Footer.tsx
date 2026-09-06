@@ -13,6 +13,7 @@ const socialLinks = [
 const siteLinks = [
   { label: 'Главная', target: 'top' },
   { label: 'Услуги и цены', target: 'services' },
+  { label: 'Дополнительно', target: 'additional' },
   { label: 'Обо мне', target: 'about' },
   { label: 'Отзывы', target: 'reviews' },
   { label: 'Контакты', target: 'contact' },
@@ -45,7 +46,9 @@ export default function Footer() {
   const handleSite = useCallback(
     (target: string) => (e: React.MouseEvent) => {
       e.preventDefault()
-      if (isHome) {
+      if (target === 'additional') {
+        navigate('/additional')
+      } else if (isHome) {
         if (target === 'top') {
           window.scrollTo({ top: 0, behavior: 'instant' })
         } else if (target === 'services') {
@@ -75,7 +78,8 @@ export default function Footer() {
 
   const handleTop = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: prefersReduced ? 'instant' : 'smooth' })
   }, [])
 
   const handleAnalytics = useCallback(() => {

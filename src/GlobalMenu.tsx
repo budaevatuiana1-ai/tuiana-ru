@@ -53,6 +53,7 @@ export default function GlobalMenu() {
     ? [
         { label: 'Главная', action: () => window.scrollTo({ top: 0, behavior: 'instant' }) },
         { label: 'Услуги и цены', action: () => scrollToId('services') },
+        { label: 'Дополнительно', action: () => navigate('/additional') },
         {
           label: 'Кейсы',
           action: () => scrollToId('cases'),
@@ -69,6 +70,7 @@ export default function GlobalMenu() {
     : [
         { label: 'Главная', action: () => goHomeSection('top') },
         { label: 'Услуги и цены', action: () => goHomeSection('services') },
+        { label: 'Дополнительно', action: () => navigate('/additional') },
         {
           label: 'Кейсы',
           action: () => goHomeSection('cases'),
