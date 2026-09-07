@@ -4,12 +4,18 @@
     <loc>https://tuiana.ru/</loc>
   </url>
   <url>
-    <loc>https://tuiana.ru/projects/dari</loc>
+    <loc>https://tuiana.ru/projects/dari/</loc>
   </url>
   <url>
-    <loc>https://tuiana.ru/projects/baza</loc>
+    <loc>https://tuiana.ru/projects/baza/</loc>
   </url>
   <url>
-    <loc>https://tuiana.ru/privacy</loc>
+    <loc>https://tuiana.ru/projects/taplink/</loc>
+  </url>
+  <url>
+    <loc>https://tuiana.ru/additional/</loc>
+  </url>
+  <url>
+    <loc>https://tuiana.ru/privacy/</loc>
   </url>
 </urlset>
