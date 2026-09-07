@@ -24,35 +24,35 @@ const HOME = {
 const ROUTES = [
   {
     out: 'projects/dari',
-    url: 'https://tuiana.ru/projects/dari',
+    url: 'https://tuiana.ru/projects/dari/',
     title: 'Дари — кейс разработки сайта медицинской клиники | Tuiana Design',
     description:
       'Кейс разработки многостраничного сайта клиники Дари: структура услуг и специалистов, тексты, дизайн, адаптив, юридические требования и понятный путь пациента к записи.',
   },
   {
     out: 'projects/baza',
-    url: 'https://tuiana.ru/projects/baza',
+    url: 'https://tuiana.ru/projects/baza/',
     title: 'Наша База — кейс разработки сайта | Tuiana Design',
     description:
       'Кейс Tuiana Design: разработка структуры и дизайна проекта «Наша База», организация большого объёма информации и адаптация сайта для разных устройств.',
   },
   {
     out: 'projects/taplink',
-    url: 'https://tuiana.ru/projects/taplink',
+    url: 'https://tuiana.ru/projects/taplink/',
     title: 'Taplink и мини-сайты для врачей и экспертов — Tuiana Design',
     description:
       'Мини-сайты в Taplink для врачей, психологов и экспертов с частной практикой: структура, тексты, дизайн и примеры проектов.',
   },
   {
     out: 'privacy',
-    url: 'https://tuiana.ru/privacy',
+    url: 'https://tuiana.ru/privacy/',
     title: 'Политика обработки персональных данных | Tuiana Design',
     description:
       'Политика в отношении обработки персональных данных на сайте Tuiana Design — tuiana.ru. Оператор: Будаева Туяна Валерьевна.',
   },
   {
     out: 'additional',
-    url: 'https://tuiana.ru/additional',
+    url: 'https://tuiana.ru/additional/',
     title: 'Дополнительные услуги — AI-визуал, презентации, видео | Tuiana Design',
     description:
       'AI-визуал, презентации, видео, PDF-материалы и digital-оформление для экспертов. Дополнительно к сайту или как отдельная задача.',
