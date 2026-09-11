@@ -152,18 +152,27 @@ export default function AdditionalPage() {
             <div className="additional-hero__visual">
               <img
                 className="additional-hero__img additional-hero__img--ai"
-                src="/additional/hero-ai.jpg"
+                src="/additional/hero-ai.webp"
                 alt={ruTypo('AI-визуал')}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
               <img
                 className="additional-hero__img additional-hero__img--presentation"
-                src="/additional/hero-presentation.jpg"
+                src="/additional/hero-presentation.webp"
                 alt={ruTypo('Презентация')}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
               <img
                 className="additional-hero__img additional-hero__img--reels"
-                src="/additional/hero-reels.jpg"
+                src="/additional/hero-reels.webp"
                 alt={ruTypo('Видео-ролик')}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
             </div>
           </div>
@@ -194,8 +203,10 @@ export default function AdditionalPage() {
               <div className="additional-ai__source">
                 <img
                   className="additional-ai__source-img"
-                  src="/additional/ai-source.jpg"
+                  src="/additional/ai-source.webp"
                   alt={ruTypo('Исходное фото')}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <span className="additional-ai__source-label">Исходное фото</span>
               </div>
@@ -205,13 +216,17 @@ export default function AdditionalPage() {
               <div className="additional-ai__results">
                 <img
                   className="additional-ai__result additional-ai__result--back"
-                  src="/additional/ai-result-workplace-portrait.jpg.png"
+                  src="/additional/ai-result-workplace-portrait.jpg.webp"
                   alt={ruTypo('AI-визуал')}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <img
                   className="additional-ai__result additional-ai__result--front"
-                  src="/additional/ai-result-workspace.png"
+                  src="/additional/ai-result-workspace.webp"
                   alt={ruTypo('AI-визуал рабочее пространство')}
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -246,29 +261,31 @@ export default function AdditionalPage() {
                 <div className="additional-presentations__preview-wrap">
                   <img
                     className="additional-presentations__img"
-                    src="/additional/presentation-notebooklm.png"
+                    src="/additional/presentation-notebooklm.webp"
                     alt="NotebookLM — презентация"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '0%', left: '0%', width: '35%', height: '100%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/notebooklm-01.png', ruTypo('NotebookLM — слайд 1'))}
+                    onClick={() => openLightbox('/additional/presentation-slides/notebooklm-01.webp', ruTypo('NotebookLM — слайд 1'))}
                     aria-label={ruTypo('Открыть слайд 1 презентации NotebookLM')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/notebooklm-01.png', ruTypo('NotebookLM — слайд 1')) } }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/notebooklm-01.webp', ruTypo('NotebookLM — слайд 1')) } }}
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '15%', left: '25%', width: '40%', height: '65%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/notebooklm-02.png', ruTypo('NotebookLM — слайд 2'))}
+                    onClick={() => openLightbox('/additional/presentation-slides/notebooklm-02.webp', ruTypo('NotebookLM — слайд 2'))}
                     aria-label={ruTypo('Открыть слайд 2 презентации NotebookLM')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/notebooklm-02.png', ruTypo('NotebookLM — слайд 2')) } }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/notebooklm-02.webp', ruTypo('NotebookLM — слайд 2')) } }}
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '35%', left: '50%', width: '50%', height: '65%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/notebooklm-03.png', ruTypo('NotebookLM — слайд 3'))}
+                    onClick={() => openLightbox('/additional/presentation-slides/notebooklm-03.webp', ruTypo('NotebookLM — слайд 3'))}
                     aria-label={ruTypo('Открыть слайд 3 презентации NotebookLM')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/notebooklm-03.png', ruTypo('NotebookLM — слайд 3')) } }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/notebooklm-03.webp', ruTypo('NotebookLM — слайд 3')) } }}
                   />
                 </div>
                 <div className="additional-presentations__caption">
@@ -281,22 +298,24 @@ export default function AdditionalPage() {
                 <div className="additional-presentations__preview-wrap">
                   <img
                     className="additional-presentations__img"
-                    src="/additional/presentation-crimea.png"
+                    src="/additional/presentation-crimea.webp"
                     alt="Любимый Крым — презентация"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '0%', left: '0%', width: '55%', height: '75%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/crimea-01.jpg', ruTypo('Любимый Крым — слайд 1'))}
+                    onClick={() => openLightbox('/additional/presentation-slides/crimea-01.webp', ruTypo('Любимый Крым — слайд 1'))}
                     aria-label={ruTypo('Открыть слайд 1 презентации Любимый Крым')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/crimea-01.jpg', ruTypo('Любимый Крым — слайд 1')) } }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/crimea-01.webp', ruTypo('Любимый Крым — слайд 1')) } }}
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '25%', left: '40%', width: '60%', height: '75%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/crimea-02.jpg', ruTypo('Любимый Крым — слайд 2'))}
+                    onClick={() => openLightbox('/additional/presentation-slides/crimea-02.webp', ruTypo('Любимый Крым — слайд 2'))}
                     aria-label={ruTypo('Открыть слайд 2 презентации Любимый Крым')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/crimea-02.jpg', ruTypo('Любимый Крым — слайд 2')) } }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/crimea-02.webp', ruTypo('Любимый Крым — слайд 2')) } }}
                   />
                 </div>
                 <div className="additional-presentations__caption">
@@ -309,29 +328,31 @@ export default function AdditionalPage() {
                 <div className="additional-presentations__preview-wrap">
                   <img
                     className="additional-presentations__img"
-                    src="/additional/presentation-exosomes.png"
+                    src="/additional/presentation-exosomes.webp"
                     alt="Экзосомы — презентация"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '5%', left: '0%', width: '35%', height: '50%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/exosomes-01.png', ruTypo('Экзосомы — слайд 1'))}
+                    onClick={() => openLightbox('/additional/presentation-slides/exosomes-01.webp', ruTypo('Экзосомы — слайд 1'))}
                     aria-label={ruTypo('Открыть слайд 1 презентации Экзосомы')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/exosomes-01.png', ruTypo('Экзосомы — слайд 1')) } }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/exosomes-01.webp', ruTypo('Экзосомы — слайд 1')) } }}
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '15%', left: '25%', width: '40%', height: '60%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/exosomes-02.png', ruTypo('Экзосомы — слайд 2'))}
+                    onClick={() => openLightbox('/additional/presentation-slides/exosomes-02.webp', ruTypo('Экзосомы — слайд 2'))}
                     aria-label={ruTypo('Открыть слайд 2 презентации Экзосомы')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/exosomes-02.png', ruTypo('Экзосомы — слайд 2')) } }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/exosomes-02.webp', ruTypo('Экзосомы — слайд 2')) } }}
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '35%', left: '45%', width: '55%', height: '65%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/exosomes-03.png', ruTypo('Экзосомы — слайд 3'))}
+                    onClick={() => openLightbox('/additional/presentation-slides/exosomes-03.webp', ruTypo('Экзосомы — слайд 3'))}
                     aria-label={ruTypo('Открыть слайд 3 презентации Экзосомы')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/exosomes-03.png', ruTypo('Экзосомы — слайд 3')) } }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/exosomes-03.webp', ruTypo('Экзосомы — слайд 3')) } }}
                   />
                 </div>
                 <div className="additional-presentations__caption">
@@ -374,7 +395,7 @@ export default function AdditionalPage() {
                     ref={video1Ref}
                     className="additional-video__video"
                     src="/additional/video/experts-lose-clients.mp4"
-                    poster="/additional/video/experts-lose-clients-poster.jpg.png"
+                    poster="/additional/video/experts-lose-clients-poster.jpg.webp"
                     preload="none"
                     playsInline
                     controls={playing === 'video1'}
@@ -401,7 +422,7 @@ export default function AdditionalPage() {
                     ref={video2Ref}
                     className="additional-video__video"
                     src="/additional/video/ai-presenter.mp4"
-                    poster="/additional/video/ai-presenter-poster.jpg"
+                    poster="/additional/video/ai-presenter-poster.webp"
                     preload="none"
                     playsInline
                     controls={playing === 'video2'}
@@ -431,8 +452,10 @@ export default function AdditionalPage() {
                 <div className="additional-video__preview">
                   <img
                     className="additional-video__poster"
-                    src="/additional/video/mlf-90-poster.jpg.png"
+                    src="/additional/video/mlf-90-poster.jpg.webp"
                     alt={ruTypo('МЛФ-90 — 30 лет спустя')}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="additional-video__play">
                     <span className="additional-video__play-icon" />
@@ -474,13 +497,15 @@ export default function AdditionalPage() {
                 <div className="additional-materials__img-wrap">
                   <img
                     className="additional-materials__img additional-materials__img--zoomable"
-                    src="/additional/materials/hpv-series-preview.png"
+                    src="/additional/materials/hpv-series-preview.webp"
                     alt={ruTypo('ВПЧ: серия из 4 карточек')}
                     role="button"
                     tabIndex={0}
+                    loading="lazy"
+                    decoding="async"
                     aria-label={ruTypo('Увеличить: ВПЧ: серия из 4 карточек')}
-                    onClick={() => openLightbox('/additional/materials/hpv-series-preview.png', ruTypo('ВПЧ: серия из 4 карточек'))}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/hpv-series-preview.png', ruTypo('ВПЧ: серия из 4 карточек')) } }}
+                    onClick={() => openLightbox('/additional/materials/hpv-series-preview.webp', ruTypo('ВПЧ: серия из 4 карточек'))}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/hpv-series-preview.webp', ruTypo('ВПЧ: серия из 4 карточек')) } }}
                   />
                 </div>
                 <p className="additional-materials__caption-title">{ruTypo('ВПЧ: что важно знать')}</p>
@@ -491,33 +516,39 @@ export default function AdditionalPage() {
                 <div className="additional-materials__cert-collage">
                   <img
                     className="additional-materials__cert-main additional-materials__img--zoomable"
-                    src="/additional/materials/certificate-closeup.png"
+                    src="/additional/materials/certificate-closeup.webp"
                     alt={ruTypo('Дизайн сертификата')}
                     role="button"
                     tabIndex={0}
+                    loading="lazy"
+                    decoding="async"
                     aria-label={ruTypo('Увеличить: Дизайн сертификата')}
-                    onClick={() => openLightbox('/additional/materials/certificate-closeup.png', ruTypo('Дизайн сертификата'))}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/certificate-closeup.png', ruTypo('Дизайн сертификата')) } }}
+                    onClick={() => openLightbox('/additional/materials/certificate-closeup.webp', ruTypo('Дизайн сертификата'))}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/certificate-closeup.webp', ruTypo('Дизайн сертификата')) } }}
                   />
                   <img
                     className="additional-materials__cert-side additional-materials__img--zoomable"
-                    src="/additional/materials/certificate-example.png"
+                    src="/additional/materials/certificate-example.webp"
                     alt={ruTypo('Пример сертификата')}
                     role="button"
                     tabIndex={0}
+                    loading="lazy"
+                    decoding="async"
                     aria-label={ruTypo('Увеличить: Пример сертификата')}
-                    onClick={() => openLightbox('/additional/materials/certificate-example.png', ruTypo('Пример сертификата'))}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/certificate-example.png', ruTypo('Пример сертификата')) } }}
+                    onClick={() => openLightbox('/additional/materials/certificate-example.webp', ruTypo('Пример сертификата'))}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/certificate-example.webp', ruTypo('Пример сертификата')) } }}
                   />
                   <img
                     className="additional-materials__cert-side additional-materials__img--zoomable"
-                    src="/additional/materials/certificate-tracking.png"
+                    src="/additional/materials/certificate-tracking.webp"
                     alt={ruTypo('Учёт сертификатов')}
                     role="button"
                     tabIndex={0}
+                    loading="lazy"
+                    decoding="async"
                     aria-label={ruTypo('Увеличить: Учёт сертификатов')}
-                    onClick={() => openLightbox('/additional/materials/certificate-tracking.png', ruTypo('Учёт сертификатов'))}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/certificate-tracking.png', ruTypo('Учёт сертификатов')) } }}
+                    onClick={() => openLightbox('/additional/materials/certificate-tracking.webp', ruTypo('Учёт сертификатов'))}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/certificate-tracking.webp', ruTypo('Учёт сертификатов')) } }}
                   />
                 </div>
                 <p className="additional-materials__caption-title">{ruTypo('Система подарочных сертификатов')}</p>
@@ -528,23 +559,27 @@ export default function AdditionalPage() {
                 <div className="additional-materials__memo-preview">
                   <img
                     className="additional-materials__memo-page additional-materials__img--zoomable"
-                    src="/additional/materials/online-consultation-memo-01.png"
+                    src="/additional/materials/online-consultation-memo-01.webp"
                     alt={ruTypo('Памятка — страница 1')}
                     role="button"
                     tabIndex={0}
+                    loading="lazy"
+                    decoding="async"
                     aria-label={ruTypo('Увеличить: Памятка — страница 1')}
-                    onClick={() => openLightbox('/additional/materials/online-consultation-memo-01.png', ruTypo('Памятка — страница 1'))}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/online-consultation-memo-01.png', ruTypo('Памятка — страница 1')) } }}
+                    onClick={() => openLightbox('/additional/materials/online-consultation-memo-01.webp', ruTypo('Памятка — страница 1'))}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/online-consultation-memo-01.webp', ruTypo('Памятка — страница 1')) } }}
                   />
                   <img
                     className="additional-materials__memo-page additional-materials__memo-page--offset additional-materials__img--zoomable"
-                    src="/additional/materials/online-consultation-memo-02.png"
+                    src="/additional/materials/online-consultation-memo-02.webp"
                     alt={ruTypo('Памятка — страница 2')}
                     role="button"
                     tabIndex={0}
+                    loading="lazy"
+                    decoding="async"
                     aria-label={ruTypo('Увеличить: Памятка — страница 2')}
-                    onClick={() => openLightbox('/additional/materials/online-consultation-memo-02.png', ruTypo('Памятка — страница 2'))}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/online-consultation-memo-02.png', ruTypo('Памятка — страница 2')) } }}
+                    onClick={() => openLightbox('/additional/materials/online-consultation-memo-02.webp', ruTypo('Памятка — страница 2'))}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/online-consultation-memo-02.webp', ruTypo('Памятка — страница 2')) } }}
                   />
                 </div>
                 <p className="additional-materials__caption-title">{ruTypo('К онлайн-консультации')}</p>
@@ -584,13 +619,15 @@ export default function AdditionalPage() {
               <div className="additional-special__comic">
                 <img
                   className="additional-special__comic-img additional-special__comic-img--zoomable"
-                  src="/additional/special/doctor-tuya-comic.png"
+                  src="/additional/special/doctor-tuya-comic.webp"
                   alt={ruTypo('Вторая жизнь доктора Туя — комикс')}
                   role="button"
                   tabIndex={0}
+                  loading="lazy"
+                  decoding="async"
                   aria-label={ruTypo('Увеличить: Вторая жизнь доктора Туя')}
-                  onClick={() => openLightbox('/additional/special/doctor-tuya-comic.png', ruTypo('Вторая жизнь доктора Туя — комикс'))}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/special/doctor-tuya-comic.png', ruTypo('Вторая жизнь доктора Туя — комикс')) } }}
+                  onClick={() => openLightbox('/additional/special/doctor-tuya-comic.webp', ruTypo('Вторая жизнь доктора Туя — комикс'))}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/special/doctor-tuya-comic.webp', ruTypo('Вторая жизнь доктора Туя — комикс')) } }}
                 />
                 <p className="additional-special__project-title">{ruTypo('Вторая жизнь доктора Туи')}</p>
                 <p className="additional-special__project-desc">{ruTypo('Комикс · digital-история')}</p>
@@ -603,7 +640,7 @@ export default function AdditionalPage() {
                       ref={jubileeRef}
                       className="additional-special__jubilee-video"
                       src="/additional/special/jubilee-video.mp4"
-                      poster="/additional/special/jubilee-video-poster.jpg"
+                      poster="/additional/special/jubilee-video-poster.webp"
                       preload="none"
                       playsInline
                       controls={jubileePlaying}
@@ -707,8 +744,10 @@ export default function AdditionalPage() {
             <div className="additional-cta__portrait">
               <img
                 className="additional-cta__portrait-img"
-                src="/additional/cta-portrait.png"
+                src="/additional/cta-portrait.webp"
                 alt={ruTypo('Tuiana — портрет')}
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
