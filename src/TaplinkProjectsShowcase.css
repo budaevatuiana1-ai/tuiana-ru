@@ -4,9 +4,9 @@
 
 .tp-showcase {
   position: relative;
-  background-color: #F3EFEA;
+  background-color: #2F3438;
   font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
-  color: #181C20;
+  color: #F5F0EB;
   padding: clamp(80px, 8vh, 120px) 0 clamp(96px, 12vh, 175px);
 }
 
@@ -31,7 +31,7 @@
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(24, 28, 32, 0.48);
+  color: #D58A5C;
 }
 
 .tp-showcase__title {
@@ -40,14 +40,14 @@
   line-height: 1.12;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #181C20;
+  color: #F5F0EB;
 }
 
 .tp-showcase__desc {
   margin: 0;
   font-size: clamp(14px, 1.05vw, 17px);
   line-height: 1.6;
-  color: rgba(24, 28, 32, 0.6);
+  color: rgba(245, 240, 235, 0.6);
 }
 
 /* ── Grid ── */
@@ -64,6 +64,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 100%;
   background: none;
   border: none;
   padding: 0;
@@ -71,6 +72,19 @@
   text-align: left;
   font-family: inherit;
   color: inherit;
+}
+
+/* ── Panel ── */
+
+.tp-showcase__panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(247, 243, 238, 0.035);
+  border: 1px solid rgba(247, 243, 238, 0.08);
+  border-radius: 10px;
+  padding: clamp(14px, 1.6vw, 22px);
+  padding-bottom: clamp(10px, 1.2vw, 16px);
 }
 
 .tp-showcase__item:focus-visible {
@@ -112,7 +126,7 @@
   max-height: clamp(280px, 26vh, 320px);
   overflow: hidden;
   z-index: 1;
-  background: rgba(24, 28, 32, 0.03);
+  background: transparent;
   transition: transform 440ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -150,7 +164,7 @@
   width: 32%;
   height: 74%;
   z-index: 2;
-  border: 1px solid rgba(24, 28, 32, 0.10);
+  border: 1px solid rgba(245, 240, 235, 0.10);
 }
 
 /* 02, 04 — inset left */
@@ -160,7 +174,7 @@
   width: 32%;
   height: 72%;
   z-index: 2;
-  border: 1px solid rgba(24, 28, 32, 0.10);
+  border: 1px solid rgba(245, 240, 235, 0.10);
 }
 
 /* Hover: card lift + stage scale + inset nudge + name color + accent line */
@@ -213,7 +227,7 @@
   font-size: clamp(16px, 1.35vw, 21px);
   font-weight: 600;
   line-height: 1.3;
-  color: #181C20;
+  color: #F5F0EB;
   transition: color 320ms ease;
 }
 
@@ -221,7 +235,7 @@
   margin: 0;
   font-size: clamp(13px, 0.95vw, 15px);
   line-height: 1.55;
-  color: rgba(24, 28, 32, 0.55);
+  color: rgba(245, 240, 235, 0.55);
 }
 
 /* ═══════════════════════════════════════════
@@ -235,9 +249,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(24, 28, 32, 0.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(20, 24, 27, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   opacity: 0;
   animation: tp-viewer-in 280ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
@@ -252,12 +266,14 @@
   max-width: 1260px;
   max-height: 92vh;
   margin: 4vh auto;
-  background: #2F3438;
-  color: #F5F0EB;
+  background: #F7F3EE;
+  color: #2F3438;
+  border: 1px solid rgba(47, 52, 56, 0.10);
+  border-radius: 10px;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
-  scrollbar-color: rgba(245, 240, 235, 0.15) transparent;
+  scrollbar-color: rgba(47, 52, 56, 0.15) transparent;
 }
 
 .tp-viewer__inner::-webkit-scrollbar {
@@ -265,7 +281,7 @@
 }
 
 .tp-viewer__inner::-webkit-scrollbar-thumb {
-  background: rgba(245, 240, 235, 0.15);
+  background: rgba(47, 52, 56, 0.15);
   border-radius: 3px;
 }
 
@@ -276,8 +292,8 @@
   top: 0;
   z-index: 1;
   padding: clamp(20px, 3vh, 32px) clamp(24px, 4vw, 48px);
-  background: #2F3438;
-  border-bottom: 1px solid rgba(245, 240, 235, 0.08);
+  background: #F7F3EE;
+  border-bottom: 1px solid rgba(47, 52, 56, 0.10);
 }
 
 .tp-viewer__meta {
@@ -297,14 +313,14 @@
 .tp-viewer__name {
   font-size: clamp(18px, 1.5vw, 24px);
   font-weight: 700;
-  color: #F5F0EB;
+  color: #2F3438;
 }
 
 .tp-viewer__task {
   margin: 0;
   font-size: clamp(13px, 0.95vw, 15px);
   line-height: 1.55;
-  color: rgba(245, 240, 235, 0.5);
+  color: rgba(47, 52, 56, 0.5);
 }
 
 .tp-viewer__close {
@@ -317,16 +333,16 @@
   align-items: center;
   justify-content: center;
   background: none;
-  border: 1px solid rgba(245, 240, 235, 0.2);
+  border: 1px solid rgba(47, 52, 56, 0.18);
   border-radius: 50%;
   font-size: 22px;
-  color: rgba(245, 240, 235, 0.7);
+  color: rgba(47, 52, 56, 0.55);
   cursor: pointer;
   transition: border-color 200ms ease, color 200ms ease;
 }
 
 .tp-viewer__close:hover {
-  border-color: rgba(245, 240, 235, 0.4);
+  border-color: rgba(47, 52, 56, 0.35);
   color: #D58A5C;
 }
 
@@ -375,7 +391,7 @@
   margin: 0;
   font-size: clamp(13px, 0.95vw, 15px);
   line-height: 1.65;
-  color: rgba(245, 240, 235, 0.72);
+  color: rgba(47, 52, 56, 0.72);
 }
 
 .tp-viewer__link {
@@ -412,7 +428,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(6px, 0.7vh, 10px);
-  background: #3A3F43;
+  background: rgba(47, 52, 56, 0.04);
 }
 
 .tp-viewer__screen-label {
@@ -433,7 +449,7 @@
   max-height: 60vh;
   object-fit: contain;
   border-radius: 0;
-  border: 1px solid rgba(245, 240, 235, 0.1);
+  border: 1px solid rgba(47, 52, 56, 0.08);
 }
 
 /* 04 / Панферова — both screenshots equal height, no crop, fit in viewport */
@@ -486,8 +502,8 @@
   align-items: center;
   justify-content: space-between;
   padding: clamp(14px, 2vh, 20px) clamp(24px, 4vw, 48px);
-  background: #2F3438;
-  border-top: 1px solid rgba(245, 240, 235, 0.08);
+  background: #F7F3EE;
+  border-top: 1px solid rgba(47, 52, 56, 0.10);
 }
 
 .tp-viewer__nav-btn {
@@ -497,7 +513,7 @@
   font-family: inherit;
   font-size: clamp(13px, 0.95vw, 15px);
   font-weight: 500;
-  color: rgba(245, 240, 235, 0.7);
+  color: rgba(47, 52, 56, 0.65);
   cursor: pointer;
   transition: color 200ms ease;
 }
@@ -514,7 +530,7 @@
 .tp-viewer__counter {
   font-size: clamp(12px, 0.85vw, 14px);
   font-weight: 500;
-  color: rgba(245, 240, 235, 0.35);
+  color: rgba(47, 52, 56, 0.35);
   letter-spacing: 0.04em;
 }
 
@@ -616,19 +632,19 @@
     padding: 0 clamp(12px, 2vw, 16px);
     height: 40px;
     background: none;
-    border: 1px solid rgba(245, 240, 235, 0.18);
+    border: 1px solid rgba(47, 52, 56, 0.15);
     border-radius: 6px;
     font-family: inherit;
     font-size: clamp(13px, 3.5vw, 15px);
     font-weight: 500;
-    color: rgba(245, 240, 235, 0.6);
+    color: rgba(47, 52, 56, 0.55);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition: border-color 200ms ease, color 200ms ease;
   }
 
   .tp-viewer__dismiss:active {
-    border-color: rgba(245, 240, 235, 0.35);
+    border-color: rgba(47, 52, 56, 0.3);
     color: #D58A5C;
   }
 

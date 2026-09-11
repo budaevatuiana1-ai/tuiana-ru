@@ -3,7 +3,7 @@
   background-color: #FAF9F7;
   font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   color: #181C20;
-  padding: clamp(96px, 10vh, 148px) 0 clamp(96px, 12vh, 175px);
+  padding: clamp(128px, 9vw, 160px) 0 clamp(128px, 9vw, 160px);
   overflow: hidden;
 }
 
@@ -116,7 +116,7 @@
     max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
-    padding: clamp(72px, 9vh, 96px) 16px clamp(72px, 9vh, 96px);
+    padding: clamp(72px, 12vw, 96px) 16px clamp(72px, 12vw, 96px);
   }
 
   .tp-approach__inner {
@@ -137,7 +137,7 @@
     box-sizing: border-box;
     position: static;
     top: auto;
-    padding-right: 80px;
+    padding-right: 0;
   }
 
   .tp-approach__title {

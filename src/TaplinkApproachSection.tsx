@@ -1,53 +1,43 @@
 import './TaplinkApproachSection.css'
 import { ruTypo } from './lib/typography'
-import HeroParticleField from './HeroParticleField'
+import StaticParticleField from './StaticParticleField'
 
 const STEPS = [
   {
     num: '01',
-    title: 'Позиционирование',
-    desc: 'Определяем, кто вы, с чем к вам приходят и что важно донести о вашей практике в первую очередь.',
+    title: 'О вас и\u00A0вашей работе',
+    desc: 'Опыт, подход, образование, кейсы, портфолио и\u00A0отзывы.',
   },
   {
     num: '02',
-    title: 'Структура',
-    desc: 'Расставляем информацию в логичном порядке, чтобы человек не искал нужное сам и не терялся по пути.',
+    title: 'Услуги и\u00A0цены',
+    desc: 'Направления работы, описание услуг, стоимость, пакеты и\u00A0условия.',
   },
   {
     num: '03',
-    title: 'Услуги',
-    desc: 'Помогаем быстро понять, какие направления и форматы работы есть и что может подойти именно ему.',
+    title: 'Запись и\u00A0обращение',
+    desc: 'Формы, кнопки связи, мессенджеры, заявки и\u00A0другие удобные способы обратиться.',
   },
   {
     num: '04',
-    title: 'Доверие',
-    desc: 'Используем то, что действительно подтверждает экспертность: опыт, образование, отзывы, лицензии, кейсы и другие важные для конкретной практики факты.',
-  },
-  {
-    num: '05',
-    title: 'Запись',
-    desc: 'Ведём к понятному следующему действию без лишних переходов и сложного маршрута.',
+    title: 'Дополнительные страницы',
+    desc: 'FAQ, подробные описания услуг, материалы, портфолио и\u00A0другие разделы, если они нужны.',
   },
 ]
 
 export default function TaplinkApproachSection() {
   return (
     <section className="tp-approach tp-approach--dotted">
-      <HeroParticleField
-        alphaMultiplier={1}
-        cursorForceMultiplier={0.4}
-        baseColor={{ r: 0, g: 0, b: 0 }}
-        hoverColor={{ r: 255, g: 0, b: 0 }}
-      />
+      <StaticParticleField alphaMultiplier={1} />
       <div className="tp-approach__inner">
         <div className="tp-approach__text">
-          <p className="tp-approach__eyebrow">НЕ ТОЛЬКО ДИЗАЙН</p>
+          <p className="tp-approach__eyebrow">ВОЗМОЖНОСТИ</p>
           <h2 className="tp-approach__title">
-            {ruTypo('Мини-сайт начинается не с цвета кнопок')}
+            {ruTypo('Не просто ссылка в\u00A0профиле')}
           </h2>
           <p className="tp-approach__desc">
             {ruTypo(
-              'Сначала я разбираюсь, что человеку важно понять о вашей практике, в каком порядке показать информацию и что должно привести его к следующему шагу.'
+              'На\u00A0Taplink можно собрать полноценную структуру под вашу задачу — от\u00A0знакомства с\u00A0вами до\u00A0записи или заявки.'
             )}
           </p>
         </div>

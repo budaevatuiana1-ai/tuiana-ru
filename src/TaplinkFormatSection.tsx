@@ -8,26 +8,26 @@ export default function TaplinkFormatSection() {
     <section className="tp-format">
       <div className="tp-format__inner">
         <div className="tp-format__text">
-          <p className="tp-format__eyebrow">КАК ЭТО РАБОТАЕТ</p>
+          <p className="tp-format__eyebrow">КАК ЭТО ВЫГЛЯДИТ</p>
           <h2 className="tp-format__title">
-            {ruTypo('Taplink создаётся прежде всего для телефона')}
+            {ruTypo('Taplink в\u00A0первую очередь рассчитан на\u00A0телефон')}
           </h2>
           <p className="tp-format__desc">
             {ruTypo(
-              'Большинство людей открывают такую страницу из соцсетей, мессенджеров или ссылки в профиле. Поэтому структура и дизайн в первую очередь рассчитаны на экран смартфона.'
+              'Большинство людей открывают такой сайт из\u00A0соцсетей, мессенджеров, рекламы или по\u00A0QR-коду. Поэтому структура и\u00A0дизайн в\u00A0первую очередь рассчитаны на\u00A0экран смартфона.'
             )}
           </p>
 
           <div className="tp-format__divider" />
 
-          <h3 className="tp-format__subtitle">А что будет на компьютере?</h3>
+          <h3 className="tp-format__subtitle">А что будет на{'\u00A0'}компьютере?</h3>
           <p className="tp-format__desc">
             {ruTypo(
-              'На большом экране Taplink выглядит как узкая вертикальная страница по центру. Он не растягивается на всю ширину монитора, как обычный сайт.'
+              'На\u00A0большом экране Taplink сохраняет компактный вертикальный формат и\u00A0не растягивается на\u00A0всю ширину монитора, как обычный сайт.'
             )}
           </p>
           <p className="tp-format__accent">
-            {ruTypo('Это не ошибка адаптации, а особенность самого формата.')}
+            {ruTypo('Это особенность формата, а\u00A0не ошибка адаптации.')}
           </p>
         </div>
 

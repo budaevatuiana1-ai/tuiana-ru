@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import './TaplinkProjectsShowcase.css'
 import { ruTypo } from './lib/typography'
+import StaticParticleField from './StaticParticleField'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -264,7 +265,8 @@ export default function TaplinkProjectsShowcase() {
   }, [])
 
   return (
-    <section className="tp-showcase">
+    <section id="taplink-projects" className="tp-showcase">
+      <StaticParticleField />
       <div className="tp-showcase__inner">
         <div className="tp-showcase__header">
           <p className="tp-showcase__eyebrow">ПРОЕКТЫ</p>
@@ -288,28 +290,30 @@ export default function TaplinkProjectsShowcase() {
               ref={(el) => { triggerRefs.current[i] = el }}
               aria-label={`Открыть проект ${p.num} — ${p.name}`}
             >
-              <div className="tp-showcase__stage">
-                <img
-                  className="tp-showcase__screen tp-showcase__screen--main"
-                  src={p.preview}
-                  alt=""
-                  draggable={false}
-                  loading="lazy"
-                />
-                <img
-                  className="tp-showcase__screen tp-showcase__screen--second"
-                  src={p.screens[1]}
-                  alt=""
-                  draggable={false}
-                  loading="lazy"
-                />
-              </div>
-              <div className="tp-showcase__item-info">
-                <span className="tp-showcase__item-num">{p.num} /</span>
-                <h3 className="tp-showcase__item-name">{ruTypo(p.name)}</h3>
-                <p className="tp-showcase__item-task">
-                  {ruTypo(p.task)}
-                </p>
+              <div className="tp-showcase__panel">
+                <div className="tp-showcase__stage">
+                  <img
+                    className="tp-showcase__screen tp-showcase__screen--main"
+                    src={p.preview}
+                    alt=""
+                    draggable={false}
+                    loading="lazy"
+                  />
+                  <img
+                    className="tp-showcase__screen tp-showcase__screen--second"
+                    src={p.screens[1]}
+                    alt=""
+                    draggable={false}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="tp-showcase__item-info">
+                  <span className="tp-showcase__item-num">{p.num} /</span>
+                  <h3 className="tp-showcase__item-name">{ruTypo(p.name)}</h3>
+                  <p className="tp-showcase__item-task">
+                    {ruTypo(p.task)}
+                  </p>
+                </div>
               </div>
             </button>
           ))}
