@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import './TaplinkProjectsHero.css'
 import { ruTypo } from './lib/typography'
 import HeroParticleField from './HeroParticleField'
@@ -5,6 +6,14 @@ import HeroParticleField from './HeroParticleField'
 const BASE = import.meta.env.BASE_URL
 
 export default function TaplinkProjectsHero() {
+  const [fontsReady, setFontsReady] = useState(false)
+
+  useEffect(() => {
+    document.fonts.ready
+      .then(() => setFontsReady(true))
+      .catch(() => setFontsReady(true))
+  }, [])
+
   return (
     <section className="tp-hero tp-hero--dotted">
       <HeroParticleField
@@ -14,23 +23,23 @@ export default function TaplinkProjectsHero() {
         hoverColor={{ r: 255, g: 0, b: 0 }}
       />
       <div className="tp-hero__inner">
-        <div className="tp-hero__text">
+        <div className={`tp-hero__text${fontsReady ? ' tp-hero__text--ready' : ''}`}>
           <p className="tp-hero__eyebrow">
-            МИНИ-САЙТ ДЛЯ ЧАСТНОЙ ПРАКТИКИ
+            МИНИ-САЙТ НА TAPLINK
           </p>
           <h1 className="tp-hero__title">
-            <span className="tp-hero__accent">Taplink</span>
+            Сайт-визитка
             <br />
-            для вашей
+            и{'\u00A0'}мини-сайт
             <br />
-            практики
+            <span className="tp-hero__accent">на{'\u00A0'}Taplink</span>
           </h1>
           <p className="tp-hero__desc">
-            {ruTypo('Одна понятная страница, где сразу видно, кто вы, с чем к вам можно обратиться, какие услуги вы предлагаете и как записаться.')}
+            {ruTypo('Компактный сайт для специалиста или бизнеса — с понятной структурой, индивидуальным оформлением и\u00A0всем необходимым для записи или обращения.')}
           </p>
           <p className="tp-hero__sub">
             {ruTypo(
-              'Подходит врачам, психологам и экспертам с частной практикой, если клиенты чаще приходят из соцсетей, мессенджеров, рекламы или по рекомендации и открывают ссылку с телефона.'
+              'Сайт на\u00A0Taplink обычно стоит дешевле отдельной разработки: основные инструменты уже есть внутри\u00A0платформы.'
             )}
           </p>
           <div className="tp-hero__cta">
@@ -39,34 +48,24 @@ export default function TaplinkProjectsHero() {
               <span className="cta-button__arrow" aria-hidden="true">↓</span>
             </a>
             <a className="cta-button" href="#contact">
-              <span>Обсудить задачу</span>
+              <span>Обсудить мини-сайт</span>
               <span className="cta-button__arrow" aria-hidden="true">→</span>
             </a>
           </div>
         </div>
 
         <div className="tp-hero__visual">
-          <div className="tp-hero__img tp-hero__img--left">
-            <img
-              src={`${BASE}taplink/galushchenko.png`}
-              alt={ruTypo('Светлана Галущенко — мини-сайт')}
-              draggable={false}
-            />
-          </div>
-          <div className="tp-hero__img tp-hero__img--center">
-            <img
-              src={`${BASE}taplink/panferova.png`}
-              alt={ruTypo('Анна Панферова — мини-сайт')}
-              draggable={false}
-            />
-          </div>
-          <div className="tp-hero__img tp-hero__img--right">
-            <img
-              src={`${BASE}taplink/kholodova.png`}
-              alt={ruTypo('Анна Холодова — мини-сайт')}
-              draggable={false}
-            />
-          </div>
+          <img
+            className="tp-hero__img"
+            src={`${BASE}taplink/hero-mini-sites-phones-q92.webp`}
+            alt={ruTypo('Три телефона с\u00A0экранами мини-сайтов для специалистов')}
+            width={1672}
+            height={941}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            draggable={false}
+          />
         </div>
       </div>
     </section>
