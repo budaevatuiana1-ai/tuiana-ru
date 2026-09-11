@@ -56,6 +56,7 @@ const ROUTES = [
     title: 'Дополнительные услуги — AI-визуал, презентации, видео | Tuiana Design',
     description:
       'AI-визуал, презентации, видео, PDF-материалы и digital-оформление для экспертов. Дополнительно к сайту или как отдельная задача.',
+    preload: '/additional/hero-ai.webp',
   },
 ]
 
@@ -85,6 +86,13 @@ function withSeo(html, { url, title, description }) {
   return out.replace(/<\/head>/i, `  ${seo}\n  </head>`)
 }
 
+// Inject a resource preload link before </head>. Idempotent: strips prior preload links first.
+function withPreload(html, href) {
+  let out = html.replace(/<!-- preload:start -->[\s\S]*?<!-- preload:end -->/gi, '')
+  const tag = `<!-- preload:start -->\n    <link rel="preload" as="image" href="${href}" fetchpriority="high">\n    <!-- preload:end -->`
+  return out.replace(/<\/head>/i, `  ${tag}\n  </head>`)
+}
+
 function emit(relPath, html, label) {
   const dest = relPath
     ? resolve(root, 'dist', relPath, 'index.html')
@@ -99,7 +107,9 @@ emit(null, withSeo(baseHtml, HOME), 'home')
 
 // Sub-route physical HTML entries.
 for (const r of ROUTES) {
-  emit(r.out, withSeo(baseHtml, r), r.out)
+  let html = withSeo(baseHtml, r)
+  if (r.preload) html = withPreload(html, r.preload)
+  emit(r.out, html, r.out)
 }
 
 console.log('[build-routes] done.')
