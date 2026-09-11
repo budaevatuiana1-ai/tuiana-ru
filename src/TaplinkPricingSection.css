@@ -1,0 +1,211 @@
+.tp-pricing {
+  background-color: #fff;
+  font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  color: #181C20;
+  padding: clamp(80px, 9vh, 120px) 0 clamp(80px, 10vh, 130px);
+}
+
+.tp-pricing__inner {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: 0 4vw;
+}
+
+/* ── Grid ── */
+
+.tp-pricing__grid {
+  display: grid;
+  grid-template-columns: 0.57fr 0.43fr;
+  align-items: start;
+}
+
+/* ── Left column ── */
+
+.tp-pricing__left {
+  padding-right: clamp(24px, 3vw, 48px);
+}
+
+.tp-pricing__eyebrow {
+  margin: 0 0 clamp(16px, 2.2vh, 28px);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #D58A5C;
+}
+
+.tp-pricing__title {
+  margin: 0 0 clamp(20px, 2.8vh, 36px);
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #181C20;
+}
+
+.tp-pricing__desc {
+  margin: 0 0 clamp(24px, 3.2vh, 40px);
+  font-size: clamp(14px, 1.05vw, 17px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.6);
+}
+
+.tp-pricing__accent {
+  margin: 0 0 clamp(28px, 3.6vh, 48px);
+  padding-left: clamp(14px, 1.6vw, 20px);
+  border-left: 2px solid #D58A5C;
+  font-size: clamp(14px, 1.05vw, 17px);
+  font-weight: 600;
+  line-height: 1.5;
+  color: #D58A5C;
+}
+
+.tp-pricing__section-label {
+  margin: 0 0 clamp(14px, 1.8vh, 22px);
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 600;
+  color: #2F3438;
+}
+
+.tp-pricing__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(16px, 2vw, 28px);
+}
+
+.tp-pricing__list li {
+  margin: 0 0 clamp(8px, 1vh, 12px);
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.55;
+  color: rgba(24, 28, 32, 0.65);
+}
+
+.tp-pricing__list li::before {
+  content: '—';
+  margin-right: 0.5em;
+  color: rgba(24, 28, 32, 0.3);
+}
+
+/* ── Right column ── */
+
+.tp-pricing__right {
+  display: flex;
+  flex-direction: column;
+  padding-left: clamp(24px, 3vw, 48px);
+  border-left: 1px solid rgba(47, 52, 56, 0.10);
+}
+
+.tp-pricing__right-top {
+  flex: 1;
+}
+
+.tp-pricing__price-block {
+  margin-bottom: 0;
+}
+
+.tp-pricing__price {
+  margin: 0 0 clamp(12px, 1.4vh, 18px);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #D58A5C;
+}
+
+.tp-pricing__price-note {
+  margin: 0;
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.55;
+  color: rgba(24, 28, 32, 0.55);
+}
+
+.tp-pricing__extra-price {
+  margin: 0 0 clamp(6px, 0.8vh, 10px);
+  font-size: clamp(14px, 1.05vw, 17px);
+  font-weight: 600;
+  line-height: 1.5;
+  color: #2F3438;
+}
+
+.tp-pricing__sep {
+  width: 100%;
+  height: 1px;
+  background: rgba(24, 28, 32, 0.10);
+  margin: clamp(20px, 2.6vh, 32px) 0;
+}
+
+.tp-pricing__extra {
+  margin: 0;
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.55);
+}
+
+.tp-pricing__tariff-group {
+  margin-top: auto;
+}
+
+.tp-pricing__tariff-label {
+  margin: 0 0 clamp(10px, 1.2vh, 16px);
+  font-size: clamp(14px, 1.05vw, 17px);
+  font-weight: 600;
+  line-height: 1.5;
+  color: #2F3438;
+}
+
+.tp-pricing__tariff-desc {
+  margin: 0;
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.6;
+  color: rgba(24, 28, 32, 0.55);
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 760px) {
+  .tp-pricing {
+    padding: clamp(64px, 8vh, 88px) 16px clamp(64px, 8vh, 88px);
+  }
+
+  .tp-pricing__inner {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .tp-pricing__grid {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 56px);
+  }
+
+  .tp-pricing__left {
+    padding-right: 0;
+  }
+
+  .tp-pricing__right {
+    padding-left: 0;
+    border-left: none;
+    padding-top: clamp(28px, 4vh, 44px);
+    border-top: 1px solid rgba(24, 28, 32, 0.10);
+  }
+
+  .tp-pricing__title {
+    font-size: clamp(24px, 6.5vw, 34px);
+    overflow-wrap: break-word;
+  }
+
+  .tp-pricing__desc {
+    overflow-wrap: break-word;
+  }
+
+  .tp-pricing__list {
+    grid-template-columns: 1fr;
+  }
+
+  .tp-pricing__price {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+}
