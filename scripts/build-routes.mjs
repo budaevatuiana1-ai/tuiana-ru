@@ -21,6 +21,34 @@ const HOME = {
     'Разрабатываю сайты, лендинги и мини-сайты для врачей и экспертов с личной практикой: структура, тексты, дизайн, адаптация и запуск под ключ.',
 }
 
+const HOME_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://tuiana.ru/#website',
+      url: 'https://tuiana.ru/',
+      name: 'Tuiana Design',
+      inLanguage: 'ru',
+      publisher: { '@id': 'https://tuiana.ru/#person' },
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://tuiana.ru/#person',
+      name: 'Будаева Туяна Валерьевна',
+      url: 'https://tuiana.ru/',
+      jobTitle: 'Веб-дизайнер',
+      image: 'https://tuiana.ru/about/tuiana-office.webp',
+      sameAs: [
+        'https://t.me/TuianaBudaeva',
+        'https://max.ru/u/f9LHodD0cOJDGbO0Sorwblf99n3A7bCVNPyelDjsJJW77eyRZo7ssG4wJr4',
+        'https://vk.ru/tuianadesign',
+        'https://www.instagram.com/tuiana.design/',
+      ],
+    },
+  ],
+}
+
 const ROUTES = [
   {
     out: 'projects/dari',
@@ -60,9 +88,11 @@ const ROUTES = [
   },
 ]
 
-// Remove a previously injected SEO block so the script is safe to re-run.
+// Remove previously injected SEO / JSON-LD blocks so the script is safe to re-run.
 function stripSeo(html) {
-  return html.replace(/<!-- seo:start -->[\s\S]*?<!-- seo:end -->/i, '')
+  return html
+    .replace(/<!-- seo:start -->[\s\S]*?<!-- seo:end -->/i, '')
+    .replace(/<!-- jsonld:start -->[\s\S]*?<!-- jsonld:end -->/i, '')
 }
 
 // Inject ONLY SEO <head> metadata. Vite <script>/<link> tags are left untouched.
@@ -93,6 +123,17 @@ function withPreload(html, href) {
   return out.replace(/<\/head>/i, `  ${tag}\n  </head>`)
 }
 
+// Inject structured data (JSON-LD) before </head>. Idempotent: strips prior JSON-LD block first.
+function withJsonLd(html) {
+  let out = html.replace(/<!-- jsonld:start -->[\s\S]*?<!-- jsonld:end -->/gi, '')
+  const json = JSON.stringify(HOME_JSON_LD, null, 2)
+    .split('\n')
+    .map((line) => `    ${line}`)
+    .join('\n')
+  const tag = `<!-- jsonld:start -->\n    <script type="application/ld+json">\n${json}\n    </script>\n    <!-- jsonld:end -->`
+  return out.replace(/<\/head>/i, `  ${tag}\n  </head>`)
+}
+
 function emit(relPath, html, label) {
   const dest = relPath
     ? resolve(root, 'dist', relPath, 'index.html')
@@ -103,7 +144,7 @@ function emit(relPath, html, label) {
 }
 
 // Root home page (ГЛАВНАЯ) — optimize dist/index.html itself.
-emit(null, withSeo(baseHtml, HOME), 'home')
+emit(null, withJsonLd(withSeo(baseHtml, HOME)), 'home')
 
 // Sub-route physical HTML entries.
 for (const r of ROUTES) {
