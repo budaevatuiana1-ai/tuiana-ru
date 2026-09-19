@@ -53,6 +53,7 @@ export default function ContactSection() {
               href="https://max.ru/u/f9LHodD0cOJDGbO0Sorwblf99n3A7bCVNPyelDjsJJW77eyRZo7ssG4wJr4"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackMetrikaGoal('lead_max')}
             >
               <span className="contact__action-num">02</span>
               <span className="contact__action-label">Написать в MAX</span>

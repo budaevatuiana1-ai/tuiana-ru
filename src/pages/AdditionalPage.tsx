@@ -722,7 +722,7 @@ export default function AdditionalPage() {
                 <ExternalCtaButton href="https://t.me/TuianaBudaeva" onClick={() => trackMetrikaGoal('lead_telegram')}>
                   {ruTypo('Написать в Telegram')}
                 </ExternalCtaButton>
-                <ExternalCtaButton href="https://max.ru/u/f9LHodD0cOJDGbO0Sorwblf99n3A7bCVNPyelDjsJJW77eyRZo7ssG4wJr4" primary={false}>
+                <ExternalCtaButton href="https://max.ru/u/f9LHodD0cOJDGbO0Sorwblf99n3A7bCVNPyelDjsJJW77eyRZo7ssG4wJr4" primary={false} onClick={() => trackMetrikaGoal('lead_max')}>
                   {ruTypo('Написать в MAX')}
                 </ExternalCtaButton>
               </div>
