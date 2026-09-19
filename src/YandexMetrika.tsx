@@ -79,6 +79,12 @@ function fireConsentEvent() {
   window.dispatchEvent(new Event('tuiana:analytics-consent'))
 }
 
+export function trackMetrikaGoal(goalId: string) {
+  if (import.meta.env.DEV) return
+  if (getConsent() !== 'granted') return
+  callYm('reachGoal', goalId)
+}
+
 export { fireConsentEvent }
 
 export default function YandexMetrika() {

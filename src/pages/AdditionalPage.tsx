@@ -5,6 +5,7 @@ import { ruTypo } from '../lib/typography'
 import StaticParticleField from '../StaticParticleField'
 import Footer from '../Footer'
 import ExternalCtaButton from '../ExternalCtaButton'
+import { trackMetrikaGoal } from '../YandexMetrika'
 
 function formatTime(sec: number) {
   if (!Number.isFinite(sec) || sec < 0) return '0:00'
@@ -718,7 +719,7 @@ export default function AdditionalPage() {
                 {ruTypo('Если вы понимаете, что хотите получить в\u00A0итоге, но не знаете, нужен ли для этого сайт, Taplink, презентация, видео или другой визуальный материал — расскажите. Я\u00A0помогу выбрать подходящий вариант в\u00A0рамках моих услуг и\u00A0при необходимости собрать несколько элементов в\u00A0одной визуальной системе.')}
               </p>
               <div className="additional-cta__actions">
-                <ExternalCtaButton href="https://t.me/TuianaBudaeva">
+                <ExternalCtaButton href="https://t.me/TuianaBudaeva" onClick={() => trackMetrikaGoal('lead_telegram')}>
                   {ruTypo('Написать в Telegram')}
                 </ExternalCtaButton>
                 <ExternalCtaButton href="https://max.ru/u/f9LHodD0cOJDGbO0Sorwblf99n3A7bCVNPyelDjsJJW77eyRZo7ssG4wJr4" primary={false}>

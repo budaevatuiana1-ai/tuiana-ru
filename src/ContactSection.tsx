@@ -1,4 +1,5 @@
 import './ContactSection.css'
+import { trackMetrikaGoal } from './YandexMetrika'
 
 const socials = [
   { label: 'Telegram-канал', href: 'https://t.me/tuiana_ai_2' },
@@ -40,6 +41,7 @@ export default function ContactSection() {
               href="https://t.me/TuianaBudaeva"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackMetrikaGoal('lead_telegram')}
             >
               <span className="contact__action-num">01</span>
               <span className="contact__action-label">Написать в Telegram</span>

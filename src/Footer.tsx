@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
 import StaticParticleField from './StaticParticleField'
+import { trackMetrikaGoal } from './YandexMetrika'
 import './Footer.css'
 
 const socialLinks = [
@@ -147,6 +148,11 @@ export default function Footer() {
                     href={l.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={
+                      l.href === 'https://t.me/TuianaBudaeva'
+                        ? () => trackMetrikaGoal('lead_telegram')
+                        : undefined
+                    }
                   >
                     {l.label}
                   </a>
