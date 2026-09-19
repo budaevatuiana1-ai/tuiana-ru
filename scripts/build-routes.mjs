@@ -21,6 +21,15 @@ const HOME = {
     'Разрабатываю сайты, лендинги и мини-сайты для врачей и экспертов с личной практикой: структура, тексты, дизайн, адаптация и запуск под ключ.',
 }
 
+// Open Graph / Twitter image meta — homepage only.
+const HOME_OG_IMAGE = `<!-- ogimage:start -->
+    <meta property="og:image" content="https://tuiana.ru/og/tuiana-home-og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta name="twitter:image" content="https://tuiana.ru/og/tuiana-home-og.jpg">
+    <!-- ogimage:end -->`
+
 const HOME_JSON_LD = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -88,11 +97,12 @@ const ROUTES = [
   },
 ]
 
-// Remove previously injected SEO / JSON-LD blocks so the script is safe to re-run.
+// Remove previously injected SEO / JSON-LD / OG-image blocks so the script is safe to re-run.
 function stripSeo(html) {
   return html
     .replace(/<!-- seo:start -->[\s\S]*?<!-- seo:end -->/i, '')
     .replace(/<!-- jsonld:start -->[\s\S]*?<!-- jsonld:end -->/i, '')
+    .replace(/<!-- ogimage:start -->[\s\S]*?<!-- ogimage:end -->/i, '')
 }
 
 // Inject ONLY SEO <head> metadata. Vite <script>/<link> tags are left untouched.
@@ -134,6 +144,12 @@ function withJsonLd(html) {
   return out.replace(/<\/head>/i, `  ${tag}\n  </head>`)
 }
 
+// Inject Open Graph / Twitter image meta. Idempotent: strips prior block first.
+function withOgImage(html) {
+  const out = html.replace(/<!-- ogimage:start -->[\s\S]*?<!-- ogimage:end -->/gi, '')
+  return out.replace(/<\/head>/i, `  ${HOME_OG_IMAGE}\n  </head>`)
+}
+
 function emit(relPath, html, label) {
   const dest = relPath
     ? resolve(root, 'dist', relPath, 'index.html')
@@ -144,7 +160,7 @@ function emit(relPath, html, label) {
 }
 
 // Root home page (ГЛАВНАЯ) — optimize dist/index.html itself.
-emit(null, withJsonLd(withSeo(baseHtml, HOME)), 'home')
+emit(null, withOgImage(withJsonLd(withSeo(baseHtml, HOME))), 'home')
 
 // Sub-route physical HTML entries.
 for (const r of ROUTES) {
