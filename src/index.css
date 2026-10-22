@@ -18,7 +18,35 @@ body {
 
 @media (hover: hover) and (pointer: fine) {
   html {
-    cursor: none;
+    cursor: url('/cursor-dot-6.png') 8 8, auto;
+  }
+
+  :is(a, button:not(:disabled), [role="button"]) {
+    cursor: url('/cursor-dot-8.png') 8 8, pointer;
+  }
+
+  input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  textarea,
+  [contenteditable]:not([contenteditable="false"]) {
+    cursor: text;
+  }
+
+  select,
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="range"],
+  input[type="file"] {
+    cursor: default;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  html {
+    cursor: auto;
+  }
+
+  :is(a, button:not(:disabled), [role="button"]) {
+    cursor: pointer;
   }
 }
 

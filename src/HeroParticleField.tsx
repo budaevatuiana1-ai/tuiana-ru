@@ -177,10 +177,13 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
 
     hero.addEventListener('pointermove', onPointerMove, { passive: true })
     hero.addEventListener('pointerleave', onPointerLeave, { passive: true })
-    hero.addEventListener('pointerenter', () => {
+
+    function onPointerEnter() {
       mouseInsideRef.current = true
-      if (visible && !rafRunning) startRaf()
-    }, { passive: true })
+      if (visible) startRaf()
+    }
+
+    hero.addEventListener('pointerenter', onPointerEnter, { passive: true })
 
     const ctx = canvas.getContext('2d')
     if (!ctx) return
@@ -283,8 +286,6 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
       }
     }
 
-    rafRef.current = requestAnimationFrame(frame)
-
     function startRaf() {
       if (!rafRunning) {
         rafRunning = true
@@ -292,10 +293,18 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
       }
     }
 
+    function stopRaf() {
+      cancelAnimationFrame(rafRef.current)
+      rafRunning = false
+    }
+
+    startRaf()
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting
         if (visible) startRaf()
+        else stopRaf()
       },
       { rootMargin: '15% 0px', threshold: 0 }
     )
@@ -308,9 +317,10 @@ export default function HeroParticleField({ alphaMultiplier = 1, cursorForceMult
     resizeObserver.observe(hero)
 
     return () => {
-      cancelAnimationFrame(rafRef.current)
+      stopRaf()
       hero.removeEventListener('pointermove', onPointerMove)
       hero.removeEventListener('pointerleave', onPointerLeave)
+      hero.removeEventListener('pointerenter', onPointerEnter)
       resizeObserver.disconnect()
       observer.disconnect()
     }
