@@ -3,11 +3,10 @@ import { trackMetrikaGoal } from './YandexMetrika'
 
 const socials = [
   { label: 'Telegram-канал', href: 'https://t.me/tuiana_ai_2' },
-  { label: 'MAX-канал', href: 'https://max.ru/join/l4b4TZfcXXeDO7125wpWYlHtR2fUwyUkRJ4qahIL_yE' },
-  { label: 'VK', href: 'https://vk.ru/tuianadesign' },
+  { label: 'MAX-канал', href: 'https://max.ru/channel_Tuiana_Design' },
+  { label: 'VK', href: 'https://vk.ru/tuiana.design' },
   { label: 'Instagram', href: 'https://www.instagram.com/tuiana.design/' },
 ]
-
 export default function ContactSection() {
   return (
     <section className="contact" id="contact">
