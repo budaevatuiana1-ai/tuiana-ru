@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useInView } from './hooks/useInView'
 import { ruTypo } from './lib/typography'
 import './ServicesSection.css'
@@ -146,6 +147,9 @@ export default function ServicesSection() {
           <br />
           {ruTypo('Структуру, тексты и путь пользователя продумываю вместе с\u00A0дизайном.')}
         </p>
+        <Link className="services__pricing-link" to="/services">
+          Посмотреть все услуги и&nbsp;цены <span aria-hidden="true">↗</span>
+        </Link>
       </div>
 
       <div className="services__carousel">

@@ -49,11 +49,11 @@ export default function Footer() {
       e.preventDefault()
       if (target === 'additional') {
         navigate('/additional')
+      } else if (target === 'services') {
+        navigate('/services')
       } else if (isHome) {
         if (target === 'top') {
           window.scrollTo({ top: 0, behavior: 'instant' })
-        } else if (target === 'services') {
-          scrollToId('services')
         } else if (target === 'about') {
           scrollToPacScroll(window.innerHeight * 1.4 * 0.9)
         } else if (target === 'reviews') {
@@ -111,7 +111,7 @@ export default function Footer() {
                 <li key={l.label}>
                   <a
                     className={`footer__link${l.target === 'top' ? ' footer__link--home' : ''}`}
-                    href={isHome ? '#' : '/'}
+                    href={l.target === 'services' ? '/services/' : isHome ? '#' : '/'}
                     onClick={handleSite(l.target)}
                   >
                     {l.label}

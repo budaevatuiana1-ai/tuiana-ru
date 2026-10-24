@@ -51,7 +51,7 @@ const HOME_JSON_LD = {
       sameAs: [
         'https://t.me/TuianaBudaeva',
         'https://max.ru/u/f9LHodD0cOJDGbO0Sorwblf99n3A7bCVNPyelDjsJJW77eyRZo7ssG4wJr4',
-        'https://vk.ru/tuianadesign',
+        'https://vk.ru/tuiana.design',
         'https://www.instagram.com/tuiana.design/',
       ],
     },
@@ -94,6 +94,13 @@ const ROUTES = [
     description:
       'AI-визуал, презентации, видео, PDF-материалы и digital-оформление для экспертов. Дополнительно к сайту или как отдельная задача.',
     preload: '/additional/hero-ai.webp',
+  },
+  {
+    out: 'services',
+    url: 'https://tuiana.ru/services/',
+    title: 'Услуги и цены — сайты, дизайн, AI-визуал | Tuiana Design',
+    description:
+      'Стоимость сайтов под ключ, оформления соцсетей, презентаций, AI-фотосессий, AI-видео, графического дизайна и персональных песен. Услуги Tuiana Design.',
   },
 ]
 

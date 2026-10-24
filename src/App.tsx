@@ -23,6 +23,7 @@ import BazaCasePage from './pages/BazaCasePage'
 import TaplinkProjectsPage from './pages/TaplinkProjectsPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import AdditionalPage from './pages/AdditionalPage'
+import ServicesPricingPage from './pages/ServicesPricingPage'
 import useSmoothScroll from './hooks/useSmoothScroll'
 
 const RETURN_KEYS = [
@@ -148,6 +149,7 @@ function App() {
         <Route path="/projects/taplink" element={<TaplinkProjectsPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/additional" element={<AdditionalPage />} />
+        <Route path="/services" element={<ServicesPricingPage />} />
       </Routes>
     </>
   )

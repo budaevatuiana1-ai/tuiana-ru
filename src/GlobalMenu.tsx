@@ -52,7 +52,7 @@ export default function GlobalMenu() {
   const items: MenuItem[] = isHome
     ? [
         { label: 'Главная', action: () => window.scrollTo({ top: 0, behavior: 'instant' }) },
-        { label: 'Услуги и цены', action: () => scrollToId('services') },
+        { label: 'Услуги и цены', action: () => navigate('/services') },
         { label: 'Дополнительно', action: () => navigate('/additional') },
         {
           label: 'Кейсы',
@@ -69,7 +69,7 @@ export default function GlobalMenu() {
       ]
     : [
         { label: 'Главная', action: () => goHomeSection('top') },
-        { label: 'Услуги и цены', action: () => goHomeSection('services') },
+        { label: 'Услуги и цены', action: () => navigate('/services') },
         { label: 'Дополнительно', action: () => navigate('/additional') },
         {
           label: 'Кейсы',

@@ -42,6 +42,29 @@
   max-width: 620px;
 }
 
+.services__pricing-link {
+  display: inline-block;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 10px 0;
+  font-size: clamp(16px, 1.2vw, 18px);
+  font-weight: 600;
+  line-height: 1.5;
+  color: #2F3438;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.services__pricing-link:hover {
+  color: #D58A5C;
+}
+
+.services__pricing-link:focus-visible {
+  outline: 2px solid #D58A5C;
+  outline-offset: 4px;
+}
+
 /* ── Editorial grid ────────────────────────── */
 
 .services__grid {

@@ -734,9 +734,9 @@ export default function AdditionalPage() {
                 <nav className="additional-cta__socials" aria-label={ruTypo('Социальные сети')}>
                   <a className="additional-cta__social-link additional-cta__social-link--featured" href="https://t.me/tuiana_ai_2" target="_blank" rel="noopener noreferrer">{ruTypo('Telegram-канал')}<span className="additional-cta__social-arrow" aria-hidden="true"> ↗</span></a>
                   <span className="additional-cta__social-sep" aria-hidden="true">·</span>
-                  <a className="additional-cta__social-link additional-cta__social-link--featured" href="https://max.ru/join/l4b4TZfcXXeDO7125wpWYlHtR2fUwyUkRJ4qahIL_yE" target="_blank" rel="noopener noreferrer">{ruTypo('MAX-канал')}<span className="additional-cta__social-arrow" aria-hidden="true"> ↗</span></a>
+                  <a className="additional-cta__social-link additional-cta__social-link--featured" href="https://max.ru/channel_Tuiana_Design" target="_blank" rel="noopener noreferrer">{ruTypo('MAX-канал')}<span className="additional-cta__social-arrow" aria-hidden="true"> ↗</span></a>
                   <span className="additional-cta__social-sep" aria-hidden="true">·</span>
-                  <a className="additional-cta__social-link" href="https://vk.ru/tuianadesign" target="_blank" rel="noopener noreferrer">VK<span className="additional-cta__social-arrow" aria-hidden="true"> ↗</span></a>
+                  <a className="additional-cta__social-link" href="https://vk.ru/tuiana.design" target="_blank" rel="noopener noreferrer">VK<span className="additional-cta__social-arrow" aria-hidden="true"> ↗</span></a>
                   <span className="additional-cta__social-sep" aria-hidden="true">·</span>
                   <a className="additional-cta__social-link" href="https://www.instagram.com/tuiana.design/" target="_blank" rel="noopener noreferrer">Instagram<span className="additional-cta__social-arrow" aria-hidden="true"> ↗</span></a>
                 </nav>
