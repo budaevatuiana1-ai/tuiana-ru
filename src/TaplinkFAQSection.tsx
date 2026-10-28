@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ruTypo } from './lib/typography'
+import { formatPrice } from './data/pricing'
 import StaticParticleField from './StaticParticleField'
 import './TaplinkFAQSection.css'
 
@@ -10,7 +11,7 @@ const ITEMS = [
   },
   {
     q: 'Можно ли сделать в Taplink несколько страниц?',
-    a: 'Да. Базовая стоимость от 15\u00A0000\u00A0₽ относится к одностраничному мини-сайту. Внутренние страницы можно добавить отдельно — от 5\u00A0000\u00A0₽ за страницу. Более сложная структура рассчитывается индивидуально.',
+    a: `Да. Базовая стоимость ${formatPrice('taplink')} относится к одностраничному мини-сайту. Внутренние страницы можно добавить отдельно — ${formatPrice('taplink-page', { includeUnit: false })} за страницу. Более сложная структура рассчитывается индивидуально.`,
   },
   {
     q: 'Что оплачивается отдельно?',

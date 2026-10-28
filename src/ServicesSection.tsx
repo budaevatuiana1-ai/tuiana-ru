@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useInView } from './hooks/useInView'
 import { ruTypo } from './lib/typography'
+import { formatPrice } from './data/pricing'
 import './ServicesSection.css'
 
 const services = [
@@ -9,7 +10,7 @@ const services = [
     num: '01',
     name: 'Индивидуальный сайт',
     desc: 'Для эксперта, клиники или проекта, которому уже тесно в одном экране. Продумываю архитектуру, разделы, тексты, визуальную систему, адаптив и путь пользователя — от первого знакомства до нужного действия.',
-    price: 'от 45 000 ₽',
+    price: formatPrice('multipage'),
     micro: 'Для сложной структуры и нескольких направлений',
     tags: ['для клиник', 'проект'],
   },
@@ -17,7 +18,7 @@ const services = [
     num: '02',
     name: 'Лендинг под ключ',
     desc: 'Полноценный одностраничный сайт для специалиста, услуги или проекта. Собираю информацию, выстраиваю логику блоков, помогаю с текстами, создаю дизайн и адаптирую под мобильные устройства.',
-    price: 'от\u00A025\u00A0000\u00A0₽',
+    price: formatPrice('landing'),
     micro: 'Одна задача — один понятный сценарий',
     tags: ['под ключ'],
   },
@@ -25,7 +26,7 @@ const services = [
     num: '03',
     name: 'Taplink / мини-сайт',
     desc: 'Компактная mobile-first страница, когда большой сайт пока не нужен. Услуги, экспертность, важные ответы, контакты и запись — в одной ссылке, которую удобно отправлять клиентам и размещать в соцсетях.',
-    price: 'от 15 000 ₽',
+    price: formatPrice('taplink'),
     micro: 'Быстрая и понятная точка входа',
     tags: ['mobile-first'],
   },

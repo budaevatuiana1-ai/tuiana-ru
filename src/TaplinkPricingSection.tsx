@@ -1,4 +1,5 @@
 import { ruTypo } from './lib/typography'
+import { formatPrice } from './data/pricing'
 import './TaplinkPricingSection.css'
 
 export default function TaplinkPricingSection() {
@@ -37,7 +38,7 @@ export default function TaplinkPricingSection() {
           <div className="tp-pricing__right">
             <div className="tp-pricing__right-top">
               <div className="tp-pricing__price-block">
-                <p className="tp-pricing__price">от 15{'\u00A0'}000{'\u00A0'}₽</p>
+                <p className="tp-pricing__price">{formatPrice('taplink')}</p>
                 <p className="tp-pricing__price-note">
                   Базовый формат — одностраничный мини-сайт{'\u00A0'}до{'\u00A0'}7 смысловых блоков.
                 </p>
@@ -46,7 +47,7 @@ export default function TaplinkPricingSection() {
               <div className="tp-pricing__sep" />
 
               <p className="tp-pricing__extra-price">
-                Дополнительная внутренняя страница — от 5{'\u00A0'}000{'\u00A0'}₽.
+                Дополнительная внутренняя страница — {formatPrice('taplink-page', { includeUnit: false })}.
               </p>
               <p className="tp-pricing__extra">
                 {ruTypo('Более сложная структура, дополнительные формы и нестандартные элементы рассчитываются отдельно.')}
