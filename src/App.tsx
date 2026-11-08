@@ -23,6 +23,7 @@ import BazaCasePage from './pages/BazaCasePage'
 import TaplinkProjectsPage from './pages/TaplinkProjectsPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import AdditionalPage from './pages/AdditionalPage'
+import DiagruppCasePage from './pages/DiagruppCasePage'
 import ServicesPricingPage from './pages/ServicesPricingPage'
 import useSmoothScroll from './hooks/useSmoothScroll'
 
@@ -147,6 +148,7 @@ function App() {
         <Route path="/projects/dari" element={<DariCasePage />} />
         <Route path="/projects/baza" element={<BazaCasePage />} />
         <Route path="/projects/taplink" element={<TaplinkProjectsPage />} />
+        <Route path="/projects/diagrupp" element={<DiagruppCasePage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/additional" element={<AdditionalPage />} />
         <Route path="/services" element={<ServicesPricingPage />} />

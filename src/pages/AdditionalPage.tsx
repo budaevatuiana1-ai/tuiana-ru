@@ -6,6 +6,7 @@ import StaticParticleField from '../StaticParticleField'
 import Footer from '../Footer'
 import ExternalCtaButton from '../ExternalCtaButton'
 import { trackMetrikaGoal } from '../YandexMetrika'
+import { Link } from 'react-router-dom'
 
 function formatTime(sec: number) {
   if (!Number.isFinite(sec) || sec < 0) return '0:00'
@@ -30,7 +31,9 @@ export default function AdditionalPage() {
   const audioTimelineRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    if (window.location.hash === '#presentations') {
+      requestAnimationFrame(() => document.getElementById('presentations')?.scrollIntoView())
+    } else window.scrollTo(0, 0)
   }, [])
 
   const openLightbox = useCallback((src: string, alt: string) => {
@@ -235,7 +238,7 @@ export default function AdditionalPage() {
         </section>
 
         {/* ── Presentations ── */}
-        <section className="additional-presentations">
+        <section className="additional-presentations" id="presentations">
           <div className="additional-presentations__inner">
             <div className="additional-presentations__header">
               <div className="additional-presentations__header-left">
@@ -254,44 +257,27 @@ export default function AdditionalPage() {
                 <p className="additional-presentations__accent">
                   {ruTypo('Структура · тексты · дизайн · визуал')}
                 </p>
+                <p className="additional-presentations__hint">{ruTypo('Нажмите на слайд, чтобы увеличить')}</p>
               </div>
             </div>
 
             <div className="additional-presentations__gallery">
               <div className="additional-presentations__project">
-                <div className="additional-presentations__preview-wrap">
-                  <img
-                    className="additional-presentations__img"
-                    src="/additional/presentation-notebooklm.webp"
-                    alt="NotebookLM — презентация"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <button
-                    className="additional-presentations__hotspot"
-                    style={{ top: '0%', left: '0%', width: '35%', height: '100%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/notebooklm-01.webp', ruTypo('NotebookLM — слайд 1'))}
-                    aria-label={ruTypo('Открыть слайд 1 презентации NotebookLM')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/notebooklm-01.webp', ruTypo('NotebookLM — слайд 1')) } }}
-                  />
-                  <button
-                    className="additional-presentations__hotspot"
-                    style={{ top: '15%', left: '25%', width: '40%', height: '65%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/notebooklm-02.webp', ruTypo('NotebookLM — слайд 2'))}
-                    aria-label={ruTypo('Открыть слайд 2 презентации NotebookLM')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/notebooklm-02.webp', ruTypo('NotebookLM — слайд 2')) } }}
-                  />
-                  <button
-                    className="additional-presentations__hotspot"
-                    style={{ top: '35%', left: '50%', width: '50%', height: '65%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/notebooklm-03.webp', ruTypo('NotebookLM — слайд 3'))}
-                    aria-label={ruTypo('Открыть слайд 3 презентации NotebookLM')}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/notebooklm-03.webp', ruTypo('NotebookLM — слайд 3')) } }}
-                  />
+                <div className="additional-presentations__preview-wrap additional-presentations__diagrupp">
+                  <button className="additional-presentations__diagrupp-slide additional-presentations__diagrupp-slide--cover" onClick={() => openLightbox('/diagrupp/hero-slide.png', ruTypo('Диагрупп — титульный слайд'))} aria-label={ruTypo('Открыть титульный слайд презентации Диагрупп')}>
+                    <img className="additional-presentations__img" src="/diagrupp/hero-slide.png" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+                  </button>
+                  <button className="additional-presentations__diagrupp-slide additional-presentations__diagrupp-slide--minute" onClick={() => openLightbox('/diagrupp/golden-minute.png', ruTypo('Диагрупп — золотая минута'))} aria-label={ruTypo('Открыть слайд «Золотая минута»')}>
+                    <img className="additional-presentations__img" src="/diagrupp/golden-minute.png" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+                  </button>
+                  <button className="additional-presentations__diagrupp-slide additional-presentations__diagrupp-slide--map" onClick={() => openLightbox('/diagrupp/consultation-map.png', ruTypo('Диагрупп — карта консультации'))} aria-label={ruTypo('Открыть слайд «Карта консультации»')}>
+                    <img className="additional-presentations__img" src="/diagrupp/consultation-map.png" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+                  </button>
                 </div>
                 <div className="additional-presentations__caption">
-                  <p className="additional-presentations__caption-title">NotebookLM</p>
-                  <p className="additional-presentations__caption-desc">Презентация о работе с информацией</p>
+                  <p className="additional-presentations__caption-title"><Link className="additional-presentations__case-link" to="/projects/diagrupp/">Диагрупп</Link></p>
+                  <p className="additional-presentations__caption-desc">Корпоративная обучающая презентация · 45 слайдов</p>
+                  <Link className="additional-presentations__case-action" to="/projects/diagrupp/">Смотреть кейс <span aria-hidden="true">→</span></Link>
                 </div>
               </div>
 

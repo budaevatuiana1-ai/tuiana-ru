@@ -81,6 +81,14 @@ const ROUTES = [
       'Разрабатываю сайты-визитки и мини-сайты для специалистов и экспертов: структура, тексты, дизайн, мобильная адаптация и запуск под ключ.',
   },
   {
+    out: 'projects/diagrupp',
+    url: 'https://tuiana.ru/projects/diagrupp/',
+    title: 'Диагрупп — презентация для обучения врачей | Tuiana Design',
+    description:
+      'Кейс Tuiana Design: структура, визуальное оформление и заметки лектора для корпоративной обучающей презентации Диагрупп.',
+    ogImage: 'https://tuiana.ru/diagrupp/hero-slide.png',
+  },
+  {
     out: 'privacy',
     url: 'https://tuiana.ru/privacy/',
     title: 'Политика обработки персональных данных | Tuiana Design',
@@ -173,6 +181,7 @@ emit(null, withOgImage(withJsonLd(withSeo(baseHtml, HOME))), 'home')
 for (const r of ROUTES) {
   let html = withSeo(baseHtml, r)
   if (r.preload) html = withPreload(html, r.preload)
+  if (r.ogImage) html = html.replace('</head>', `    <meta property="og:image" content="${r.ogImage}">\n  </head>`)
   emit(r.out, html, r.out)
 }
 
