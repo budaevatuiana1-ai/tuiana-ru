@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useLayoutEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import './ServicesPricingPage.css'
 import { ruTypo } from '../lib/typography'
 import { formatPrice } from '../data/pricing'
@@ -178,7 +178,7 @@ const sections: PriceSection[] = [
     title: 'Персональные песни',
     intro: 'Музыкальный подарок, посвящённый человеку, событию или вашей истории.',
     groups: [{ items: [
-      { id: 'song-lyrics', name: 'Песня на готовые стихи', price: formatPrice('song-lyrics'), summary: 'Музыка для ваших слов.', details: 'Создаю песню с помощью AI по готовому тексту. Формат результата согласовываем заранее.' },
+      { id: 'song-lyrics', name: 'Песня на готовый текст', price: formatPrice('song-lyrics'), summary: 'Музыка для ваших слов.', details: 'Создаю песню с помощью AI по готовому тексту. Формат результата согласовываем заранее.' },
       { id: 'song-full', name: 'Песня с написанием текста', price: formatPrice('song-full'), summary: 'История, текст и музыкальная версия.', details: 'Пишу текст по вашей истории или пожеланиям и создаю песню с помощью AI. Это не студийная запись с живыми музыкантами.' },
     ] }],
     note: 'Условия использования готовой музыки, включая коммерческое применение, зависят от лицензии и согласовываются до заказа.',
@@ -246,10 +246,15 @@ function PriceRow({ item, index, expanded, onToggle }: {
 
 export default function ServicesPricingPage() {
   const [openItem, setOpenItem] = useState<string | null>(null)
+  const location = useLocation()
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  useLayoutEffect(() => {
+    if (location.hash) {
+      document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'instant' })
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }, [location.hash, location.key])
 
   const handleAnchor = (id: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
@@ -340,6 +345,13 @@ export default function ServicesPricingPage() {
                     </div>
                   </div>
                 ))}
+                {section.id === 'sites' && (
+                  <div className="sp-section__note">
+                    <strong>{ruTypo('Структура и тексты — уже входят в работу')}</strong><br /><br />
+                    {ruTypo(ruTypo('При заказе сайта под ключ я помогаю продумать структуру и подготовить тексты на основе ваших материалов. Это уже входит в стоимость в пределах согласованного объёма.'))}<br /><br />
+                    {ruTypo(ruTypo('Нужны только структура и тексты, без дизайна и разработки сайта? Такую работу тоже можно заказать отдельно. Стоимость зависит от задачи и объёма материалов.'))}
+                  </div>
+                )}
                 {section.note && <p className="sp-section__note">{ruTypo(section.note)}</p>}
                 {section.id === 'sites' && (
                   <a className="sp-navigator" href={navigatorUrl} target="_blank" rel="noopener noreferrer">

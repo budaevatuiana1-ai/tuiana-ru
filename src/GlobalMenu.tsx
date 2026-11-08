@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect, Fragment } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './GlobalMenu.css'
 
 function scrollToId(id: string) {
@@ -17,12 +17,14 @@ function scrollToPacScroll(offset: number) {
 
 interface MenuChild {
   label: string
-  action: () => void
+  to: string
+  action?: () => void
 }
 
 interface MenuItem {
   label: string
-  action: () => void
+  to: string
+  action?: () => void
   children?: MenuChild[]
 }
 
@@ -36,7 +38,7 @@ export default function GlobalMenu() {
 
   const close = useCallback(() => {
     setIsOpen(false)
-    btnRef.current?.focus()
+    btnRef.current?.focus({ preventScroll: true })
   }, [])
 
   const goHomeSection = useCallback(
@@ -49,46 +51,61 @@ export default function GlobalMenu() {
 
   const toggle = useCallback(() => setIsOpen((v) => !v), [])
 
+  const additionalChildren: MenuChild[] = [
+    { label: 'Нейрофотосессии', to: '/additional/#neurophoto' },
+    { label: 'Презентации', to: '/additional/#presentations' },
+    { label: 'Видео', to: '/additional/#video' },
+    { label: 'Оформление соцсетей', to: '/additional/#social-design' },
+    { label: 'Другие работы', to: '/additional/#other-works' },
+  ]
+  const caseChildren: MenuChild[] = [
+    { label: 'Дари', to: '/projects/dari' },
+    { label: 'Наша База', to: '/projects/baza' },
+    { label: 'Taplink / мини-сайты', to: '/projects/taplink' },
+    { label: 'Диагрупп · презентация', to: '/projects/diagrupp/' },
+  ]
+
   const items: MenuItem[] = isHome
     ? [
-        { label: 'Главная', action: () => window.scrollTo({ top: 0, behavior: 'instant' }) },
-        { label: 'Услуги и цены', action: () => navigate('/services') },
-        { label: 'Дополнительно', action: () => navigate('/additional') },
+        { label: 'Главная', to: '/', action: () => window.scrollTo({ top: 0, behavior: 'instant' }) },
+        { label: 'Услуги и цены', to: '/services' },
+        { label: 'Дополнительно', to: '/additional/', children: additionalChildren },
         {
           label: 'Кейсы',
+          to: '/#cases',
           action: () => scrollToId('cases'),
-          children: [
-            { label: 'Дари', action: () => navigate('/projects/dari') },
-            { label: 'Наша База', action: () => navigate('/projects/baza') },
-            { label: 'Taplink / мини-сайты', action: () => navigate('/projects/taplink') },
-          ],
+          children: caseChildren,
         },
-        { label: 'Обо мне', action: () => scrollToPacScroll(window.innerHeight * 1.4 * 0.9) },
-        { label: 'Отзывы', action: () => scrollToId('reviews') },
-        { label: 'Контакты', action: () => scrollToId('contact') },
+        { label: 'Обо мне', to: '/#about', action: () => scrollToPacScroll(window.innerHeight * 1.4 * 0.9) },
+        { label: 'Отзывы', to: '/#reviews', action: () => scrollToId('reviews') },
+        { label: 'Контакты', to: '/#contact', action: () => scrollToId('contact') },
       ]
     : [
-        { label: 'Главная', action: () => goHomeSection('top') },
-        { label: 'Услуги и цены', action: () => navigate('/services') },
-        { label: 'Дополнительно', action: () => navigate('/additional') },
+        { label: 'Главная', to: '/', action: () => goHomeSection('top') },
+        { label: 'Услуги и цены', to: '/services' },
+        { label: 'Дополнительно', to: '/additional/', children: additionalChildren },
         {
           label: 'Кейсы',
+          to: '/#cases',
           action: () => goHomeSection('cases'),
-          children: [
-            { label: 'Дари', action: () => navigate('/projects/dari') },
-            { label: 'Наша База', action: () => navigate('/projects/baza') },
-            { label: 'Taplink / мини-сайты', action: () => navigate('/projects/taplink') },
-          ],
+          children: caseChildren,
         },
-        { label: 'Обо мне', action: () => goHomeSection('about') },
-        { label: 'Отзывы', action: () => goHomeSection('reviews') },
-        { label: 'Контакты', action: () => goHomeSection('contact') },
+        { label: 'Обо мне', to: '/#about', action: () => goHomeSection('about') },
+        { label: 'Отзывы', to: '/#reviews', action: () => goHomeSection('reviews') },
+        { label: 'Контакты', to: '/#contact', action: () => goHomeSection('contact') },
       ]
 
-  const handleItemClick = useCallback((item: { action: () => void }) => {
-    item.action()
+  const handleItemClick = useCallback((event: React.MouseEvent<HTMLAnchorElement>, item: MenuChild) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    if (item.action) {
+      event.preventDefault()
+      item.action()
+    } else if (location.pathname.replace(/\/$/, '') === '/additional' && item.to === `/additional/${location.hash}` && location.hash) {
+      event.preventDefault()
+      scrollToId(location.hash.slice(1))
+    }
     close()
-  }, [close])
+  }, [close, location.hash, location.pathname])
 
   useEffect(() => {
     if (!isOpen) return
@@ -139,22 +156,22 @@ export default function GlobalMenu() {
       >
         {items.map((item) => (
           <Fragment key={item.label}>
-            <button
-              type="button"
+            <Link
+              to={item.to}
               className="global-menu-panel__item"
-              onClick={() => handleItemClick(item)}
+              onClick={(event) => handleItemClick(event, item)}
             >
               {item.label}
-            </button>
+            </Link>
             {item.children?.map((child) => (
-              <button
+              <Link
                 key={child.label}
-                type="button"
+                to={child.to}
                 className="global-menu-panel__item global-menu-panel__item--child"
-                onClick={() => handleItemClick(child)}
+                onClick={(event) => handleItemClick(event, child)}
               >
                 {child.label}
-              </button>
+              </Link>
             ))}
           </Fragment>
         ))}

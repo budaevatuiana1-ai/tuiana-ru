@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import './AdditionalPage.css'
 import { ruTypo } from '../lib/typography'
@@ -6,7 +6,7 @@ import StaticParticleField from '../StaticParticleField'
 import Footer from '../Footer'
 import ExternalCtaButton from '../ExternalCtaButton'
 import { trackMetrikaGoal } from '../YandexMetrika'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function formatTime(sec: number) {
   if (!Number.isFinite(sec) || sec < 0) return '0:00'
@@ -15,7 +15,29 @@ function formatTime(sec: number) {
   return `${m}:${s.toString().padStart(2, '0')}`
 }
 
+const socialProjects = [
+  {
+    name: 'Tuiana Design',
+    description: 'Фирменное оформление собственного сообщества: обложка, аватар и навигационные карточки.',
+    preview: '/additional/social-design/01-tuiana-design-vk-preview.webp',
+    full: '/additional/social-design/01-tuiana-design-vk-full.png',
+  },
+  {
+    name: 'ПроМамаВдохновение',
+    description: 'Нежное оформление женского проекта: обложка, аватар и карточки навигации в едином стиле.',
+    preview: '/additional/social-design/02-pro-mama-vdohnovenie-vk-preview.webp',
+    full: '/additional/social-design/02-pro-mama-vdohnovenie-vk-full.png',
+  },
+  {
+    name: 'Расстановки с Оланой Мункоевой',
+    description: 'Оформление экспертного сообщества с выразительной зелёной палитрой, обложкой и навигационными элементами.',
+    preview: '/additional/social-design/03-olana-munkoeva-vk-preview.webp',
+    full: '/additional/social-design/03-olana-munkoeva-vk-full.png',
+  },
+]
+
 export default function AdditionalPage() {
+  const location = useLocation()
   const video1Ref = useRef<HTMLVideoElement>(null)
   const video2Ref = useRef<HTMLVideoElement>(null)
   const [playing, setPlaying] = useState<'video1' | 'video2' | null>(null)
@@ -28,15 +50,19 @@ export default function AdditionalPage() {
   const [audioPlaying, setAudioPlaying] = useState(false)
   const [audioTime, setAudioTime] = useState(0)
   const [audioDuration, setAudioDuration] = useState(0)
-  const audioTimelineRef = useRef<HTMLDivElement>(null)
+  const lightboxCloseRef = useRef<HTMLButtonElement>(null)
+  const lightboxTriggerRef = useRef<HTMLElement | null>(null)
 
-  useEffect(() => {
-    if (window.location.hash === '#presentations') {
-      requestAnimationFrame(() => document.getElementById('presentations')?.scrollIntoView())
-    } else window.scrollTo(0, 0)
-  }, [])
+  useLayoutEffect(() => {
+    if (location.hash) {
+      document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'instant' })
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }
+  }, [location.hash, location.key])
 
-  const openLightbox = useCallback((src: string, alt: string) => {
+  const openLightbox = useCallback((src: string, alt: string, trigger?: HTMLElement) => {
+    lightboxTriggerRef.current = trigger ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null)
     setLightbox({ src, alt })
   }, [])
 
@@ -44,83 +70,56 @@ export default function AdditionalPage() {
     setLightbox(null)
   }, [])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!lightbox) return
+    const trigger = lightboxTriggerRef.current
+    lightboxCloseRef.current?.focus({ preventScroll: true })
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'Tab') {
+        e.preventDefault()
+        lightboxCloseRef.current?.focus({ preventScroll: true })
+      }
+    }
+    const onFocus = (e: FocusEvent) => {
+      if (e.target !== lightboxCloseRef.current) lightboxCloseRef.current?.focus({ preventScroll: true })
     }
     document.addEventListener('keydown', onKey)
+    document.addEventListener('focusin', onFocus)
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     return () => {
       document.removeEventListener('keydown', onKey)
+      document.removeEventListener('focusin', onFocus)
       document.body.style.overflow = prev
+      if (trigger?.isConnected) trigger.focus({ preventScroll: true })
     }
   }, [lightbox, closeLightbox])
 
-  const handlePlay = (which: 'video1' | 'video2') => {
-    const activeRef = which === 'video1' ? video1Ref : video2Ref
-    const otherRef = which === 'video1' ? video2Ref : video1Ref
-
-    if (otherRef.current && !otherRef.current.paused) {
-      otherRef.current.pause()
-    }
-
-    if (activeRef.current) {
-      activeRef.current.play()
-      setPlaying(which)
+  const pauseOtherMedia = (active: HTMLMediaElement) => {
+    for (const media of [video1Ref.current, video2Ref.current, jubileeRef.current, audioRef.current]) {
+      if (media && media !== active) media.pause()
     }
   }
 
-  const toggleJubilee = useCallback(() => {
-    const v = jubileeRef.current
-    if (!v) return
-    const a = audioRef.current
-    if (a && !a.paused) {
-      a.pause()
-      setAudioPlaying(false)
+  const toggleMedia = (media: HTMLMediaElement | null) => {
+    if (!media) return
+    if (!media.paused) {
+      media.pause()
+      return
     }
-    if (v.paused) {
-      v.play()
-      setJubileePlaying(true)
-    } else {
-      v.pause()
-      setJubileePlaying(false)
-    }
-  }, [])
-
-  const toggleAudio = useCallback(() => {
-    const a = audioRef.current
-    if (!a) return
-    const v = jubileeRef.current
-    if (v && !v.paused) {
-      v.pause()
-      setJubileePlaying(false)
-    }
-    if (a.paused) {
-      a.play()
-      setAudioPlaying(true)
-    } else {
-      a.pause()
-      setAudioPlaying(false)
-    }
-  }, [])
-
-  const seekAudio = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const a = audioRef.current
-    const timeline = audioTimelineRef.current
-    if (!a || !timeline) return
-    const rect = timeline.getBoundingClientRect()
-    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
-    a.currentTime = ratio * (a.duration || 0)
-  }, [])
+    pauseOtherMedia(media)
+    void media.play().catch(() => {
+      // Media events remain the source of truth if playback is rejected or interrupted.
+    })
+  }
 
   useEffect(() => {
     const a = audioRef.current
     if (!a) return
     const onTime = () => setAudioTime(a.currentTime)
-    const onDur = () => setAudioDuration(a.duration)
-    const onEnd = () => { setAudioPlaying(false); setAudioTime(0) }
+    const onDur = () => setAudioDuration(Number.isFinite(a.duration) ? a.duration : 0)
+    const onEnd = () => setAudioTime(a.currentTime)
     a.addEventListener('timeupdate', onTime)
     a.addEventListener('loadedmetadata', onDur)
     a.addEventListener('ended', onEnd)
@@ -183,7 +182,7 @@ export default function AdditionalPage() {
         </section>
 
         {/* ── AI Visual ── */}
-        <section className="additional-ai">
+        <section className="additional-ai" id="neurophoto">
           <StaticParticleField />
           <div className="additional-ai__inner">
             <div className="additional-ai__text">
@@ -264,13 +263,13 @@ export default function AdditionalPage() {
             <div className="additional-presentations__gallery">
               <div className="additional-presentations__project">
                 <div className="additional-presentations__preview-wrap additional-presentations__diagrupp">
-                  <button className="additional-presentations__diagrupp-slide additional-presentations__diagrupp-slide--cover" onClick={() => openLightbox('/diagrupp/hero-slide.png', ruTypo('Диагрупп — титульный слайд'))} aria-label={ruTypo('Открыть титульный слайд презентации Диагрупп')}>
+                  <button className="additional-presentations__diagrupp-slide additional-presentations__diagrupp-slide--cover" onClick={(e) => openLightbox('/diagrupp/hero-slide.png', ruTypo('Диагрупп — титульный слайд'), e.currentTarget)} aria-label={ruTypo('Открыть титульный слайд презентации Диагрупп')}>
                     <img className="additional-presentations__img" src="/diagrupp/hero-slide.png" alt="" width="1600" height="900" loading="lazy" decoding="async" />
                   </button>
-                  <button className="additional-presentations__diagrupp-slide additional-presentations__diagrupp-slide--minute" onClick={() => openLightbox('/diagrupp/golden-minute.png', ruTypo('Диагрупп — золотая минута'))} aria-label={ruTypo('Открыть слайд «Золотая минута»')}>
+                  <button className="additional-presentations__diagrupp-slide additional-presentations__diagrupp-slide--minute" onClick={(e) => openLightbox('/diagrupp/golden-minute.png', ruTypo('Диагрупп — золотая минута'), e.currentTarget)} aria-label={ruTypo('Открыть слайд «Золотая минута»')}>
                     <img className="additional-presentations__img" src="/diagrupp/golden-minute.png" alt="" width="1600" height="900" loading="lazy" decoding="async" />
                   </button>
-                  <button className="additional-presentations__diagrupp-slide additional-presentations__diagrupp-slide--map" onClick={() => openLightbox('/diagrupp/consultation-map.png', ruTypo('Диагрупп — карта консультации'))} aria-label={ruTypo('Открыть слайд «Карта консультации»')}>
+                  <button className="additional-presentations__diagrupp-slide additional-presentations__diagrupp-slide--map" onClick={(e) => openLightbox('/diagrupp/consultation-map.png', ruTypo('Диагрупп — карта консультации'), e.currentTarget)} aria-label={ruTypo('Открыть слайд «Карта консультации»')}>
                     <img className="additional-presentations__img" src="/diagrupp/consultation-map.png" alt="" width="1600" height="900" loading="lazy" decoding="async" />
                   </button>
                 </div>
@@ -293,14 +292,14 @@ export default function AdditionalPage() {
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '0%', left: '0%', width: '55%', height: '75%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/crimea-01.webp', ruTypo('Любимый Крым — слайд 1'))}
+                    onClick={(e) => openLightbox('/additional/presentation-slides/crimea-01.webp', ruTypo('Любимый Крым — слайд 1'), e.currentTarget)}
                     aria-label={ruTypo('Открыть слайд 1 презентации Любимый Крым')}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/crimea-01.webp', ruTypo('Любимый Крым — слайд 1')) } }}
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '25%', left: '40%', width: '60%', height: '75%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/crimea-02.webp', ruTypo('Любимый Крым — слайд 2'))}
+                    onClick={(e) => openLightbox('/additional/presentation-slides/crimea-02.webp', ruTypo('Любимый Крым — слайд 2'), e.currentTarget)}
                     aria-label={ruTypo('Открыть слайд 2 презентации Любимый Крым')}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/crimea-02.webp', ruTypo('Любимый Крым — слайд 2')) } }}
                   />
@@ -323,21 +322,21 @@ export default function AdditionalPage() {
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '5%', left: '0%', width: '35%', height: '50%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/exosomes-01.webp', ruTypo('Экзосомы — слайд 1'))}
+                    onClick={(e) => openLightbox('/additional/presentation-slides/exosomes-01.webp', ruTypo('Экзосомы — слайд 1'), e.currentTarget)}
                     aria-label={ruTypo('Открыть слайд 1 презентации Экзосомы')}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/exosomes-01.webp', ruTypo('Экзосомы — слайд 1')) } }}
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '15%', left: '25%', width: '40%', height: '60%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/exosomes-02.webp', ruTypo('Экзосомы — слайд 2'))}
+                    onClick={(e) => openLightbox('/additional/presentation-slides/exosomes-02.webp', ruTypo('Экзосомы — слайд 2'), e.currentTarget)}
                     aria-label={ruTypo('Открыть слайд 2 презентации Экзосомы')}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/exosomes-02.webp', ruTypo('Экзосомы — слайд 2')) } }}
                   />
                   <button
                     className="additional-presentations__hotspot"
                     style={{ top: '35%', left: '45%', width: '55%', height: '65%' }}
-                    onClick={() => openLightbox('/additional/presentation-slides/exosomes-03.webp', ruTypo('Экзосомы — слайд 3'))}
+                    onClick={(e) => openLightbox('/additional/presentation-slides/exosomes-03.webp', ruTypo('Экзосомы — слайд 3'), e.currentTarget)}
                     aria-label={ruTypo('Открыть слайд 3 презентации Экзосомы')}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/presentation-slides/exosomes-03.webp', ruTypo('Экзосомы — слайд 3')) } }}
                   />
@@ -352,7 +351,7 @@ export default function AdditionalPage() {
         </section>
 
         {/* ── Video / Reels ── */}
-        <section className="additional-video">
+        <section className="additional-video" id="video">
           <StaticParticleField />
           <div className="additional-video__inner">
             <div className="additional-video__header">
@@ -386,14 +385,17 @@ export default function AdditionalPage() {
                     preload="none"
                     playsInline
                     controls={playing === 'video1'}
-                    onEnded={() => setPlaying(null)}
+                    onPlay={(e) => { if (!e.currentTarget.paused) { pauseOtherMedia(e.currentTarget); setPlaying('video1') } }}
+                    onPause={(e) => { if (e.currentTarget.paused) setPlaying((current) => current === 'video1' ? null : current) }}
+                    onEnded={() => setPlaying((current) => current === 'video1' ? null : current)}
+                    onError={() => setPlaying((current) => current === 'video1' ? null : current)}
                   />
                   {playing !== 'video1' && (
                     <button
                       className="additional-video__play"
                       type="button"
                       aria-label={ruTypo('Воспроизвести: Почему эксперты теряют клиентов?')}
-                      onClick={() => handlePlay('video1')}
+                      onClick={() => toggleMedia(video1Ref.current)}
                     >
                       <span className="additional-video__play-icon" />
                     </button>
@@ -413,14 +415,17 @@ export default function AdditionalPage() {
                     preload="none"
                     playsInline
                     controls={playing === 'video2'}
-                    onEnded={() => setPlaying(null)}
+                    onPlay={(e) => { if (!e.currentTarget.paused) { pauseOtherMedia(e.currentTarget); setPlaying('video2') } }}
+                    onPause={(e) => { if (e.currentTarget.paused) setPlaying((current) => current === 'video2' ? null : current) }}
+                    onEnded={() => setPlaying((current) => current === 'video2' ? null : current)}
+                    onError={() => setPlaying((current) => current === 'video2' ? null : current)}
                   />
                   {playing !== 'video2' && (
                     <button
                       className="additional-video__play"
                       type="button"
                       aria-label={ruTypo('Воспроизвести: Экспертное AI-видео')}
-                      onClick={() => handlePlay('video2')}
+                      onClick={() => toggleMedia(video2Ref.current)}
                     >
                       <span className="additional-video__play-icon" />
                     </button>
@@ -452,11 +457,43 @@ export default function AdditionalPage() {
                 <p className="additional-video__item-desc">{ruTypo('Событийный видеопроект')}</p>
               </a>
             </div>
+            <Link className="additional-price-link additional-price-link--video" to="/services/#ai-video">{ruTypo('Варианты AI-видео и цены')} <span aria-hidden="true">→</span></Link>
+          </div>
+        </section>
+
+        <section className="additional-social" id="social-design">
+          <div className="additional-social__inner">
+            <div className="additional-social__header">
+              <div>
+                <p className="additional-social__eyebrow">{ruTypo('СОЦСЕТИ И КАНАЛЫ')}</p>
+                <h2 className="additional-social__title">{ruTypo('Оформление соцсетей и каналов')}</h2>
+              </div>
+              <p className="additional-social__desc">{ruTypo(ruTypo('Оформляю сообщества ВКонтакте и каналы Telegram и MAX: от обложек и аватаров до навигации, шаблонов публикаций и единого визуального стиля.'))}</p>
+            </div>
+            <div className="additional-social__gallery-header">
+              <h3>{ruTypo('Примеры оформления ВКонтакте')}</h3>
+              <p>{ruTypo('Нажмите на изображение, чтобы увеличить')}</p>
+            </div>
+            <div className="additional-social__gallery">
+              {socialProjects.map((project) => (
+                <article className="additional-social__project" key={project.name}>
+                  <button className="additional-social__preview" type="button" onClick={(e) => openLightbox(project.full, ruTypo(`Оформление ВКонтакте: ${project.name}`), e.currentTarget)} aria-label={ruTypo(`Увеличить оформление ВКонтакте: ${project.name}`)}>
+                    <img src={project.preview} alt={ruTypo(`Превью оформления сообщества ${project.name}`)} width="912" height="596" loading="lazy" decoding="async" />
+                  </button>
+                  <h4>{ruTypo(project.name)}</h4>
+                  <p>{ruTypo(ruTypo(project.description))}</p>
+                </article>
+              ))}
+            </div>
+            <div className="additional-social__footer">
+              <p>{ruTypo(ruTypo('Можно заказать как отдельные элементы оформления, так и комплексное оформление сообщества или канала.'))}</p>
+              <Link className="additional-social__price" to="/services/#social">{ruTypo('Посмотреть варианты оформления и цены')} <span aria-hidden="true">→</span></Link>
+            </div>
           </div>
         </section>
 
         {/* ── Materials for work ── */}
-        <section className="additional-materials">
+        <section className="additional-materials" id="other-works">
           <div className="additional-materials__inner">
             <div className="additional-materials__header">
               <div className="additional-materials__header-left">
@@ -491,7 +528,7 @@ export default function AdditionalPage() {
                     loading="lazy"
                     decoding="async"
                     aria-label={ruTypo('Увеличить: ВПЧ: серия из 4 карточек')}
-                    onClick={() => openLightbox('/additional/materials/hpv-series-preview.webp', ruTypo('ВПЧ: серия из 4 карточек'))}
+                    onClick={(e) => openLightbox('/additional/materials/hpv-series-preview.webp', ruTypo('ВПЧ: серия из 4 карточек'), e.currentTarget)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/hpv-series-preview.webp', ruTypo('ВПЧ: серия из 4 карточек')) } }}
                   />
                 </div>
@@ -510,7 +547,7 @@ export default function AdditionalPage() {
                     loading="lazy"
                     decoding="async"
                     aria-label={ruTypo('Увеличить: Дизайн сертификата')}
-                    onClick={() => openLightbox('/additional/materials/certificate-closeup.webp', ruTypo('Дизайн сертификата'))}
+                    onClick={(e) => openLightbox('/additional/materials/certificate-closeup.webp', ruTypo('Дизайн сертификата'), e.currentTarget)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/certificate-closeup.webp', ruTypo('Дизайн сертификата')) } }}
                   />
                   <img
@@ -522,7 +559,7 @@ export default function AdditionalPage() {
                     loading="lazy"
                     decoding="async"
                     aria-label={ruTypo('Увеличить: Пример сертификата')}
-                    onClick={() => openLightbox('/additional/materials/certificate-example.webp', ruTypo('Пример сертификата'))}
+                    onClick={(e) => openLightbox('/additional/materials/certificate-example.webp', ruTypo('Пример сертификата'), e.currentTarget)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/certificate-example.webp', ruTypo('Пример сертификата')) } }}
                   />
                   <img
@@ -534,12 +571,13 @@ export default function AdditionalPage() {
                     loading="lazy"
                     decoding="async"
                     aria-label={ruTypo('Увеличить: Учёт сертификатов')}
-                    onClick={() => openLightbox('/additional/materials/certificate-tracking.webp', ruTypo('Учёт сертификатов'))}
+                    onClick={(e) => openLightbox('/additional/materials/certificate-tracking.webp', ruTypo('Учёт сертификатов'), e.currentTarget)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/certificate-tracking.webp', ruTypo('Учёт сертификатов')) } }}
                   />
                 </div>
                 <p className="additional-materials__caption-title">{ruTypo('Система подарочных сертификатов')}</p>
                 <p className="additional-materials__caption-desc">{ruTypo('Редактируемые шаблоны · учёт · инструкция')}</p>
+                <Link className="additional-price-link additional-price-link--light" to="/services/#graphic-design">{ruTypo('Графический дизайн и цены')} <span aria-hidden="true">→</span></Link>
               </div>
 
               <div className="additional-materials__project additional-materials__project--memo">
@@ -553,7 +591,7 @@ export default function AdditionalPage() {
                     loading="lazy"
                     decoding="async"
                     aria-label={ruTypo('Увеличить: Памятка — страница 1')}
-                    onClick={() => openLightbox('/additional/materials/online-consultation-memo-01.webp', ruTypo('Памятка — страница 1'))}
+                    onClick={(e) => openLightbox('/additional/materials/online-consultation-memo-01.webp', ruTypo('Памятка — страница 1'), e.currentTarget)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/online-consultation-memo-01.webp', ruTypo('Памятка — страница 1')) } }}
                   />
                   <img
@@ -565,7 +603,7 @@ export default function AdditionalPage() {
                     loading="lazy"
                     decoding="async"
                     aria-label={ruTypo('Увеличить: Памятка — страница 2')}
-                    onClick={() => openLightbox('/additional/materials/online-consultation-memo-02.webp', ruTypo('Памятка — страница 2'))}
+                    onClick={(e) => openLightbox('/additional/materials/online-consultation-memo-02.webp', ruTypo('Памятка — страница 2'), e.currentTarget)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/materials/online-consultation-memo-02.webp', ruTypo('Памятка — страница 2')) } }}
                   />
                 </div>
@@ -613,7 +651,7 @@ export default function AdditionalPage() {
                   loading="lazy"
                   decoding="async"
                   aria-label={ruTypo('Увеличить: Вторая жизнь доктора Туя')}
-                  onClick={() => openLightbox('/additional/special/doctor-tuya-comic.webp', ruTypo('Вторая жизнь доктора Туя — комикс'))}
+                  onClick={(e) => openLightbox('/additional/special/doctor-tuya-comic.webp', ruTypo('Вторая жизнь доктора Туя — комикс'), e.currentTarget)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox('/additional/special/doctor-tuya-comic.webp', ruTypo('Вторая жизнь доктора Туя — комикс')) } }}
                 />
                 <p className="additional-special__project-title">{ruTypo('Вторая жизнь доктора Туи')}</p>
@@ -631,14 +669,17 @@ export default function AdditionalPage() {
                       preload="none"
                       playsInline
                       controls={jubileePlaying}
+                      onPlay={(e) => { if (!e.currentTarget.paused) { pauseOtherMedia(e.currentTarget); setJubileePlaying(true) } }}
+                      onPause={(e) => { if (e.currentTarget.paused) setJubileePlaying(false) }}
                       onEnded={() => setJubileePlaying(false)}
+                      onError={() => setJubileePlaying(false)}
                     />
                     {!jubileePlaying && (
                       <button
                         className="additional-special__play"
                         type="button"
                         aria-label={ruTypo('Воспроизвести: Персональный ролик к юбилею')}
-                        onClick={toggleJubilee}
+                        onClick={() => toggleMedia(jubileeRef.current)}
                       >
                         <span className="additional-special__play-icon" />
                       </button>
@@ -646,18 +687,24 @@ export default function AdditionalPage() {
                   </div>
                   <p className="additional-special__project-title">{ruTypo('Персональный ролик к\u00A0юбилею')}</p>
                   <p className="additional-special__project-desc">{ruTypo('AI-видео · 00:46')}</p>
+                  <Link className="additional-price-link" to="/services/#video-greetings">{ruTypo('Видеопоздравления: форматы и цены')} <span aria-hidden="true">→</span></Link>
                 </div>
 
                 <div className="additional-special__audio">
                   <p className="additional-special__audio-title">{ruTypo('Песня об\u00A0ИИ')}</p>
                   <p className="additional-special__audio-desc">{ruTypo('AI-аудиопроект о\u00A0вдохновении на\u00A0стыке человека и\u00A0технологии.')}</p>
                   <div className="additional-special__audio-player">
-                    <audio ref={audioRef} src="/additional/special/ai-song.mp3" preload="metadata" />
+                    <audio ref={audioRef} src="/additional/special/ai-song.mp3" preload="metadata"
+                      onPlay={(e) => { if (!e.currentTarget.paused) { pauseOtherMedia(e.currentTarget); setAudioPlaying(true) } }}
+                      onPause={(e) => { if (e.currentTarget.paused) setAudioPlaying(false) }}
+                      onEnded={() => setAudioPlaying(false)}
+                      onError={() => setAudioPlaying(false)}
+                    />
                     <button
                       className="additional-special__audio-btn"
                       type="button"
                       aria-label={audioPlaying ? ruTypo('Пауза') : ruTypo('Воспроизвести')}
-                      onClick={toggleAudio}
+                      onClick={() => toggleMedia(audioRef.current)}
                     >
                       {audioPlaying ? (
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="9.5" y="2" width="3.5" height="12" rx="1" fill="currentColor"/></svg>
@@ -665,25 +712,28 @@ export default function AdditionalPage() {
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>
                       )}
                     </button>
-                    <div
+                    <input
                       className="additional-special__audio-timeline"
-                      ref={audioTimelineRef}
-                      onClick={seekAudio}
-                      role="slider"
+                      type="range"
+                      min={0}
+                      max={audioDuration || 0}
+                      step={1}
+                      value={Math.min(audioTime, audioDuration)}
+                      disabled={!audioDuration}
+                      onChange={(e) => {
+                        const time = Number(e.currentTarget.value)
+                        if (audioRef.current) audioRef.current.currentTime = time
+                        setAudioTime(time)
+                      }}
                       aria-label={ruTypo('Прогресс воспроизведения')}
-                      aria-valuemin={0}
-                      aria-valuemax={audioDuration || 0}
-                      aria-valuenow={audioTime}
-                    >
-                      <div
-                        className="additional-special__audio-progress"
-                        style={{ width: audioDuration ? `${(audioTime / audioDuration) * 100}%` : '0%' }}
-                      />
-                    </div>
+                      aria-valuetext={`${formatTime(audioTime)} / ${formatTime(audioDuration)}`}
+                      style={{ backgroundSize: `${audioDuration ? (audioTime / audioDuration) * 100 : 0}% 4px, 100% 4px` }}
+                    />
                     <span className="additional-special__audio-time">{formatTime(audioTime)}</span>
                     <span className="additional-special__audio-time">{formatTime(audioDuration)}</span>
                   </div>
                   <p className="additional-special__project-desc">{ruTypo('AI-аудио · 03:26')}</p>
+                  <Link className="additional-price-link" to="/services/#songs">{ruTypo('Персональные песни: варианты и цены')} <span aria-hidden="true">→</span></Link>
                 </div>
               </div>
             </div>
@@ -751,6 +801,7 @@ export default function AdditionalPage() {
           aria-label="Просмотр изображения"
         >
           <button
+            ref={lightboxCloseRef}
             className="additional-materials__lightbox-close"
             onClick={closeLightbox}
             aria-label="Закрыть увеличенное изображение"
