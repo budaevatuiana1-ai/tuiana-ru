@@ -88,7 +88,7 @@
 
 .certs__grid {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(24px, 3vw, 48px);
   align-items: start;
 }
@@ -102,6 +102,8 @@
 .certs__img-outer {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: clamp(190px, 28vw, 340px);
 }
 
 .certs__img-frame {
@@ -112,7 +114,10 @@
   background: #F5F0EB;
   box-shadow: 0 1px 6px rgba(47, 52, 56, 0.05);
   cursor: zoom-in;
-  box-sizing: content-box;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
   transition:
     border-color 350ms ease,
     box-shadow 350ms ease;
@@ -127,24 +132,14 @@
 
 .certs__img-frame img {
   display: block;
-  height: 34vh;
+  height: auto;
   width: auto;
-  max-width: none;
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 0;
+  min-height: 0;
   object-fit: contain;
   object-position: center;
-}
-
-/* First cert: crop built-in black border via slight scale */
-
-.certs__item:first-child .certs__img-frame img {
-  transform: scale(1.03);
-  transform-origin: center;
-}
-
-/* Second cert: show full document, no crop */
-
-.certs__item:nth-child(2) .certs__img-frame img {
-  height: 40vh;
 }
 
 /* ── Caption ─────────────────────────────── */
@@ -176,6 +171,13 @@
   font-size: clamp(13px, 0.9vw, 14.5px);
   line-height: 1.5;
   color: rgba(47, 52, 56, 0.5);
+}
+
+.certs__project-link {
+  align-self: flex-start;
+  font-size: clamp(13px, 0.9vw, 14.5px);
+  line-height: 1.5;
+  color: #2F3438;
 }
 
 /* ── Lightbox ────────────────────────────── */
@@ -253,18 +255,8 @@
 
 @media (max-width: 900px) {
   .certs__grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(24px, 3vw, 40px);
-  }
-
-  .certs__img-frame img {
-    height: auto;
-    max-height: none;
-  }
-
-  .certs__item:nth-child(2) .certs__img-frame img {
-    height: auto;
-    max-height: none;
   }
 }
 
@@ -292,27 +284,22 @@
   .certs__img-outer {
     width: 100%;
     max-width: 100%;
+    height: clamp(190px, 55vw, 340px);
   }
 
   .certs__img-frame {
     position: relative;
     display: flex;
-    width: 100%;
     max-width: 100%;
     box-sizing: border-box;
   }
 
   .certs__img-frame img {
     display: block;
-    width: 100%;
+    width: auto;
     max-width: 100%;
     height: auto;
     object-fit: contain;
-  }
-
-  .certs__item:nth-child(2) .certs__img-frame img {
-    height: auto;
-    max-height: none;
   }
 
   .certs__zoom-hint {

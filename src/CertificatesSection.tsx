@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
+import { Link } from 'react-router-dom'
 import { useInView } from './hooks/useInView'
 import { ruTypo } from './lib/typography'
 import './CertificatesSection.css'
@@ -22,6 +23,15 @@ const certs = [
     org: 'Повышение квалификации · 144 часа',
     src: `${BASE}certificates/ai-specialist-certificate.webp`,
     alt: 'Сертификат Специалист по ИИ',
+  },
+  {
+    num: '03',
+    label: 'AI PRESENTATIONS',
+    title: 'ИИ-презентации',
+    org: 'Zerocoder · 34 академических часа',
+    src: `${BASE}certificates/tuiana-certificate-ai-presentations-2026.webp`,
+    alt: 'Сертификат Zerocoder — ИИ-презентации, 34 академических часа, Туяна Будаева',
+    project: '/projects/diagrupp/',
   },
 ]
 
@@ -125,6 +135,7 @@ export default function CertificatesSection() {
                 <span className="certs__cert-num">{c.num} / {c.label}</span>
                 <span className="certs__cert-title">{ruTypo(c.title)}</span>
                 <span className="certs__cert-org">{ruTypo(c.org)}</span>
+                {c.project && <Link className="certs__project-link" to={c.project}>Посмотреть проект</Link>}
               </figcaption>
             </figure>
           ))}

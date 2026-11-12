@@ -1,18 +1,13 @@
 import { useState, useCallback, useRef, useEffect, Fragment } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { scrollToAbout } from './lib/scrollToAbout'
+import { scrollToCases } from './lib/scrollToCases'
 import './GlobalMenu.css'
 
 function scrollToId(id: string) {
   const el = document.getElementById(id)
   if (!el) return
   el.scrollIntoView({ behavior: 'instant' })
-}
-
-function scrollToPacScroll(offset: number) {
-  const pacEl = document.querySelector('.pac-scroll')
-  if (!pacEl) return
-  const target = pacEl.getBoundingClientRect().top + window.scrollY + offset
-  window.scrollTo({ top: target, behavior: 'instant' })
 }
 
 interface MenuChild {
@@ -73,10 +68,10 @@ export default function GlobalMenu() {
         {
           label: 'Кейсы',
           to: '/#cases',
-          action: () => scrollToId('cases'),
+          action: scrollToCases,
           children: caseChildren,
         },
-        { label: 'Обо мне', to: '/#about', action: () => scrollToPacScroll(window.innerHeight * 1.4 * 0.9) },
+        { label: 'Обо мне', to: '/#about', action: scrollToAbout },
         { label: 'Отзывы', to: '/#reviews', action: () => scrollToId('reviews') },
         { label: 'Контакты', to: '/#contact', action: () => scrollToId('contact') },
       ]
@@ -99,6 +94,7 @@ export default function GlobalMenu() {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
     if (item.action) {
       event.preventDefault()
+      event.stopPropagation()
       item.action()
     } else if (location.pathname.replace(/\/$/, '') === '/additional' && item.to === `/additional/${location.hash}` && location.hash) {
       event.preventDefault()

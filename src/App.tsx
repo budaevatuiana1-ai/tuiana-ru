@@ -26,6 +26,8 @@ import AdditionalPage from './pages/AdditionalPage'
 import DiagruppCasePage from './pages/DiagruppCasePage'
 import ServicesPricingPage from './pages/ServicesPricingPage'
 import useSmoothScroll from './hooks/useSmoothScroll'
+import { scrollToAbout } from './lib/scrollToAbout'
+import { scrollToCases } from './lib/scrollToCases'
 
 const RETURN_KEYS = [
   'tuiana-case-return-scroll',
@@ -58,7 +60,7 @@ function HomePage() {
             scrollToId('services')
             break
           case 'cases':
-            scrollToId('cases')
+            scrollToCases()
             break
           case 'taplink':
             scrollToId('taplink')
@@ -67,7 +69,7 @@ function HomePage() {
             scrollToPacScroll(0)
             break
           case 'about':
-            scrollToPacScroll(window.innerHeight * 1.4 * 0.9)
+            scrollToAbout()
             break
           case 'reviews':
             scrollToId('reviews')
@@ -99,6 +101,10 @@ function HomePage() {
 
     const hash = window.location.hash
     if (!hash) return
+    if (hash === '#cases') {
+      const raf = requestAnimationFrame(scrollToCases)
+      return () => cancelAnimationFrame(raf)
+    }
     const el = document.getElementById(hash.slice(1))
     if (!el) return
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import './ProcessAboutCertificatesTransition.css'
 
 interface Props {
@@ -15,16 +15,24 @@ export default function ProcessAboutCertificatesTransition({
   about,
   certificates,
 }: Props) {
+  const [compact, setCompact] = useState(() => window.matchMedia('(max-width: 1100px)').matches)
   const scrollRef = useRef<HTMLDivElement>(null)
   const depthRef = useRef<HTMLDivElement>(null)
   const aboutRef = useRef<HTMLDivElement>(null)
   const certsLayerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const query = window.matchMedia('(max-width: 1100px)')
+    const onChange = () => setCompact(query.matches)
+    query.addEventListener('change', onChange)
+    return () => query.removeEventListener('change', onChange)
+  }, [])
+
+  useEffect(() => {
     const prefersReduced = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches
-    if (prefersReduced) return
+    if (prefersReduced || compact) return
 
     const isCoarse = window.matchMedia('(pointer: coarse)').matches
     if (isCoarse) return
@@ -159,7 +167,7 @@ export default function ProcessAboutCertificatesTransition({
       aboutEl.style.pointerEvents = ''
       certsEl.style.clipPath = ''
     }
-  }, [])
+  }, [compact])
 
   return (
     <div ref={scrollRef} className="pac-scroll">
